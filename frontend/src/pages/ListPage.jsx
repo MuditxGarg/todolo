@@ -4,9 +4,8 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import deleteIcon from '../assets/delete.png';
+import editIcon from '../assets/pencil.png';
 
 function ListPage() {
     const [categories, setCategories] = useState([]);
@@ -93,27 +92,27 @@ function ListPage() {
                     >
                         {category}
                         <div>
-                            <IconButton
-                                aria-label="Edit"
+                        <img
+                                src={editIcon}
+                                alt="Edit"
+                                style={{ width: '18px', height: '18px', marginRight:'3px', cursor: 'pointer' }}
                                 onClick={() => {
                                     const newValue = prompt('Edit category', category);
                                     if (newValue !== null) {
                                         handleEditCategory(index, newValue);
                                     }
                                 }}
-                            >
-                                <EditIcon />
-                            </IconButton>
-                            <IconButton
-                                aria-label="Delete"
+                            />
+                            <img
+                                src={deleteIcon}
+                                alt="Delete"
+                                style={{ width: '18px', height: '18px', cursor: 'pointer' }}
                                 onClick={() => {
                                     if (window.confirm('Are you sure you want to delete this category?')) {
                                         handleDeleteCategory(index);
                                     }
                                 }}
-                            >
-                                <DeleteIcon />
-                            </IconButton>
+                            />
                         </div>
                     </Paper>
                 ))}
