@@ -5,6 +5,8 @@ import LandingPage from './pages/LandingPage';
 import OtpPage from './pages/OtpPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
+import ListPage from './pages/ListPage';
+
 
 function App() {
   return (
@@ -15,6 +17,7 @@ function App() {
             <Route path='/otp' element={<OtpPage />} />
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/signup' element={<SignUpPage/>}/>
+            <Route path='/list' element={<ListPage/>}/>
         </Routes>
     </Router>
   );
