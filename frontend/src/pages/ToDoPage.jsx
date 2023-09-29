@@ -4,10 +4,10 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Checkbox from '@mui/material/Checkbox'; // Import Checkbox component
+import deleteIcon from '../assets/delete.png';
+import editIcon from '../assets/pencil.png';
 
 function ToDoPage() {
   const [tasks, settasks] = useState([]);
@@ -85,7 +85,7 @@ function ToDoPage() {
             elevation={3}
             sx={{
               padding: '1rem',
-              fontSize: '2rem',
+              fontSize: '1rem',
               marginBottom: '0.7rem',
               display: 'flex',
               justifyContent: 'space-between',
@@ -108,27 +108,27 @@ function ToDoPage() {
             />
             {task.text}
             <div>
-              <IconButton
-                aria-label="Edit"
+              <img
+                src={editIcon}
+                alt="Edit"
+                style={{ width: '18px', height: '18px', marginRight: '3px', cursor: 'pointer' }}
                 onClick={() => {
                   const newValue = prompt('Edit Task', task.text);
                   if (newValue !== null) {
                     handleEdittask(index, newValue);
                   }
                 }}
-              >
-                <EditIcon />
-              </IconButton>
-              <IconButton
-                aria-label="Delete"
+              />
+              <img
+                src={deleteIcon}
+                alt="Delete"
+                style={{ width: '18px', height: '18px', cursor: 'pointer' }}
                 onClick={() => {
                   if (window.confirm('Are you sure you want to delete this Task?')) {
                     handleDeletetask(index);
                   }
                 }}
-              >
-                <DeleteIcon />
-              </IconButton>
+              />
             </div>
           </Paper>
         ))}
