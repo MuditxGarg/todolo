@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
-import EditIcon from '@mui/icons-material/Edit';
 import Checkbox from '@mui/material/Checkbox'; // Import Checkbox component
 import deleteIcon from '../assets/delete.png';
 import editIcon from '../assets/pencil.png';
