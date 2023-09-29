@@ -26,10 +26,14 @@ function OtpPage() {
 						style: {
 							color: '#155360',
 							fontWeight: 'bold',
+                            fontSize: '13px',
 						}
 					}}
 				/>
 			</Box>
+			<div className="registration-text">
+      		Did not get a OTP? <a href="/otp" className="signup-link">Resend!</a>
+    		</div>
 		</CustomBox>
 	)
 }
