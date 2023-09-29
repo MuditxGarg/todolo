@@ -6,6 +6,7 @@ import OtpPage from './pages/OtpPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import ListPage from './pages/ListPage';
+import ToDoPage from './pages/ToDoPage';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/signup' element={<SignUpPage/>}/>
             <Route path='/list' element={<ListPage/>}/>
+            <Route path='/ToDo' element={<ToDoPage/>}/>
         </Routes>
     </Router>
   );
