@@ -6,7 +6,8 @@ import CustomBox from '../components/CustomBox';
 
 function SignUpPage() {
 	return (
-		<CustomBox height={'60vh'} width={'25vw'} buttonText={'SignUp'}>
+		<>
+		<CustomBox height={'70vh'} width={'25vw'} buttonText={'SignUp'}>
 			<Box
 				sx={{
 					width: '70%',
@@ -17,62 +18,77 @@ function SignUpPage() {
 				}}
 			>
 				<TextField
-					id="standard-basic"
 					label="Name"
 					variant="standard"
-					sx={{ width: '100%' }}
+					sx={{
+						width: '100%',
+						marginTop: '0.5rem',
+					}}
 					InputLabelProps={{
 						style: {
 							color: '#155360',
 							fontWeight: 'bold',
-                            fontSize: '13px',
+							fontSize: '13px',
 						}
 					}}
 				/>
-                <TextField
-					id="standard-basic"
+				<TextField
 					label="Email"
 					variant="standard"
-					sx={{ width: '100%' }}
+					sx={{
+						width: '100%',
+						marginTop: '0.5rem',
+					}}
 					InputLabelProps={{
 						style: {
 							color: '#155360',
 							fontWeight: 'bold',
-                            fontSize: '13px',
+							fontSize: '13px',
 						}
 					}}
 				/>
-                <TextField
-					id="standard-basic"
+				<TextField
 					label="Password"
 					variant="standard"
-					sx={{ width: '100%' }}
+					sx={{
+						width: '100%',
+						marginTop: '0.5rem',
+					}}
 					InputLabelProps={{
 						style: {
 							color: '#155360',
 							fontWeight: 'bold',
-                            fontSize: '13px',
+							fontSize: '13px',
 						}
 					}}
 				/>
-                <TextField
-					id="standard-basic"
+				<TextField
 					label="Confirm Password"
 					variant="standard"
-					sx={{ width: '100%' }}
+					sx={{
+						width: '100%',
+						marginTop: '0.5rem',
+					}}
 					InputLabelProps={{
 						style: {
 							color: '#155360',
 							fontWeight: 'bold',
-                            fontSize: '13px',
+							fontSize: '13px',
 						}
 					}}
 				/>
 			</Box>
-            <div className="registration-text">
-            Already registered? <a href="/login" className="signup-link">Login!</a>
-            </div>
 		</CustomBox>
+		<Box
+			sx={{
+				display: 'flex',
+				justifyContent: 'center',
+				marginTop: '0.7rem',
+			}}
+		>
+			Already registered? <a href="/login" className="signup-link">Login!</a>
+		</Box>
+		</>
 	)
 }
 

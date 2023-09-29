@@ -2,11 +2,12 @@ import React from 'react'
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
 import CustomBox from '../components/CustomBox';
 
 function LoginPage() {
 	return (
-		<CustomBox height={'60vh'} width={'25vw'} buttonText={'Login'}>
+		<CustomBox height={'70vh'} width={'25vw'} buttonText={'Login'}>
 			<Box
 				sx={{
 					width: '70%',
@@ -17,7 +18,6 @@ function LoginPage() {
 				}}
 			>
 				<TextField
-					id="standard-basic"
 					label="Name"
 					variant="standard"
 					sx={{ width: '100%' }}
@@ -25,30 +25,39 @@ function LoginPage() {
 						style: {
 							color: '#155360',
 							fontWeight: 'bold',
-                            fontSize: '13px',
+							fontSize: '13px',
 						}
 					}}
 				/>
-                <TextField
-					id="standard-basic"
+				<TextField
 					label="Email"
 					variant="standard"
-					sx={{ width: '100%' }}
+					sx={{
+						width: '100%',
+						marginTop: '2rem',
+					}}
 					InputLabelProps={{
 						style: {
 							color: '#155360',
 							fontWeight: 'bold',
-                            fontSize: '13px',
+							fontSize: '13px',
 						}
 					}}
 				/>
 			</Box>
-            <div className="registration-text">
-                <a href="/" className="signup-link">Forgot Password? </a>
-            </div>
-            <div className="registration-text">
-                Not registered? <a href="/signup" className="signup-link">Sign Up!</a>
-            </div>
+			<Box
+				sx={{
+					display: 'flex',
+					alignItems: 'center',
+				}}
+			>
+        <Typography variant='body2' sx={{marginRight: '0.8rem', fontSize: '0.8rem'}}>
+          <Link href="/" className="signup-link">Forgot Password?</Link>
+        </Typography>
+        <Typography variant='body2' sx={{fontSize: '0.8rem'}}>
+          Not registered? <Link href="/signup" className="signup-link">Sign Up!</Link>
+        </Typography>
+      </Box>
 		</CustomBox>
 	)
 }
