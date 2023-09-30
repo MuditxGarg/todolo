@@ -7,58 +7,60 @@ import CustomBox from '../components/CustomBox';
 
 function LoginPage() {
 	return (
-		<CustomBox height={'70vh'} width={'25vw'} buttonText={'Login'}>
-			<Box
-				sx={{
-					width: '70%',
-					display: 'flex',
-					flexDirection: 'column',
-					justifyContent: 'space-evenly',
-					alignItems: 'flex-start',
-				}}
-			>
-				<TextField
-					label="Name"
-					variant="standard"
-					sx={{ width: '100%' }}
-					InputLabelProps={{
-						style: {
-							color: '#155360',
-							fontWeight: 'bold',
-							fontSize: '13px',
-						}
-					}}
-				/>
-				<TextField
-					label="Email"
-					variant="standard"
+		<Box sx={{ height: '100vh' }}>
+			<CustomBox height={'70%'} width={'25%'} buttonText={'Login'}>
+				<Box
 					sx={{
-						width: '100%',
-						marginTop: '2rem',
+						width: '70%',
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'space-evenly',
+						alignItems: 'flex-start',
 					}}
-					InputLabelProps={{
-						style: {
-							color: '#155360',
-							fontWeight: 'bold',
-							fontSize: '13px',
-						}
+				>
+					<TextField
+						label="Name"
+						variant="standard"
+						sx={{ width: '100%' }}
+						InputLabelProps={{
+							style: {
+								color: '#155360',
+								fontWeight: 'bold',
+								fontSize: '13px',
+							}
+						}}
+					/>
+					<TextField
+						label="Email"
+						variant="standard"
+						sx={{
+							width: '100%',
+							marginTop: '2rem',
+						}}
+						InputLabelProps={{
+							style: {
+								color: '#155360',
+								fontWeight: 'bold',
+								fontSize: '13px',
+							}
+						}}
+					/>
+				</Box>
+				<Box
+					sx={{
+						display: 'flex',
+						alignItems: 'center',
 					}}
-				/>
-			</Box>
-			<Box
-				sx={{
-					display: 'flex',
-					alignItems: 'center',
-				}}
-			>
-        <Typography variant='body2' sx={{marginRight: '0.8rem', fontSize: '0.8rem'}}>
-          <Link href="/" className="signup-link">Forgot Password?</Link>
-        </Typography>
-        <Typography variant='body2' sx={{fontSize: '0.8rem'}}>
-          Not registered? <Link href="/signup" className="signup-link">Sign Up!</Link>
-        </Typography>
-      </Box>
-		</CustomBox>
+				>
+					<Typography variant='body2' sx={{ marginRight: '0.8rem', fontSize: '0.8rem' }}>
+						<Link href="/" className="signup-link">Forgot Password?</Link>
+					</Typography>
+					<Typography variant='body2' sx={{ fontSize: '0.8rem' }}>
+						Not registered? <Link href="/signup" className="signup-link">Sign Up!</Link>
+					</Typography>
+				</Box>
+			</CustomBox>
+		</Box>
 	)
 }
 
