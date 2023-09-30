@@ -9,6 +9,7 @@ import ListPage from './pages/ListPage';
 import ToDoPage from './pages/ToDoPage';
 import ProfilePage from './pages/ProfilePage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import HelpPage from './pages/HelpPage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path='/ToDo' element={<ToDoPage/>}/>
             <Route path='/profile' element={<ProfilePage/>}/>
             <Route path='/reset-password' element={<ForgotPasswordPage/>}/>
+            <Route path='/help' element={<HelpPage/>}/>
         </Routes>
     </Router>
   );
