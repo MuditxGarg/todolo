@@ -8,6 +8,7 @@ import Checkbox from '@mui/material/Checkbox'; // Import Checkbox component
 import deleteIcon from '../assets/delete.png';
 import editIcon from '../assets/pencil.png';
 import Swal from 'sweetalert2';
+import '../styles/swalButtonStyles.css';
 
 function ToDoPage() {
   const [tasks, settasks] = useState([]);

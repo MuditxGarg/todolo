@@ -7,6 +7,7 @@ import Paper from '@mui/material/Paper';
 import deleteIcon from '../assets/delete.png';
 import editIcon from '../assets/pencil.png';
 import Swal from 'sweetalert2';
+import '../styles/swalButtonStyles.css';
 
 function ListPage() {
     const [categories, setCategories] = useState([]);

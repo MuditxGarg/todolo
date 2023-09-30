@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import '../styles/navbarStyles.css';
 
 const pages = ['Home', 'Help', 'Our Team'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -88,8 +89,8 @@ function ResponsiveAppBar() {
 							}}
 						>
 							{pages.map((page) => (
-								<MenuItem key={page} onClick={handleCloseNavMenu} sx={{ color: '#155360' }}>
-									<Typography textAlign="center">{page}</Typography>
+								<MenuItem key={page} onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center" style={{color: '#155360 !important'}}>{page}</Typography>
 								</MenuItem>
 							))}
 						</Menu>

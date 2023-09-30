@@ -21,9 +21,9 @@ function App() {
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/signup' element={<SignUpPage/>}/>
             <Route path='/list' element={<ListPage/>}/>
-            <Route path='/ToDo' element={<ToDoPage/>}/>
+            <Route path='/todo' element={<ToDoPage/>}/>
             <Route path='/profile' element={<ProfilePage/>}/>
-            <Route path='/reset-password' element={<ForgotPasswordPage/>}/>
+            <Route path='/resetPassword' element={<ForgotPasswordPage/>}/>
             <Route path='/help' element={<HelpPage/>}/>
         </Routes>
     </Router>
