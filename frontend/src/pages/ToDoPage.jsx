@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -7,10 +7,15 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox'; // Import Checkbox component
 import deleteIcon from '../assets/delete.png';
 import editIcon from '../assets/pencil.png';
+import Swal from 'sweetalert2';
 
 function ToDoPage() {
   const [tasks, settasks] = useState([]);
   const [newtask, setNewtask] = useState('');
+
+  useEffect(() => {
+
+  }, [tasks]);
 
   const handleAddtask = () => {
     if (newtask.trim() !== '') {
@@ -20,21 +25,74 @@ function ToDoPage() {
   };
 
   const handleDeletetask = (index) => {
-    const updatedtasks = [...tasks];
-    updatedtasks.splice(index, 1);
-    settasks(updatedtasks);
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const updatedtasks = [...tasks];
+        updatedtasks.splice(index, 1);
+        settasks(updatedtasks);
+        swalWithBootstrapButtons.fire(
+          'Deleted!',
+          'Your todo has been deleted.',
+          'success'
+        )
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your todo is safe',
+          'error'
+        )
+      }
+    })
   };
 
-  const handleEdittask = (index, newValue) => {
-    const updatedtasks = [...tasks];
-    updatedtasks[index] = { text: newValue, checked: tasks[index].checked };
-    settasks(updatedtasks);
+  const showEditTaskModal = (index, task) => {
+    Swal.fire({
+      title: 'Edit your task',
+      input: 'text',
+      inputLabel: 'Your new task',
+      inputValue: task.text,
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if (!value) {
+          return 'Please enter a task';
+        }
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const newValue = result.value;
+        handleEditTask(index, newValue);
+      } 
+    });
+  }
+
+  const handleEditTask = (index, newValue) => {
+    const updatedTasks = [...tasks];
+    updatedTasks[index] = { text: newValue, checked: tasks[index].checked };
+    settasks(updatedTasks);
   };
 
   const handleToggleCheckbox = (index) => {
-    const updatedtasks = [...tasks];
-    updatedtasks[index].checked = !updatedtasks[index].checked;
-    settasks(updatedtasks);
+    const updatedTasks = [...tasks];
+    updatedTasks[index].checked = !updatedTasks[index].checked;
+    updatedTasks.sort((a,b) => (a.checked === b.checked) ? 0: a.checked ? 1 : -1)
+    settasks(updatedTasks);
   };
 
   return (
@@ -82,6 +140,7 @@ function ToDoPage() {
           <Paper
             key={index}
             elevation={3}
+            className={`task-item ${task.checked ? 'checked' : ''}`}
             sx={{
               padding: '1rem',
               fontSize: '1rem',
@@ -111,21 +170,14 @@ function ToDoPage() {
                 src={editIcon}
                 alt="Edit"
                 style={{ width: '18px', height: '18px', marginRight: '3px', cursor: 'pointer' }}
-                onClick={() => {
-                  const newValue = prompt('Edit Task', task.text);
-                  if (newValue !== null) {
-                    handleEdittask(index, newValue);
-                  }
-                }}
+                onClick={() => showEditTaskModal(index, task)}
               />
               <img
                 src={deleteIcon}
                 alt="Delete"
                 style={{ width: '18px', height: '18px', cursor: 'pointer' }}
                 onClick={() => {
-                  if (window.confirm('Are you sure you want to delete this Task?')) {
-                    handleDeletetask(index);
-                  }
+                  handleDeletetask(index);
                 }}
               />
             </div>

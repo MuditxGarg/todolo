@@ -9,9 +9,10 @@ function SignUpPage() {
 		<Box
 			sx={{
 				height: '100vh',
+				overflow: 'hidden',
 			}}
 		>
-			<CustomBox height={'70vh'} width={'25vw'} buttonText={'SignUp'}>
+			<CustomBox height={'70%'} width={'25%'} buttonText={'SignUp'}>
 				<Box
 					sx={{
 						width: '70%',

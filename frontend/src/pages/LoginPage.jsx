@@ -7,7 +7,7 @@ import CustomBox from '../components/CustomBox';
 
 function LoginPage() {
 	return (
-		<Box sx={{ height: '100vh' }}>
+		<Box sx={{ height: '100vh', overflow: 'hidden' }}>
 			<CustomBox height={'70%'} width={'25%'} buttonText={'Login'}>
 				<Box
 					sx={{

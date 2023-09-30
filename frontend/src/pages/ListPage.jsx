@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import deleteIcon from '../assets/delete.png';
 import editIcon from '../assets/pencil.png';
+import Swal from 'sweetalert2';
 
 function ListPage() {
     const [categories, setCategories] = useState([]);
@@ -19,10 +20,62 @@ function ListPage() {
     };
 
     const handleDeleteCategory = (index) => {
-        const updatedCategories = [...categories];
-        updatedCategories.splice(index, 1);
-        setCategories(updatedCategories);
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+          },
+          buttonsStyling: false
+        })
+        swalWithBootstrapButtons.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+              const updatedCategories = [...categories];
+              updatedCategories.splice(index, 1);
+              setCategories(updatedCategories);
+              swalWithBootstrapButtons.fire(
+              'Deleted!',
+              'Your category has been deleted.',
+              'success'
+            )
+          } else if (
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              'Cancelled',
+              'Your category is safe',
+              'error'
+            )
+          }
+        })
     };
+
+    const showEditCategoryModal = (index, category) => {
+      Swal.fire({
+        title: 'Edit your category',
+        input: 'text',
+        inputLabel: 'Your new category',
+        inputValue: category,
+        showCancelButton: true,
+        inputValidator: (value) => {
+          if (!value) {
+            return 'Please enter a category';
+          }
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const newValue = result.value;
+          handleEditCategory(index, newValue);
+        } 
+      });
+    }
 
     const handleEditCategory = (index, newValue) => {
         const updatedCategories = [...categories];
@@ -96,22 +149,15 @@ function ListPage() {
                                 src={editIcon}
                                 alt="Edit"
                                 style={{ width: '18px', height: '18px', marginRight:'3px', cursor: 'pointer' }}
-                                onClick={() => {
-                                    const newValue = prompt('Edit category', category);
-                                    if (newValue !== null) {
-                                        handleEditCategory(index, newValue);
-                                    }
-                                }}
+                                onClick={() => showEditCategoryModal(index, category)}
                             />
                             <img
                                 src={deleteIcon}
                                 alt="Delete"
                                 style={{ width: '18px', height: '18px', cursor: 'pointer' }}
-                                onClick={() => {
-                                    if (window.confirm('Are you sure you want to delete this category?')) {
-                                        handleDeleteCategory(index);
-                                    }
-                                }}
+                                onClick={() => 
+                                        handleDeleteCategory(index)
+                                }
                             />
                         </div>
                     </Paper>

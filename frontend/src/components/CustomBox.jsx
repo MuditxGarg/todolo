@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import logo from '../assets/logo.jpeg';
+import logo from '../assets/todoloLogo.png';
 
 function CustomBox({ height, width, buttonText, children }) {
 	const xsHeight = `calc(${height} * 0.9)`;
@@ -35,7 +35,7 @@ function CustomBox({ height, width, buttonText, children }) {
           alignItems: 'center',
         }}
       >
-        <img src={logo} style={{ width: '100%', height: 'auto', maxWidth: '200px', maxHeight: '150px' }} />
+        <img src={logo} style={{ width: '60%', height: 'auto', maxWidth: '200px', maxHeight: '150px' }} />
       </Box>
       {children}
       <Button
