@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import user from '../assets/user.png';
+import CustomBox from '../components/CustomBox.jsx'
 
 function ProfilePage() {
     const [isChangePassword, setIsChangePassword] = useState(false);
@@ -40,28 +41,20 @@ function ProfilePage() {
     return (
         <Box
             sx={{
-                height: '70vh',
-                width: '30vw',
-                margin: 'auto',
-                marginTop: '5%',
-                backgroundColor: 'white',
-                borderRadius: '12px',
-                border: '3px solid #34C4B5',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                padding: '20px', // Add padding to the main container
+                height: '100vh',
+                overflow: 'hidden',
             }}
         >
+          <CustomBox height={'70%'} width={'30%'} paddingB={'1.3rem'} buttonText={'Change Email'}>
             <Box
                 sx={{
                     width: '100%',
-                    borderBottom: '2px solid #34C4B5',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
                     paddingBottom: '20px', // Add padding between elements in this section
+                    paddingTop: '1.2rem', // Add padding between elements in this section
                 }}
             >
                 <img src={user} style={{ width: '80px', height: '80px', marginBottom: '10px' }} alt="User" />
@@ -73,11 +66,20 @@ function ProfilePage() {
                         <Typography variant="subtitle1" sx={{ marginBottom: '5px' }}>
                             Email: user@example.com
                         </Typography>
-                        <Button onClick={handleChangeEmail} variant="contained" sx={buttonStyle}>
-                            Change Email
-                        </Button>
-                        <Button onClick={handleChangePassword} variant="contained" sx={buttonStyle}>
-                            Change Password
+                        <Button onClick={handleChangePassword} variant="contained"
+                          sx={{
+                            color: 'white',
+                            backgroundColor: '#155360',
+                            borderRadius: '10px',
+                            fontSize: { xs: '0.9rem', sm: '0.7rem', md: '1rem' }, // Adjust font size for different breakpoints
+                            '&:hover': {
+                              backgroundColor: 'rgba(52, 196, 181, 1)',
+                            },
+                            width: '35%',
+                            marginTop: '1.8rem',
+                          }}
+                        >
+                            Change Pass
                         </Button>
                     </>
                 )}
@@ -165,6 +167,7 @@ function ProfilePage() {
                     </Button>
                 </Box>
             )}
+          </CustomBox>
         </Box>
     );
 }

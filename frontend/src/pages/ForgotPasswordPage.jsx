@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import CustomBox from '../components/CustomBox.jsx'
 
 function ResetPasswordPage() {
     const [isOtpVerified, setIsOtpVerified] = useState(false);
@@ -22,23 +23,14 @@ function ResetPasswordPage() {
     return (
         <Box
             sx={{
-                height: '70vh',
-                width: '30vw',
-                margin: 'auto',
-                marginTop: '7%',
-                backgroundColor: 'white',
-                borderRadius: '12px',
-                border: '3px solid #34C4B5',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                padding: '20px', // Add padding to the main container
+                height: '100vh',
+                overflow: 'hidden',
             }}
         >
+          <CustomBox height={'70%'} width={'30%'} buttonText={'Verify'}>
             <Box
                 sx={{
                     width: '100%',
-                    borderBottom: '2px solid #34C4B5',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
@@ -51,7 +43,7 @@ function ResetPasswordPage() {
                         <Typography variant="h5">Reset Password</Typography>
                         <br/>
                         <Typography variant="subtitle1">Enter OTP received on mail</Typography>
-
+                        <br/>
                         <TextField
                             type="text"
                             label="Enter OTP"
@@ -59,9 +51,6 @@ function ResetPasswordPage() {
                             onChange={(e) => setOtp(e.target.value)}
                             sx={{ width: '60%', marginBottom: '10px' }}
                         />
-                        <Button onClick={handleVerifyOtp} variant="contained" sx={buttonStyle}>
-                            Verify
-                        </Button>
                     </>
                 )}
                 {isOtpVerified && (
@@ -87,6 +76,7 @@ function ResetPasswordPage() {
                     </>
                 )}
             </Box>
+          </CustomBox>
         </Box>
     );
 }

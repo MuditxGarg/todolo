@@ -8,10 +8,10 @@ function HelpPage() {
   return (
     <>
     <HelpPageStyles/>
-    <Box sx={{height: '100vh', overflow: 'auto',paddingBottom: '2rem'}}>
+    <Box sx={{height: '100vh', overflow: 'auto', paddingBottom: '2rem'}}>
     <Typography variant='h1' className='lilitaOne' sx={{ color: '#155360', fontSize: { xs: '1rem', sm: '2rem', md: '1.8rem' }, marginTop: { xs: '1rem', sm: '1Srem', md: '1rem' } , marginLeft: { xs: '1rem', sm: '2rem', md: '3rem' }}}>HOW TO USE?</Typography>
     <Typography variant='body1' className='help-content' sx={{ color: '#155360', fontSize: { xs: '1.3rem', sm: '2rem', md: '1.1rem' }, marginBottom: { xs: '0.4rem', sm: '2rem', md: '1.8rem' } ,marginTop: { xs: '1rem', sm: '1Srem', md: '1rem' } , marginLeft: { xs: '1rem', sm: '2rem', md: '3rem' } }}>Welcome to TODOLO, your ultimate tool for organizing tasks and categories efficiently. This guide will walk you through how to use our app's category and task features effectively, allowing you to maximize your productivity.</Typography>
-   
+
     <Typography className="help-content" sx={{marginLeft: { xs: '1rem', sm: '2rem', md: '3rem' }}}>
     <h3>GETTING STARTED</h3>
     <strong>Creating an Account:</strong> If you're a new user, start by creating an account and signing up. Existing users can log in.<br/>
