@@ -5,7 +5,6 @@ import LandingPage from './pages/LandingPage';
 import OtpPage from './pages/OtpPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
-import ListPage from './pages/ListPage';
 import TodoPage from './pages/TodoPage';
 import ProfilePage from './pages/ProfilePage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
