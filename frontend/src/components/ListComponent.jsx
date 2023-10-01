@@ -144,7 +144,7 @@ function ListComponent({ onCategoryClick }) {
               boxShadow: 'rgba(0, 0, 0, 0.4) 0px 4px 4px',
             }}
           >
-            <span onClick={() => onCategoryClick(category)} style={{ cursor: 'pointer' }}>
+            <span onClick={() => onCategoryClick(category)} style={{ cursor: 'pointer', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '80%', }}>
               {category}
             </span>
             <div>

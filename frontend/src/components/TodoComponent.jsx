@@ -7,6 +7,7 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import deleteIcon from '../assets/delete.png';
 import editIcon from '../assets/pencil.png';
+import backIcon from '../assets/back-arrow.png';
 import Swal from 'sweetalert2';
 import '../styles/swalButtonStyles.css';
 
@@ -92,6 +93,13 @@ function TodoComponent({ category, onReturn }) {
     setTasks(updatedTasks);
   };
 
+  // function toggleTextExpansion(index) {
+  //   const newExpandedTasks = [...expandedTasks];
+  //   newExpandedTasks[index] = !newExpandedTasks[index];
+  //   setExpandedTasks(newExpandedTasks);
+  // };
+
+
   return (
     <Box
       sx={{
@@ -110,17 +118,20 @@ function TodoComponent({ category, onReturn }) {
         padding: '1rem',
       }}
     >
-      <Button
-        variant='contained'
+      <img
+        src={backIcon}
+        alt="Back"
         onClick={onReturn}
-        sx={{
+        style={{
           position: 'absolute',
           top: '0.1rem',
           left: '0.1rem',
+          width: '35px',
+          height: '35px',
+          cursor: 'pointer',
+          paddingLeft: '5px',
         }}
-      >
-        Back
-      </Button>
+      />
       <Typography
         variant='h5'
         className='lilitaOne'
@@ -170,7 +181,16 @@ function TodoComponent({ category, onReturn }) {
               checked={task.checked}
               onChange={() => handleToggleCheckbox(index)}
             />
-            {task.text}
+            <span
+              style={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                maxWidth: '80%',
+              }}
+            >
+              {task.text}
+            </span>
             <div>
               <img
                 src={editIcon}
@@ -196,6 +216,7 @@ function TodoComponent({ category, onReturn }) {
             </div>
           </Paper>
         ))}
+
       </Box>
 
       <TextField
