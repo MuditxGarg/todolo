@@ -53,7 +53,7 @@ function LoginPage() {
 					}}
 				>
 					<Typography variant='body2' sx={{ marginRight: '0.8rem', fontSize: '0.8rem' }}>
-						<Link href="/" className="signup-link">Forgot Password?</Link>
+						<Link href="/resetPassword" className="signup-link">Forgot Password?</Link>
 					</Typography>
 					<Typography variant='body2' sx={{ fontSize: '0.8rem' }}>
 						Not registered? <Link href="/signup" className="signup-link">Sign Up!</Link>

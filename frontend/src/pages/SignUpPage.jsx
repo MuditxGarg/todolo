@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -91,7 +92,7 @@ function SignUpPage() {
 					marginTop: '0.7rem',
 				}}
 			>
-				Already registered? <a href="/login" className="signup-link">Login!</a>
+				Already registered? <Link to="/login" className="signup-link">Login!</Link>
 			</Box>
 		</Box>
 	)
