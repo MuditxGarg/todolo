@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Link, Routes, Route, useNavigate} from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -13,6 +14,7 @@ function ResetPasswordPage() {
     const [otp, setOtp] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSendOtp = () => {
         setIsOtpSent(true);
@@ -31,6 +33,9 @@ function ResetPasswordPage() {
     const handleBack = () => {
         if (currentStep > 0) {
             setCurrentStep(currentStep - 1); // Go back to the previous step
+        }
+        else{
+            navigate('/login');
         }
     };
 
@@ -52,7 +57,7 @@ function ResetPasswordPage() {
                     position: 'relative', // Make the inner box relative for positioning
                 }}
             >
-                {currentStep > 0 && (
+                {currentStep >= -1 && (
                     <img
                         src={backIcon}
                         alt='Back'

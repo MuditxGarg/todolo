@@ -3,15 +3,16 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton'; // Import IconButton
+import backIcon from '../assets/back-arrow.png';
 import user from '../assets/user.png';
-import CustomBox from '../components/CustomBox.jsx'
 
 function ProfilePage() {
     const [isChangePassword, setIsChangePassword] = useState(false);
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
-    
+
     const handleChangePassword = () => {
         setIsChangePassword(true);
     };
@@ -31,7 +32,41 @@ function ProfilePage() {
                 overflow: 'hidden',
             }}
         >
-            <CustomBox height={'70%'} width={'30%'} paddingB={'1.3rem'}>
+            <Box
+                sx={{
+                    height: '70%',
+                    width: '25%',
+                    margin: 'auto',
+                    marginTop: '5%',
+                    backgroundColor: 'white',
+                    borderRadius: '12px',
+                    border: '3px solid #34C4B5',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    padding: '20px', // Add padding to the main container
+                    position: 'relative', // Make the inner box relative for positioning
+                }}
+            >
+                {isChangePassword && (
+                    <IconButton
+                        onClick={handleBack}
+                        sx={{
+                            position: 'absolute',
+                            top: '25px',
+                            left: '25px',
+                            backgroundColor: '#fff',
+                            zIndex: 1,
+                        }}
+                    >
+                        <img
+                            src={backIcon}
+                            alt="Back"
+                            style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                        />
+                    </IconButton>
+                )}
+
                 <Box
                     sx={{
                         width: '100%',
@@ -39,42 +74,56 @@ function ProfilePage() {
                         flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        paddingBottom: '20px', // Add padding between elements in this section
-                        paddingTop: '1.2rem', // Add padding between elements in this section
+                        paddingBottom: '20px',
+                        paddingTop: '1.2rem',
                     }}
                 >
-                    <img src={user} style={{ width: '80px', height: '80px', marginBottom: '10px' }} alt="User" />
-                    <Typography variant="h5" sx={{ marginBottom: '5px' }}>
-                        User's Name
-                    </Typography>
-                    {!isChangePassword && (
+                    {!isChangePassword ? (
                         <>
-                            <Typography variant="subtitle1" sx={{ marginBottom: '5px' }}>
+                            <img src={user} style={{ width: '80px', height: '80px', marginBottom: '10px' }} alt="User" />
+                            <Typography variant="h5" sx={{ color: '#155360', fontWeight: '600' }}>
+                                User's Name
+                            </Typography>
+                            <Typography variant="subtitle" sx={{ color: '#155360', fontWeight: '600' }}>
                                 Email: user@example.com
                             </Typography>
-                            <Button onClick={handleChangePassword} variant="contained"
+                            <br/>
+                            <Typography variant="subtitle" sx={{ color: '#155360', fontWeight: '600' }}>
+                                Category Count: 5
+                            </Typography>
+                            <Typography variant="subtitle" sx={{ color: '#155360', fontWeight: '600' }}>
+                                Total Task Count: 10
+                            </Typography>
+                            <Button
+                                onClick={handleChangePassword}
+                                variant="contained"
                                 sx={{
                                     color: 'white',
                                     backgroundColor: '#155360',
                                     borderRadius: '10px',
-                                    fontSize: { xs: '0.9rem', sm: '0.7rem', md: '1rem' }, // Adjust font size for different breakpoints
+                                    fontSize: { xs: '0.9rem', sm: '0.7rem', md: '1rem' },
+                                    // Adjust font size for different breakpoints
                                     '&:hover': {
                                         backgroundColor: 'rgba(52, 196, 181, 1)',
                                     },
-                                    width: '35%',
+                                    width: 'fit-content',
                                     marginTop: '1.8rem',
                                 }}
                             >
                                 Change Password
                             </Button>
                         </>
-                    )}
-                    {isChangePassword && (
+                    ) : (
                         <>
-                            <Typography variant="subtitle1">Change Password</Typography>
-                            <Button onClick={handleBack} variant="contained" sx={buttonStyle}>
-                                Back
-                            </Button>
+                            <Typography variant="h5" sx={{ color: '#155360', fontWeight: '600' }}>
+                                Change Password
+                            </Typography>
+                            <Typography variant="subtitle" sx={{ color: '#155360' }}>
+                                User's Name
+                            </Typography>
+                            <Typography variant="subtitle" sx={{ color: '#155360' }}>
+                                Email: user@example.com
+                            </Typography>
                         </>
                     )}
                 </Box>
@@ -86,7 +135,7 @@ function ProfilePage() {
                             flexDirection: 'column',
                             justifyContent: 'space-evenly',
                             alignItems: 'center',
-                            padding: '20px', // Add padding between elements in this section
+                            padding: '10px',
                         }}
                     >
                         <TextField
@@ -115,7 +164,7 @@ function ProfilePage() {
                         </Button>
                     </Box>
                 )}
-            </CustomBox>
+            </Box>
         </Box>
     );
 }
@@ -124,9 +173,8 @@ const buttonStyle = {
     color: 'white',
     backgroundColor: '#155360',
     borderRadius: '10px',
-    fontSize: { xs: '0.7rem', sm: '0.9rem', md: '1rem' },
-    width: '100%',
-    marginTop: '10px',
+    marginTop: '0rem',
+    fontSize: { xs: '0.9rem', sm: '0.7rem', md: '1rem' }, // Adjust font size for different breakpoints
     '&:hover': {
         backgroundColor: 'rgba(52, 196, 181, 1)',
     },
