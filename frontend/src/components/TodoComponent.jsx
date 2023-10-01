@@ -1,66 +1,62 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox'; // Import Checkbox component
+import Checkbox from '@mui/material/Checkbox';
 import deleteIcon from '../assets/delete.png';
 import editIcon from '../assets/pencil.png';
 import Swal from 'sweetalert2';
 import '../styles/swalButtonStyles.css';
 
-function ToDoPage() {
-  const [tasks, settasks] = useState([]);
-  const [newtask, setNewtask] = useState('');
+function TodoComponent({ category, onReturn }) {
+  const [tasks, setTasks] = useState([]);
+  const [newTask, setNewTask] = useState('');
 
-  useEffect(() => {
-
-  }, [tasks]);
-
-  const handleAddtask = () => {
-    if (newtask.trim() !== '') {
-      settasks([...tasks, { text: newtask, checked: false }]);
-      setNewtask('');
+  const handleAddTask = () => {
+    if (newTask.trim() !== '') {
+      setTasks([...tasks, { text: newTask, checked: false }]);
+      setNewTask('');
     }
   };
 
-  const handleDeletetask = (index) => {
+  const handleDeleteTask = (index) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
+        cancelButton: 'btn btn-danger',
       },
-      buttonsStyling: false
-    })
-    swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const updatedtasks = [...tasks];
-        updatedtasks.splice(index, 1);
-        settasks(updatedtasks);
-        swalWithBootstrapButtons.fire(
-          'Deleted!',
-          'Your todo has been deleted.',
-          'success'
-        )
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your todo is safe',
-          'error'
-        )
-      }
-    })
+      buttonsStyling: false,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          const updatedTasks = [...tasks];
+          updatedTasks.splice(index, 1);
+          setTasks(updatedTasks);
+          swalWithBootstrapButtons.fire(
+            'Deleted!',
+            'Your todo has been deleted.',
+            'success'
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'Your todo is safe',
+            'error'
+          );
+        }
+      });
   };
 
   const showEditTaskModal = (index, task) => {
@@ -79,21 +75,21 @@ function ToDoPage() {
       if (result.isConfirmed) {
         const newValue = result.value;
         handleEditTask(index, newValue);
-      } 
+      }
     });
-  }
+  };
 
   const handleEditTask = (index, newValue) => {
     const updatedTasks = [...tasks];
     updatedTasks[index] = { text: newValue, checked: tasks[index].checked };
-    settasks(updatedTasks);
+    setTasks(updatedTasks);
   };
 
   const handleToggleCheckbox = (index) => {
     const updatedTasks = [...tasks];
     updatedTasks[index].checked = !updatedTasks[index].checked;
-    updatedTasks.sort((a,b) => (a.checked === b.checked) ? 0: a.checked ? 1 : -1)
-    settasks(updatedTasks);
+    updatedTasks.sort((a, b) => (a.checked === b.checked ? 0 : a.checked ? 1 : -1));
+    setTasks(updatedTasks);
   };
 
   return (
@@ -114,6 +110,17 @@ function ToDoPage() {
         padding: '1rem',
       }}
     >
+      <Button
+        variant='contained'
+        onClick={onReturn}
+        sx={{
+          position: 'absolute',
+          top: '0.1rem',
+          left: '0.1rem',
+        }}
+      >
+        Back
+      </Button>
       <Typography
         variant='h5'
         className='lilitaOne'
@@ -124,7 +131,7 @@ function ToDoPage() {
           marginBottom: '1rem',
         }}
       >
-        Your Tasks
+        {`Tasks in ${category}`}
       </Typography>
 
       <Box
@@ -133,18 +140,16 @@ function ToDoPage() {
           flex: '1',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center', // Center horizontally
-          overflowY: 'auto', // Set to 'auto' to show scrollbar when needed
+          alignItems: 'center',
+          overflowY: 'auto',
         }}
       >
         {tasks.map((task, index) => (
           <Paper
             key={index}
             elevation={3}
-            className={`task-item ${task.checked ? 'checked' : ''}`}
             sx={{
               padding: '1rem',
-              fontSize: '1rem',
               marginBottom: '0.7rem',
               display: 'flex',
               justifyContent: 'space-between',
@@ -153,15 +158,15 @@ function ToDoPage() {
               borderWidth: '2px',
               borderStyle: 'solid',
               borderRadius: '8px',
-              width: '80%', // Set width to 80%
-              height: '50px', // Increase height
+              width: '80%',
+              height: '50px',
               boxShadow: 'rgba(0, 0, 0, 0.4) 0px 4px 4px',
-              textDecoration: task.checked ? 'line-through' : 'none', // Apply strikethrough if checked
-              color: task.checked ? 'grey' : 'inherit', // Grey out text if checked
+              textDecoration: task.checked ? 'line-through' : 'none',
+              color: task.checked ? 'grey' : 'inherit',
             }}
           >
             <Checkbox
-              color="primary"
+              color='primary'
               checked={task.checked}
               onChange={() => handleToggleCheckbox(index)}
             />
@@ -169,17 +174,24 @@ function ToDoPage() {
             <div>
               <img
                 src={editIcon}
-                alt="Edit"
-                style={{ width: '18px', height: '18px', marginRight: '3px', cursor: 'pointer' }}
+                alt='Edit'
+                style={{
+                  width: '18px',
+                  height: '18px',
+                  marginRight: '3px',
+                  cursor: 'pointer',
+                }}
                 onClick={() => showEditTaskModal(index, task)}
               />
               <img
                 src={deleteIcon}
-                alt="Delete"
-                style={{ width: '18px', height: '18px', cursor: 'pointer' }}
-                onClick={() => {
-                  handleDeletetask(index);
+                alt='Delete'
+                style={{
+                  width: '18px',
+                  height: '18px',
+                  cursor: 'pointer',
                 }}
+                onClick={() => handleDeleteTask(index)}
               />
             </div>
           </Paper>
@@ -187,23 +199,23 @@ function ToDoPage() {
       </Box>
 
       <TextField
-        label="Add a New Task"
-        variant="outlined"
-        value={newtask}
-        onChange={(e) => setNewtask(e.target.value)}
+        label='Add a New Task'
+        variant='outlined'
+        value={newTask}
+        onChange={(e) => setNewTask(e.target.value)}
         InputProps={{
           style: {
-            borderColor: '#155360', // Change the border color
+            borderColor: '#155360',
           },
         }}
         sx={{
           width: '80%',
-          marginBottom: '1rem', // Add spacing between added tasks and the new task text field
+          marginBottom: '1rem',
         }}
       />
 
       <Button
-        variant="contained"
+        variant='contained'
         sx={{
           color: 'white',
           backgroundColor: '#155360',
@@ -215,7 +227,7 @@ function ToDoPage() {
             backgroundColor: 'rgba(52, 196, 181, 1)',
           },
         }}
-        onClick={handleAddtask}
+        onClick={handleAddTask}
       >
         Add Task +
       </Button>
@@ -223,4 +235,5 @@ function ToDoPage() {
   );
 }
 
-export default ToDoPage;
+export default TodoComponent;
+

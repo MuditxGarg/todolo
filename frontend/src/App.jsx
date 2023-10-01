@@ -6,7 +6,7 @@ import OtpPage from './pages/OtpPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import ListPage from './pages/ListPage';
-import ToDoPage from './pages/ToDoPage';
+import TodoPage from './pages/TodoPage';
 import ProfilePage from './pages/ProfilePage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import HelpPage from './pages/HelpPage';
@@ -21,7 +21,7 @@ function App() {
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/signup' element={<SignUpPage/>}/>
             <Route path='/list' element={<ListPage/>}/>
-            <Route path='/todo' element={<ToDoPage/>}/>
+            <Route path='/todo' element={<TodoPage/>}/>
             <Route path='/profile' element={<ProfilePage/>}/>
             <Route path='/resetPassword' element={<ForgotPasswordPage/>}/>
             <Route path='/help' element={<HelpPage/>}/>
