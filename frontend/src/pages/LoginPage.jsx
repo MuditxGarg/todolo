@@ -19,7 +19,7 @@ function LoginPage() {
 					}}
 				>
 					<TextField
-						label="Name"
+						label="Email"
 						variant="standard"
 						sx={{ width: '100%' }}
 						InputLabelProps={{
@@ -31,7 +31,7 @@ function LoginPage() {
 						}}
 					/>
 					<TextField
-						label="Email"
+						label="Password"
 						variant="standard"
 						sx={{
 							width: '100%',
