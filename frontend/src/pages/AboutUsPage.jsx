@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Typography } from '@mui/material';
-import NiharImage from '../assets/np.jpeg';
-import OjaswiniImage from '../assets/ok.jpeg';
-import MuditImage from '../assets/mg.jpeg';
+import NiharImage from '../assets/np.jpg';
+import OjaswiniImage from '../assets/ok.jpg';
+import MuditImage from '../assets/mg.jpg';
 import LokImage from '../assets/ln.jpg';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
