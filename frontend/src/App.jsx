@@ -19,7 +19,6 @@ function App() {
             <Route path='/otp' element={<OtpPage />} />
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/signup' element={<SignUpPage/>}/>
-            <Route path='/list' element={<ListPage/>}/>
             <Route path='/todo' element={<TodoPage/>}/>
             <Route path='/profile' element={<ProfilePage/>}/>
             <Route path='/resetPassword' element={<ForgotPasswordPage/>}/>
