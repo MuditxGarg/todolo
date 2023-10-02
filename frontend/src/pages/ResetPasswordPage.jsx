@@ -6,9 +6,10 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import backIcon from '../assets/back-arrow.png';
 import logo from '../assets/TODOLO_final.png';
+import Swal from 'sweetalert2'; // Import Swal for alerts
 
 function ResetPasswordPage() {
-    const [currentStep, setCurrentStep] = useState(0); // Added state for the current step
+    const [currentStep, setCurrentStep] = useState(0);
     const [isOtpSent, setIsOtpSent] = useState(false);
     const [isOtpVerified, setIsOtpVerified] = useState(false);
     const [email, setEmail] = useState('');
@@ -18,22 +19,92 @@ function ResetPasswordPage() {
     const navigate = useNavigate();
 
     const handleSendOtp = () => {
-        setIsOtpSent(true);
-        setCurrentStep(1); // Move to the next step (Enter OTP)
+
+        if (!email.trim()) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Empty Field!',
+                text: 'Email Field should not be empty.',
+            });
+            return;
+        }
+        else if(!isValidEmail(email))
+        {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Email!',
+                text: 'Please enter a valid email address.',
+            });
+            return;
+        }
+        else{
+            setIsOtpSent(true);
+            setCurrentStep(1);
+        }
+        
     };
 
     const handleVerifyOtp = () => {
+        if (!otp.trim()) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Empty Field!',
+                text: 'OTP field should not be empty.',
+            });
+            return;
+        }
+        else if(otp.length !== 6)
+        {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid OTP!',
+                text: 'Please enter a valid 6-digit OTP.',
+            });
+            return;
+        }
+        
         setIsOtpVerified(true);
-        setCurrentStep(2); // Move to the next step (Set New Password)
+        setCurrentStep(2);
     };
 
     const handleSubmitNewPassword = () => {
+        if (!newPassword.trim() || !confirmNewPassword.trim()) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Empty Fields!',
+                text: 'The fields are empty',
+            });
+            return;
+        }
+        else if(newPassword.length < 8 || confirmNewPassword.length <8 ){
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Password!',
+                text: 'The passwords should have atleast 8 characters',
+            });
+            return;
+        }
+        else if(newPassword !== confirmNewPassword)
+        {
+            Swal.fire({
+                icon: 'error',
+                title: 'Password do not match!',
+                text: 'Make sure the passwords match',
+            });
+            return;
+        }
+
         navigate('/login');
+    };
+
+    const isValidEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
     };
 
     const handleBack = () => {
         if (currentStep > 0) {
-            setCurrentStep(currentStep - 1); // Go back to the previous step
+            setCurrentStep(currentStep - 1);
         }
         else {
             navigate('/login');
@@ -54,8 +125,8 @@ function ResetPasswordPage() {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    padding: '10px', // Add padding to the main container
-                    position: 'relative', // Make the inner box relative for positioning
+                    padding: '10px',
+                    position: 'relative',
                 }}
             >
                 {currentStep >= -1 && (
@@ -80,7 +151,7 @@ function ResetPasswordPage() {
                         flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        paddingBottom: '20px', // Add padding between elements in this section
+                        paddingBottom: '20px',
                     }}
                 >
                     {currentStep === 0 ? (
@@ -101,6 +172,8 @@ function ResetPasswordPage() {
                                 label="Email"
                                 variant="standard"
                                 sx={{ width: '80%' }}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 InputLabelProps={{
                                     style: {
                                         color: '#155360',
@@ -146,7 +219,7 @@ function ResetPasswordPage() {
                         </>
                     ) : (
                         <>
-                        <img
+                            <img
                                 src={logo}
                                 alt="Logo"
                                 style={{
@@ -208,7 +281,7 @@ const buttonStyle = {
     backgroundColor: '#155360',
     borderRadius: '10px',
     marginTop: '1.5rem',
-    fontSize: { xs: '0.9rem', sm: '0.7rem', md: '1rem' }, // Adjust font size for different breakpoints
+    fontSize: { xs: '0.9rem', sm: '0.7rem', md: '1rem' },
     '&:hover': {
         backgroundColor: 'rgba(52, 196, 181, 1)',
     },
