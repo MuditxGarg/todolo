@@ -40,10 +40,10 @@ function ResetPasswordPage() {
     };
 
     return (
-        <Box sx={{ height: '100vh', overflow: 'hidden' }}>
+        <Box sx={{ height: '100vh', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Box
                 sx={{
-                    height: '70%',
+                    height: '35%',
                     width: '25%',
                     margin: 'auto',
                     marginTop: '5%',
@@ -65,8 +65,8 @@ function ResetPasswordPage() {
                             width: '25px',
                             height: '25px',
                             position: 'absolute',
-                            top: '10px',
-                            left: '10px',
+                            top: '20px',
+                            left: '20px',
                             cursor: 'pointer',
                         }}
                         onClick={handleBack}
@@ -75,7 +75,6 @@ function ResetPasswordPage() {
                 <Box
                     sx={{
                         width: '100%',
-                        borderBottom: '2px solid #34C4B5',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'center',
@@ -85,13 +84,13 @@ function ResetPasswordPage() {
                 >
                     {currentStep === 0 ? (
                         <>
-                            <Typography variant="h5" sx={{ color: '#155360', fontWeight:'600'}}>Reset Password</Typography>
-                            <Typography variant="subtitle1" sx={{ color: '#155360', fontWeight:'600'}}>Enter your Email</Typography>
+                            <Typography variant="h5" sx={{ width: '100%', textAlign: 'center', color: '#155360', fontWeight:'600', borderBottom: '2px solid #34C4B5'}}>Reset Password</Typography>
+                            <Typography variant="subtitle1" sx={{ marginTop: '1.2rem', color: '#155360', fontWeight:'600'}}>Enter your Email</Typography>
 
                             <TextField
                                 label="Email"
                                 variant="standard"
-                                sx={{ width: '100%' }}
+                                sx={{ width: '90%' }}
                                 InputLabelProps={{
                                     style: {
                                         color: '#155360',
@@ -106,14 +105,14 @@ function ResetPasswordPage() {
                         </>
                     ) : currentStep === 1 ? (
                         <>
-                            <Typography variant="subtitle1" sx={{ color: '#155360', fontWeight:'600'}}>Enter OTP received on email</Typography>
+                            <Typography variant="subtitle1" sx={{ width: '100%', textAlign: 'center', color: '#155360', fontWeight:'600', borderBottom: '2px solid #34C4B5' }}>Enter OTP received on email</Typography>
 
                             <TextField
                                 type="text"
                                 label="Enter OTP"
                                 value={otp}
                                 onChange={(e) => setOtp(e.target.value)}
-                                sx={{ width: '60%', marginBottom: '10px' }}
+                                sx={{ width: '60%', marginBottom: '10px', marginTop: '2.5rem' }}
                             />
                             <Button onClick={handleVerifyOtp} variant="contained" sx={buttonStyle}>
                                 Verify
