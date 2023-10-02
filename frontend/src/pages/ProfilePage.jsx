@@ -6,12 +6,14 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton'; // Import IconButton
 import backIcon from '../assets/back-arrow.png';
 import user from '../assets/user.png';
+import Swal from 'sweetalert2';
 
 function ProfilePage() {
     const [isChangePassword, setIsChangePassword] = useState(false);
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
+
 
     const handleChangePassword = () => {
         setIsChangePassword(true);
@@ -22,8 +24,50 @@ function ProfilePage() {
     };
 
     const handleSubmitPasswordChange = () => {
-        // Add code here to handle password change
-    };
+        // Check for empty fields
+        if (!currentPassword.trim() || !newPassword.trim() || !confirmNewPassword.trim()) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Fields cannot be empty!',
+            text: 'Please fill in all password fields.',
+          });
+          return;
+        }
+    
+        // Check for minimum password length
+        if (newPassword.length < 8 || confirmNewPassword.length < 8) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Password must be at least 8 characters!',
+            text: 'Please choose longer passwords.',
+          });
+          return;
+        }
+    
+        // Check if new password and confirm new password match
+        if (newPassword !== confirmNewPassword) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Passwords do not match!',
+            text: 'Please make sure the new passwords match.',
+          });
+          return;
+        }
+        
+        if(currentPassword.length <8)
+        {
+            Swal.fire({
+                icon: 'error',
+                title: 'Password must be at least 8 characters!',
+                text: 'Please enter a valid current password.',
+              });
+              return;
+        }
+        setIsChangePassword(false);
+
+        
+        // Handle password change logic here
+      };
 
     return (
         <Box
@@ -53,8 +97,8 @@ function ProfilePage() {
                         onClick={handleBack}
                         sx={{
                             position: 'absolute',
-                            top: '25px',
-                            left: '25px',
+                            top: '10px',
+                            left: '15px',
                             backgroundColor: '#fff',
                             zIndex: 1,
                         }}
@@ -62,7 +106,7 @@ function ProfilePage() {
                         <img
                             src={backIcon}
                             alt="Back"
-                            style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                            style={{ width: '18px', height: '18px', cursor: 'pointer'}}
                         />
                     </IconButton>
                 )}
@@ -118,10 +162,10 @@ function ProfilePage() {
                             <Typography variant="h5" sx={{ color: '#155360', fontWeight: '600' }}>
                                 Change Password
                             </Typography>
-                            <Typography variant="subtitle" sx={{ color: '#155360' }}>
+                            <Typography variant="standard" sx={{ color: '#155360', fontWeight: '600' }}>
                                 User's Name
                             </Typography>
-                            <Typography variant="subtitle" sx={{ color: '#155360' }}>
+                            <Typography variant="subtitle" sx={{ color: '#155360', fontWeight: '600'  }}>
                                 Email: user@example.com
                             </Typography>
                         </>
@@ -145,20 +189,43 @@ function ProfilePage() {
                             value={currentPassword}
                             onChange={(e) => setCurrentPassword(e.target.value)}
                             sx={{ width: '100%', marginBottom: '10px' }}
+                            InputLabelProps={{
+                                style: {
+                                  color: '#155360',
+                                  fontWeight: 'bold',
+                                  fontSize: '13px',
+                                },
+                              }}    
                         />
                         <TextField
                             type="password"
+                            variant="standard"
                             label="New Password"
                             value={newPassword}
                             onChange={(e) => setNewPassword(e.target.value)}
                             sx={{ width: '100%', marginBottom: '10px' }}
+                            InputLabelProps={{
+                                style: {
+                                  color: '#155360',
+                                  fontWeight: 'bold',
+                                  fontSize: '13px',
+                                },
+                              }}
                         />
                         <TextField
                             type="password"
+                            variant="standard"
                             label="Confirm New Password"
                             value={confirmNewPassword}
                             onChange={(e) => setConfirmNewPassword(e.target.value)}
                             sx={{ width: '100%', marginBottom: '10px' }}
+                            InputLabelProps={{
+                                style: {
+                                  color: '#155360',
+                                  fontWeight: 'bold',
+                                  fontSize: '13px',
+                                },
+                              }}
                         />
                         <Button onClick={handleSubmitPasswordChange} variant="contained" sx={buttonStyle}>
                             Submit
@@ -174,7 +241,7 @@ const buttonStyle = {
     color: 'white',
     backgroundColor: '#155360',
     borderRadius: '10px',
-    marginTop: '0rem',
+    marginTop: '1.4rem',
     fontSize: { xs: '0.9rem', sm: '0.7rem', md: '1rem' }, // Adjust font size for different breakpoints
     '&:hover': {
         backgroundColor: 'rgba(52, 196, 181, 1)',
