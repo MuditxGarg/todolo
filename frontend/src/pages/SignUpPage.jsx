@@ -6,14 +6,12 @@ import Box from '@mui/material/Box';
 import CustomBox from '../components/CustomBox';
 import Swal from 'sweetalert2';
 
-
 function SignUpPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
-
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -81,7 +79,7 @@ function SignUpPage() {
       });
     } else {
       console.log('Form submitted with email:', email, 'and password:', password);
-	  navigate('/otp');
+      navigate('/otp');
     }
   };
 
@@ -90,16 +88,20 @@ function SignUpPage() {
       sx={{
         height: '100vh',
         overflow: 'hidden',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <CustomBox height={'70%'} width={'25%'} buttonText={'SignUp'} onButtonClick={handleSubmit}>
         <Box
           sx={{
-            width: '70%',
+            width: '100%', // Changed to 100%
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-evenly',
             alignItems: 'flex-start',
+            padding: '2rem', // Added padding for spacing
           }}
         >
           <TextField
@@ -184,3 +186,4 @@ function SignUpPage() {
 }
 
 export default SignUpPage;
+
