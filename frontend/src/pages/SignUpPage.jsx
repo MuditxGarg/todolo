@@ -89,8 +89,10 @@ function SignUpPage() {
         height: '100vh',
         overflow: 'hidden',
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        position: 'relative',
       }}
     >
       <CustomBox height={'70%'} width={'25%'} buttonText={'SignUp'} onButtonClick={handleSubmit}>
@@ -176,7 +178,8 @@ function SignUpPage() {
         sx={{
           display: 'flex',
           justifyContent: 'center',
-          marginTop: '0.7rem',
+          position: 'absolute',
+          top: '37rem',
         }}
       >
         Already registered? <Link to="/login" className="signup-link">Login!</Link>
