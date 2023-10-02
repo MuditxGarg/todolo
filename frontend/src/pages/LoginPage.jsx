@@ -9,6 +9,7 @@ import CustomBox from '../components/CustomBox';
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordPlaceholder, setPasswordPlaceholder] = useState('Password (at least 8 characters)');
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -20,7 +21,15 @@ function LoginPage() {
   };
 
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+    const newPassword = event.target.value;
+    setPassword(newPassword);
+
+    // Clear the placeholder when the user starts typing
+    if (newPassword) {
+      setPasswordPlaceholder('');
+    } else {
+      setPasswordPlaceholder('Password (at least 8 characters)');
+    }
   };
 
   const handleSubmit = () => {
@@ -45,7 +54,14 @@ function LoginPage() {
         title: 'Password cannot be empty!',
         text: 'Please enter your password.',
       });
-    } else {
+    } else if (password.length < 8) {
+      // Show Swal alert if the password is too short
+      Swal.fire({
+        icon: 'error',
+        title: 'Password is too short!',
+        text: 'Password should be at least 8 characters long.',
+      });
+    }else {
       console.log('Form submitted with email:', email, 'and password:', password);
     }
   };
@@ -93,6 +109,7 @@ function LoginPage() {
             type="password"
             value={password}
             onChange={handlePasswordChange}
+            placeholder={passwordPlaceholder}
 					/>
 				</Box>
 				<Box
