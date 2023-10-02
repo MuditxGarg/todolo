@@ -10,6 +10,7 @@ import todoIcon from '../assets/to-do-list.png';
 import user from '../assets/user.png';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import AvatarSelectionModal from '../components/AvatarSelectionModal';
 
 function ProfilePage() {
   const [isChangePassword, setIsChangePassword] = useState(false);
@@ -19,6 +20,8 @@ function ProfilePage() {
   const [passwordPlaceholder, setPasswordPlaceholder] = useState(
     '8 characters or more'
   );
+  const [selectedAvatar, setSelectedAvatar] = useState(null);
+  const [isAvatarModalOpen, setAvatarModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleChangePassword = (event) => {
@@ -110,6 +113,11 @@ function ProfilePage() {
     }
     setIsChangePassword(false);
     // Handle password change logic here
+  };
+
+  const handleAvatarSelection = (avatarImage) => {
+    setSelectedAvatar(avatarImage);
+    setAvatarModalOpen(false); // Close the avatar selection modal
   };
 
   return (
@@ -204,7 +212,15 @@ function ProfilePage() {
         >
           {!isChangePassword ? (
             <>
-              <img src={user} style={{ width: '80px', height: '80px', marginBottom: '10px' }} alt="User" />
+              {selectedAvatar ? (
+                <img
+                  src={selectedAvatar}
+                  style={{ width: '80px', height: '80px', marginBottom: '10px' }}
+                  alt="User"
+                />
+              ) : (
+                <img src={user} style={{ width: '80px', height: '80px', marginBottom: '10px' }} alt="User" />
+              )}
               <Typography variant="h5" sx={{ color: '#155360', fontWeight: '600' }}>
                 User's Name
               </Typography>
@@ -218,6 +234,23 @@ function ProfilePage() {
               <Typography variant="subtitle" sx={{ color: '#155360', fontWeight: '600' }}>
                 Total Task Count: 10
               </Typography>
+              <Button
+                onClick={() => setAvatarModalOpen(true)}
+                variant="contained"
+                sx={{
+                  color: 'white',
+                  backgroundColor: '#155360',
+                  borderRadius: '10px',
+                  fontSize: { xs: '0.9rem', sm: '0.7rem', md: '1rem' },
+                  '&:hover': {
+                    backgroundColor: 'rgba(52, 196, 181, 1)',
+                  },
+                  width: 'fit-content',
+                  marginTop: '1.8rem',
+                }}
+              >
+                Change Avatar
+              </Button>
               <Button
                 onClick={handleChangePassword}
                 variant="contained"
@@ -318,6 +351,11 @@ function ProfilePage() {
           </Box>
         )}
       </Box>
+      <AvatarSelectionModal
+        isOpen={isAvatarModalOpen}
+        onClose={() => setAvatarModalOpen(false)}
+        onSelect={handleAvatarSelection}
+      />
     </Box>
   );
 }
