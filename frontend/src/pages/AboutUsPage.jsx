@@ -13,39 +13,33 @@ const profiles = [
     name: 'Nihar Phansalkar',
     image: NiharImage,
     info: 'Full Stack Developer',
-    linkedin: 'https://www.linkedin.com/in/nihar/',
-    github: 'https://github.com/niharphanse',
+    linkedin: 'https://www.linkedin.com/in/nihar-phansalkar/',
+    github: 'https://github.com/NiharPhansalkar',
   },
   {
     name: 'Ojaswini Kohale',
     image: OjaswiniImage,
     info: 'Certified Ethical Hacker',
-    linkedin: 'https://www.linkedin.com/in/ojaswini/',
-    github: 'https://github.com/ojasko',
+    linkedin: 'https://www.linkedin.com/in/ojaswini-kohale-139a96222/',
+    github: 'https://github.com/OjaswiniKohale',
   },
   {
     name: 'Mudit Garg',
     image: MuditImage,
     info: 'AI/ML Developer',
-    linkedin: 'https://www.linkedin.com/in/muditgarg/',
-    github: 'https://github.com/muditgarg07',
+    linkedin: 'https://www.linkedin.com/in/gargmudit2708/',
+    github: 'https://github.com/Muditxgarg',
   },
   {
     name: 'N.N. Lokhesh',
     image: LokImage,
     info: 'Certified Cloud Architect',
-    linkedin: 'https://www.linkedin.com/in/lokhesh-nidadavole/',
-    github: 'https://github.com/lokheshnidadavole',
+    linkedin: 'https://www.linkedin.com/in/lokhesh-nidadavole-b45a14214/',
+    github: 'https://github.com/cyberox33',
   },
 ];
 
 const AboutUsPage = () => {
-  const [selectedProfile, setSelectedProfile] = useState(null);
-
-  const handleProfileClick = (profileIndex) => {
-    setSelectedProfile(selectedProfile === profileIndex ? null : profileIndex);
-  };
-   
   return (
     <div className="centered-container">
       <Typography variant="h4" component="h2" className="team-header">
@@ -56,9 +50,8 @@ const AboutUsPage = () => {
       <div className="profiles-container">
         {profiles.map((profile, index) => (
           <div
-            className={`profile container_shadow ${selectedProfile === index ? 'flipped' : ''}`}
+            className={`profile container_shadow`}
             key={index}
-            onClick={() => handleProfileClick(index)}
           >
             {/* Front Content */}
             <div className="profile_content front">
