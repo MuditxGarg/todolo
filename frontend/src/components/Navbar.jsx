@@ -11,6 +11,11 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import AdbIcon from '@mui/icons-material/Adb';
 import PersonIcon from '@mui/icons-material/Person';
+import MenuIcon from '@mui/icons-material/Menu';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 
 const pages = [
   { label: 'Home', url: '/' },
@@ -21,19 +26,36 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Check if the current URL is "/todo" and set isLoggedIn to true accordingly
+    // Check if the current URL is "/todo" or "/profile" and set isLoggedIn to true accordingly
     if (window.location.pathname === '/todo' || window.location.pathname === '/profile') {
       setIsLoggedIn(true);
     }
   }, []);
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <AppBar position="static" sx={{ backgroundColor: '#BEF7F1' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="Menu"
+            onClick={toggleMobileMenu}
+            sx={{ display: { md: 'none' }, color: '#155360' }}
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography
             variant="h5"
             noWrap
@@ -50,7 +72,6 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -111,6 +132,31 @@ function ResponsiveAppBar() {
             )}
           </Box>
         </Toolbar>
+        {/* Mobile menu */}
+        <Drawer
+          anchor="left"
+          open={isMobileMenuOpen}
+          onClose={closeMobileMenu}
+          sx={{
+            '& .MuiDrawer-paper': {
+              backgroundColor: '#BEF7F1',
+            },
+          }}
+        >
+          <List>
+            {pages.map((page) => (
+              <ListItem
+                key={page.label}
+                button
+                component={Link}
+                to={page.url}
+                onClick={closeMobileMenu}
+              >
+                <ListItemText primary={page.label} />
+              </ListItem>
+            ))}
+          </List>
+        </Drawer>
       </Container>
     </AppBar>
   );
