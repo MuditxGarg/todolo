@@ -6,18 +6,27 @@ const HelpPageStyles = createGlobalStyle`
 
   .help-content {
     color: #155360;
-		font-family: 'Inter', sans-serif;
+    font-family: 'Inter', sans-serif;
   }
+
   .lilitaOne {
     font-family: 'Lilita One', cursive;
   }
-
-  .help-content h3{
-    font-family: 'Lilita One', cursive;
-    color: #155360;
-    font-weight: 200;
+  .section {
+    margin: 20px 0; 
+    padding: 20px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
   }
 
+  .card-content {
+    transition: background-color 0.3s, box-shadow 0.3s;
+    border-radius: 10px; /* Apply border-radius by default */
+  }
+  
+  .card-content:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 export default HelpPageStyles;
