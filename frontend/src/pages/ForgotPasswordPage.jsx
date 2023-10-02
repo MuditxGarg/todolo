@@ -27,7 +27,7 @@ function ResetPasswordPage() {
     };
 
     const handleSubmitNewPassword = () => {
-        // Add code here to handle password reset
+        navigate('/login');
     };
 
     const handleBack = () => {
@@ -43,7 +43,7 @@ function ResetPasswordPage() {
         <Box sx={{ height: '100vh', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Box
                 sx={{
-                    height: '35%',
+                    height: '55%',
                     width: '25%',
                     margin: 'auto',
                     marginTop: '5%',
@@ -65,7 +65,7 @@ function ResetPasswordPage() {
                             width: '25px',
                             height: '25px',
                             position: 'absolute',
-                            top: '20px',
+                            top: '8px',
                             left: '20px',
                             cursor: 'pointer',
                         }}
@@ -84,8 +84,8 @@ function ResetPasswordPage() {
                 >
                     {currentStep === 0 ? (
                         <>
-                            <Typography variant="h5" sx={{ width: '100%', textAlign: 'center', color: '#155360', fontWeight:'600', borderBottom: '2px solid #34C4B5'}}>Reset Password</Typography>
-                            <Typography variant="subtitle1" sx={{ marginTop: '1.2rem', color: '#155360', fontWeight:'600'}}>Enter your Email</Typography>
+                            <Typography variant="h5" sx={{ width: '100%', textAlign: 'center', paddingBottom: '1.2rem', color: '#155360', fontWeight:'600', borderBottom: '2px solid #34C4B5'}}>Reset Password</Typography>
+                            <Typography variant="subtitle1" sx={{ marginTop: '2.0rem', color: '#155360', fontWeight:'600'}}>Enter your Email</Typography>
 
                             <TextField
                                 label="Email"
@@ -105,7 +105,7 @@ function ResetPasswordPage() {
                         </>
                     ) : currentStep === 1 ? (
                         <>
-                            <Typography variant="subtitle1" sx={{ width: '100%', textAlign: 'center', color: '#155360', fontWeight:'600', borderBottom: '2px solid #34C4B5' }}>Enter OTP received on email</Typography>
+                            <Typography variant="subtitle1" sx={{ width: '100%', textAlign: 'center', paddingBottom: '1.2rem', color: '#155360', fontWeight:'600', borderBottom: '2px solid #34C4B5' }}>Enter OTP received on email</Typography>
 
                             <TextField
                                 type="text"
@@ -120,7 +120,7 @@ function ResetPasswordPage() {
                         </>
                     ) : (
                         <>
-                            <Typography variant="subtitle1" sx={{ color: '#155360', fontWeight:'600'}}>Set New Password</Typography>
+                            <Typography variant="subtitle1" sx={{ width: '100%', textAlign: 'center', paddingBottom: '1.2rem', color: '#155360', fontWeight:'600', borderBottom: '2px solid #34C4B5'}}>Set New Password</Typography>
                             <TextField
                                 type="password"
                                 label="New Password"
@@ -170,7 +170,7 @@ const buttonStyle = {
     color: 'white',
     backgroundColor: '#155360',
     borderRadius: '10px',
-    marginTop: '2rem',
+    marginTop: '3rem',
     fontSize: { xs: '0.9rem', sm: '0.7rem', md: '1rem' }, // Adjust font size for different breakpoints
     '&:hover': {
         backgroundColor: 'rgba(52, 196, 181, 1)',
