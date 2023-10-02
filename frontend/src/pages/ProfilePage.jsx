@@ -140,6 +140,7 @@ function ProfilePage() {
                     >
                         <TextField
                             type="password"
+                            variant="standard"
                             label="Current Password"
                             value={currentPassword}
                             onChange={(e) => setCurrentPassword(e.target.value)}

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import {Link, Routes, Route, useNavigate} from 'react-router-dom';
+import { Link, Routes, Route, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import backIcon from '../assets/back-arrow.png';
+import logo from '../assets/TODOLO_final.png';
 
 function ResetPasswordPage() {
     const [currentStep, setCurrentStep] = useState(0); // Added state for the current step
@@ -34,7 +35,7 @@ function ResetPasswordPage() {
         if (currentStep > 0) {
             setCurrentStep(currentStep - 1); // Go back to the previous step
         }
-        else{
+        else {
             navigate('/login');
         }
     };
@@ -43,7 +44,7 @@ function ResetPasswordPage() {
         <Box sx={{ height: '100vh', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Box
                 sx={{
-                    height: '55%',
+                    height: '70%',
                     width: '25%',
                     margin: 'auto',
                     marginTop: '5%',
@@ -53,7 +54,7 @@ function ResetPasswordPage() {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    padding: '20px', // Add padding to the main container
+                    padding: '10px', // Add padding to the main container
                     position: 'relative', // Make the inner box relative for positioning
                 }}
             >
@@ -84,13 +85,22 @@ function ResetPasswordPage() {
                 >
                     {currentStep === 0 ? (
                         <>
-                            <Typography variant="h5" sx={{ width: '100%', textAlign: 'center', paddingBottom: '1.2rem', color: '#155360', fontWeight:'600', borderBottom: '2px solid #34C4B5'}}>Reset Password</Typography>
-                            <Typography variant="subtitle1" sx={{ marginTop: '2.0rem', color: '#155360', fontWeight:'600'}}>Enter your Email</Typography>
+                            <img
+                                src={logo}
+                                alt="Logo"
+                                style={{
+                                    width: '150px',
+                                    height: 'auto',
+                                    marginBottom: '1rem',
+                                }}
+                            />
+                            <Typography variant="h5" sx={{ width: '80%', textAlign: 'center', paddingTop: '1.2rem', color: '#155360', fontWeight: '600', borderTop: '2px solid #34C4B5' }}>Reset Password</Typography>
+                            <Typography variant="subtitle1" sx={{ marginTop: '1rem', color: '#155360', fontWeight: '600' }}>Enter your Email</Typography>
 
                             <TextField
                                 label="Email"
                                 variant="standard"
-                                sx={{ width: '90%' }}
+                                sx={{ width: '80%' }}
                                 InputLabelProps={{
                                     style: {
                                         color: '#155360',
@@ -105,7 +115,16 @@ function ResetPasswordPage() {
                         </>
                     ) : currentStep === 1 ? (
                         <>
-                            <Typography variant="subtitle1" sx={{ width: '100%', textAlign: 'center', paddingBottom: '1.2rem', color: '#155360', fontWeight:'600', borderBottom: '2px solid #34C4B5' }}>Enter OTP received on email</Typography>
+                            <img
+                                src={logo}
+                                alt="Logo"
+                                style={{
+                                    width: '150px',
+                                    height: 'auto',
+                                    marginBottom: '1rem',
+                                }}
+                            />
+                            <Typography variant="subtitle1" sx={{ width: '80%', textAlign: 'center', paddingTop: '1.2rem', color: '#155360', fontWeight: '600', borderTop: '2px solid #34C4B5' }}>Enter OTP received on email</Typography>
 
                             <TextField
                                 variant="standard"
@@ -114,12 +133,12 @@ function ResetPasswordPage() {
                                 onChange={(e) => setOtp(e.target.value)}
                                 InputLabelProps={{
                                     style: {
-                                      color: '#155360',
-                                      fontWeight: 'bold',
-                                      fontSize: '15px',
+                                        color: '#155360',
+                                        fontWeight: 'bold',
+                                        fontSize: '15px',
                                     },
-                                  }}
-                                sx={{ width: '60%', marginBottom: '10px', marginTop: '2.5rem' }}
+                                }}
+                                sx={{ width: '80%', marginBottom: '10px', marginTop: '2.5rem' }}
                             />
                             <Button onClick={handleVerifyOtp} variant="contained" sx={buttonStyle}>
                                 Verify
@@ -127,7 +146,16 @@ function ResetPasswordPage() {
                         </>
                     ) : (
                         <>
-                            <Typography variant="subtitle1" sx={{ width: '100%', textAlign: 'center', paddingBottom: '1.2rem', color: '#155360', fontWeight:'600', borderBottom: '2px solid #34C4B5'}}>Set New Password</Typography>
+                        <img
+                                src={logo}
+                                alt="Logo"
+                                style={{
+                                    width: '150px',
+                                    height: 'auto',
+                                    marginBottom: '1rem',
+                                }}
+                            />
+                            <Typography variant="subtitle1" sx={{ width: '80%', textAlign: 'center', paddingTop: '1.2rem', color: '#155360', fontWeight: '600', borderTop: '2px solid #34C4B5' }}>Set New Password</Typography>
                             <TextField
                                 type="password"
                                 variant="standard"
@@ -135,8 +163,8 @@ function ResetPasswordPage() {
                                 value={newPassword}
                                 onChange={(e) => setNewPassword(e.target.value)}
                                 sx={{
-                                    width: '100%',
-                                    marginTop: '2rem',
+                                    width: '80%',
+                                    marginTop: '1rem',
                                 }}
                                 InputLabelProps={{
                                     style: {
@@ -153,8 +181,8 @@ function ResetPasswordPage() {
                                 value={confirmNewPassword}
                                 onChange={(e) => setConfirmNewPassword(e.target.value)}
                                 sx={{
-                                    width: '100%',
-                                    marginTop: '2rem',
+                                    width: '80%',
+                                    marginTop: '1rem',
                                 }}
                                 InputLabelProps={{
                                     style: {
@@ -179,7 +207,7 @@ const buttonStyle = {
     color: 'white',
     backgroundColor: '#155360',
     borderRadius: '10px',
-    marginTop: '2rem',
+    marginTop: '1.5rem',
     fontSize: { xs: '0.9rem', sm: '0.7rem', md: '1rem' }, // Adjust font size for different breakpoints
     '&:hover': {
         backgroundColor: 'rgba(52, 196, 181, 1)',
