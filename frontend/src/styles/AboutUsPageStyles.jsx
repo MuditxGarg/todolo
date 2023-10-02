@@ -23,7 +23,7 @@ const AboutUsPageStyles = createGlobalStyle`
   .team-header {
     font-family: 'Lilita One', cursive;
     font-size: 60px;
-    font-weight: 100;  
+    font-weight: 100;
 }
 
   .team-subtitle {
@@ -135,6 +135,51 @@ const AboutUsPageStyles = createGlobalStyle`
   .profile:hover .back {
     transform: rotateY(0deg);
     opacity: 1;
+  }
+
+  @media screen and (max-width: 1300px) {
+    body {
+      overflow: scroll;
+    }
+    .profiles-container {
+      flex-direction: column;
+      margin: auto;
+      overflow-y: scroll;
+    }
+    .centered-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      overflow-y: scroll;
+    }
+    .profile {
+      width: 100%;
+    }
+    .team-header {
+      font-size: 2.0rem;
+      margin-bottom: 0;
+
+    .team-subtitle {
+      font-size: 1.1rem;
+    }
+  }
+
+  @media screen and (min-width: 393px) and (max-width: 600px) {
+    .team-subtitle {
+      top: 150px;
+      font-size: 24px !important;
+    }
+  }
+
+  @media screen and (max-width: 392px) {
+    .team-subtitle {
+      top: 150px;
+      font-size: 20px !important;
+    }
+    .team-header {
+      font-size: 1.7rem;
+    }
   }
 `;
 

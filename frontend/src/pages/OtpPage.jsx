@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import CustomBox from '../components/CustomBox';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import OtpPageStyles from '../styles/OtpPageStyles';
 
 
 function OtpPage() {
@@ -31,36 +32,44 @@ function OtpPage() {
   };
 
   return (
-    <CustomBox height={'60vh'} width={'25vw'} buttonText={'Verify'} onButtonClick={handleSubmit}>
-      <Typography variant='subtitle' sx={{ color: '#155360', fontWeight: 'bold' }}>OTP has been sent on email</Typography>
-      <Box
-        sx={{
-          width: '70%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-evenly',
-          alignItems: 'flex-start',
-        }}
+    <>
+      <OtpPageStyles />
+      <CustomBox
+        height={'60vh'}
+        width={'25vw'}
+        buttonText={'Verify'}
+        onButtonClick={handleSubmit}
       >
-        <TextField
-          id="standard-basic"
-          label="OTP"
-          variant="standard"
-          sx={{ width: '100%' }}
-          InputLabelProps={{
-            style: {
-              color: '#155360',
-              fontWeight: 'bold',
-              fontSize: '13px',
-            },
+        <Typography variant='subtitle' sx={{ color: '#155360', fontWeight: 'bold' }}>OTP has been sent on email</Typography>
+        <Box
+          sx={{
+            width: '70%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-evenly',
+            alignItems: 'flex-start',
           }}
-          onChange={handleOtpChange}
-        />
-      </Box>
-      <div className="registration-text">
-        Did not get an OTP? <a href="/otp" className="signup-link">Resend!</a>
-      </div>
-    </CustomBox>
+        >
+          <TextField
+            id="standard-basic"
+            label="OTP"
+            variant="standard"
+            sx={{ width: '100%' }}
+            InputLabelProps={{
+              style: {
+                color: '#155360',
+                fontWeight: 'bold',
+                fontSize: '13px',
+              },
+            }}
+            onChange={handleOtpChange}
+          />
+        </Box>
+        <div className="registration-text">
+          Did not get an OTP? <a href="/otp" className="signup-link">Resend!</a>
+        </div>
+      </CustomBox>
+    </>
   );
 }
 

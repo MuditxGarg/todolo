@@ -11,6 +11,7 @@ import user from '../assets/user.png';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import AvatarSelectionModal from '../components/AvatarSelectionModal';
+import ProfilePageStyles from '../styles/ProfilePageStyles';
 
 function ProfilePage() {
   const [isChangePassword, setIsChangePassword] = useState(false);
@@ -121,6 +122,8 @@ function ProfilePage() {
   };
 
   return (
+    <>
+    <ProfilePageStyles />
     <Box
       sx={{
         height: '100vh',
@@ -142,6 +145,7 @@ function ProfilePage() {
           padding: '20px', // Add padding to the main container
           position: 'relative', // Make the inner box relative for positioning
         }}
+        className='parentContainer'
       >
         {!isChangePassword && (
           <>
@@ -357,6 +361,7 @@ function ProfilePage() {
         onSelect={handleAvatarSelection}
       />
     </Box>
+    </>
   );
 }
 

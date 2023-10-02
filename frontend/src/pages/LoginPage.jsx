@@ -6,6 +6,7 @@ import Link from '@mui/material/Link';
 import Swal from 'sweetalert2';
 import CustomBox from '../components/CustomBox';
 import { useNavigate } from 'react-router-dom';
+import LoginPageStyles from '../styles/LoginPageStyles';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -35,6 +36,7 @@ function LoginPage() {
       setPasswordPlaceholder('8 characters or more');
     }
   };
+
 
   const handleSubmit = () => {
     if (email.trim() === '') {
@@ -72,6 +74,8 @@ function LoginPage() {
   };
 
   return (
+    <>
+    <LoginPageStyles />
     <Box
       sx={{
         height: '100vh',
@@ -147,6 +151,7 @@ function LoginPage() {
         </Box>
       </CustomBox>
     </Box>
+    </>
   );
 }
 

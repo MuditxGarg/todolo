@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import backIcon from '../assets/back-arrow.png';
 import logo from '../assets/TODOLO_final.png';
 import Swal from 'sweetalert2'; // Import Swal for alerts
+import ResetPasswordPageStyles from '../styles/ResetPasswordPageStyles';
 
 function ResetPasswordPage() {
     const [currentStep, setCurrentStep] = useState(0);
@@ -44,7 +45,7 @@ function ResetPasswordPage() {
             setIsOtpSent(true);
             setCurrentStep(1);
         }
-        
+
     };
 
     const handleVerifyOtp = () => {
@@ -65,7 +66,7 @@ function ResetPasswordPage() {
             });
             return;
         }
-        
+
         setIsOtpVerified(true);
         setCurrentStep(2);
     };
@@ -116,7 +117,7 @@ function ResetPasswordPage() {
     const handlePasswordChange = (event) => {
         const newPassword = event.target.value;
         setNewPassword(newPassword);
-    
+
         // Clear the placeholder when the user starts typing
         if (newPassword) {
           setPasswordPlaceholder('');
@@ -128,7 +129,7 @@ function ResetPasswordPage() {
       const handleConfirmPasswordChange = (event) => {
         const newPassword = event.target.value;
         setConfirmNewPassword(newPassword);
-    
+
         // Clear the placeholder when the user starts typing
         if (newPassword) {
           setPasswordPlaceholder('');
@@ -138,6 +139,8 @@ function ResetPasswordPage() {
       };
 
     return (
+        <>
+        <ResetPasswordPageStyles />
         <Box sx={{ height: '100vh', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Box
                 sx={{
@@ -154,6 +157,7 @@ function ResetPasswordPage() {
                     padding: '10px',
                     position: 'relative',
                 }}
+                className='parentContainer'
             >
                 {currentStep >= -1 && (
                     <img
@@ -302,6 +306,7 @@ function ResetPasswordPage() {
                 </Box>
             </Box>
         </Box>
+        </>
     );
 }
 

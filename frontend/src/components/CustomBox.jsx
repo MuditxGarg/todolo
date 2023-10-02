@@ -15,6 +15,7 @@ function CustomBox({ height, width, buttonText, paddingB, onButtonClick, childre
 
   return (
     <Box
+      id='customBoxOuter'
       sx={{
         height: { xs: xsHeight, sm: height }, // Adjust height for different breakpoints
         width: {

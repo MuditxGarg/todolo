@@ -8,6 +8,7 @@ import editIcon from '../assets/pencil.png';
 import deleteIcon from '../assets/delete.png';
 import Swal from 'sweetalert2';
 import '../styles/swalButtonStyles.css';
+import ListComponentStyles from '../styles/ListComponentStyles';
 
 function ListComponent({ onCategoryClick }) {
   const [categories, setCategories] = useState([]);
@@ -91,6 +92,8 @@ function ListComponent({ onCategoryClick }) {
   };
 
   return (
+    <>
+    <ListComponentStyles />
     <Box
       sx={{
         height: '80vh',
@@ -107,6 +110,7 @@ function ListComponent({ onCategoryClick }) {
         position: 'relative',
         padding: '1rem',
       }}
+      className='parentContainer'
     >
       <Typography
         variant='h5'
@@ -205,6 +209,7 @@ function ListComponent({ onCategoryClick }) {
         Add Category +
       </Button>
     </Box>
+    </>
   );
 }
 

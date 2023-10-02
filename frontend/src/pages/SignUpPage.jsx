@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import CustomBox from '../components/CustomBox';
 import Swal from 'sweetalert2';
+import SignUpPageStyles from '../styles/SignUpPageStyles';
 
 function SignUpPage() {
   const [email, setEmail] = useState('');
@@ -103,6 +104,8 @@ function SignUpPage() {
   };
 
   return (
+    <>
+    <SignUpPageStyles />
     <Box
       sx={{
         height: '100vh',
@@ -114,7 +117,14 @@ function SignUpPage() {
         position: 'relative',
       }}
     >
-      <CustomBox height={'70%'} width={'25%'} buttonText={'SignUp'} onButtonClick={handleSubmit}>
+
+        <CustomBox
+          height={'75%'}
+          width={'25%'}
+          buttonText={'SignUp'}
+          onButtonClick={handleSubmit}
+          paddingB={'1.2rem'}
+        >
         <Box
           sx={{
             width: '100%', // Changed to 100%
@@ -194,18 +204,19 @@ function SignUpPage() {
             placeholder={passwordPlaceholder}
           />
         </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            top: '37rem',
+            marginBottom: '2rem',
+          }}
+        >
+          Already registered? <Link to="/login" className="signup-link">Login!</Link>
+        </Box>
       </CustomBox>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          position: 'absolute',
-          top: '37rem',
-        }}
-      >
-        Already registered? <Link to="/login" className="signup-link">Login!</Link>
-      </Box>
     </Box>
+    </>
   );
 }
 

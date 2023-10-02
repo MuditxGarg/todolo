@@ -10,6 +10,7 @@ import editIcon from '../assets/pencil.png';
 import backIcon from '../assets/back-arrow.png';
 import Swal from 'sweetalert2';
 import '../styles/swalButtonStyles.css';
+import TodoComponentStyles from '../styles/TodoComponentStyles';
 
 function TodoComponent({ category, onReturn }) {
   const [tasks, setTasks] = useState([]);
@@ -109,6 +110,8 @@ function TodoComponent({ category, onReturn }) {
   };
 
   return (
+    <>
+    <TodoComponentStyles />
     <Box
       sx={{
         height: '70vh',
@@ -125,6 +128,7 @@ function TodoComponent({ category, onReturn }) {
         position: 'relative',
         padding: '1rem',
       }}
+      className='parentContainer'
     >
       <img
         src={backIcon}
@@ -263,6 +267,7 @@ function TodoComponent({ category, onReturn }) {
         Add Task +
       </Button>
     </Box>
+    </>
   );
 }
 
