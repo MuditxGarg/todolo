@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -27,6 +27,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 function ResponsiveAppBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Check if the current URL is "/todo" or "/profile" and set isLoggedIn to true accordingly
@@ -41,6 +42,10 @@ function ResponsiveAppBar() {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  const redirectToProfile = () => {
+    navigate('/profile'); // Use navigate to redirect to /profile
   };
 
   return (
@@ -101,6 +106,7 @@ function ResponsiveAppBar() {
                   aria-label="User Menu"
                   aria-controls="user-menu"
                   aria-haspopup="true"
+                  onClick={redirectToProfile}
                 >
                   <Avatar
                     sx={{
