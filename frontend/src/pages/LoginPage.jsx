@@ -5,11 +5,15 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Swal from 'sweetalert2';
 import CustomBox from '../components/CustomBox';
+import { useNavigate } from 'react-router-dom';
+
 
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordPlaceholder, setPasswordPlaceholder] = useState('Password (at least 8 characters)');
+  const navigate = useNavigate();
+
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -63,6 +67,7 @@ function LoginPage() {
       });
     }else {
       console.log('Form submitted with email:', email, 'and password:', password);
+	  navigate('/todo');
     }
   };
 
