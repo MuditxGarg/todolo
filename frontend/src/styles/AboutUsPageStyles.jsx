@@ -1,21 +1,35 @@
-.centered-container {
-    display: relative; /* Set the position of the container to relative */
+import { createGlobalStyle } from 'styled-components';
+
+const AboutUsPageStyles = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+
+  .centered-container {
+    display: relative;
     text-align: center;
-    margin-top: 200px; /* Adjust top margin for spacing */
+    margin-top: 200px;
+  }
+
+  .team-header, .team-subtitle {
+    margin-bottom: 20px;
+    position: absolute;
+    top: 90px; /* Adjust this value to move the header above */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    border-radius: 6px;
+    color: #155360;
   }
 
   .team-header {
-    font-size: 24px; /* Increase font size for the header */
+    font-family: 'Lilita One', cursive;
+    font-size: 60px;
+    font-weight: 100;  
+}
+
+  .team-subtitle {
+    top: 170px;
+    font-size: 30px;
     font-weight: bold;
-    margin-bottom: 20px; /* Add some spacing below the header */
-    position: absolute; /* Set the position of the header to absolute */
-    top: 90px; /* Adjust this value to move the header above */
-    left: 50%; /* Center the header horizontally */
-    transform: translateX(-50%); /* Center horizontally */
-    background-color: white; /* Add background color to match the profile container */
-    padding: 10px 20px; /* Add padding to the header */
-    border-radius: 6px; /* Add border-radius to match the profile container */
-    border: 7px solid #155360; /* Add border to match the profile container */
   }
 
   .profiles-container {
@@ -29,7 +43,7 @@
   .profile {
     background-color: white;
     border-radius: 6px;
-    width: calc(20% - 20px); /* Adjust width for each profile card */
+    width: calc(20% - 20px);
     margin-bottom: 20px;
     box-sizing: border-box;
     border: 7px solid #155360;
@@ -52,7 +66,6 @@
 
   .profile_image {
     margin-top: -10px;
-    -webkit-clip-path: polygon(0 9%, 100% 0, 100% 94%, 0% 100%);
     clip-path: polygon(0 9%, 100% 0, 100% 94%, 0% 100%);
     height: 300px;
     overflow: hidden;
@@ -81,7 +94,7 @@
   }
 
   /* Back Content */
-.profile_content.back {
+  .profile_content.back {
     transform: rotateY(0deg);
     display: flex;
     flex-direction: column;
@@ -120,6 +133,9 @@
   }
 
   .profile:hover .back {
-      transform: rotateY(0deg);
-      opacity: 1;
+    transform: rotateY(0deg);
+    opacity: 1;
   }
+`;
+
+export default AboutUsPageStyles;
