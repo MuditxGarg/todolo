@@ -17,6 +17,9 @@ function ResetPasswordPage() {
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const navigate = useNavigate();
+    const [passwordPlaceholder, setPasswordPlaceholder] = useState(
+        '8 characters or more'
+      );
 
     const handleSendOtp = () => {
 
@@ -93,7 +96,6 @@ function ResetPasswordPage() {
             });
             return;
         }
-
         navigate('/login');
     };
 
@@ -110,6 +112,30 @@ function ResetPasswordPage() {
             navigate('/login');
         }
     };
+
+    const handlePasswordChange = (event) => {
+        const newPassword = event.target.value;
+        setNewPassword(newPassword);
+    
+        // Clear the placeholder when the user starts typing
+        if (newPassword) {
+          setPasswordPlaceholder('');
+        } else {
+          setPasswordPlaceholder('8 characters or more');
+        }
+      };
+
+      const handleConfirmPasswordChange = (event) => {
+        const newPassword = event.target.value;
+        setConfirmNewPassword(newPassword);
+    
+        // Clear the placeholder when the user starts typing
+        if (newPassword) {
+          setPasswordPlaceholder('');
+        } else {
+          setPasswordPlaceholder('8 characters or more');
+        }
+      };
 
     return (
         <Box sx={{ height: '100vh', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -246,6 +272,8 @@ function ResetPasswordPage() {
                                         fontSize: '13px',
                                     }
                                 }}
+                                placeholder={passwordPlaceholder}
+
                             />
                             <TextField
                                 type="password"
@@ -264,6 +292,7 @@ function ResetPasswordPage() {
                                         fontSize: '13px',
                                     }
                                 }}
+                                placeholder={passwordPlaceholder}
                             />
                             <Button onClick={handleSubmitNewPassword} variant="contained" sx={buttonStyle}>
                                 Submit

@@ -11,7 +11,7 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordPlaceholder, setPasswordPlaceholder] = useState(
-    'Password (at least 8 characters)'
+    '8 characters or more'
   );
   const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ function LoginPage() {
     if (newPassword) {
       setPasswordPlaceholder('');
     } else {
-      setPasswordPlaceholder('Password (at least 8 characters)');
+      setPasswordPlaceholder('8 characters or more');
     }
   };
 

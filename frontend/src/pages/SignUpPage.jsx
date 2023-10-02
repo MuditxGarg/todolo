@@ -12,22 +12,41 @@ function SignUpPage() {
   const [name, setName] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
-
+  const [passwordPlaceholder, setPasswordPlaceholder] = useState(
+    '8 characters or more'
+  );
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+    const newPassword = event.target.value;
+    setPassword(newPassword);
+
+    // Clear the placeholder when the user starts typing
+    if (newPassword) {
+      setPasswordPlaceholder('');
+    } else {
+      setPasswordPlaceholder('8 characters or more');
+    }
   };
+
 
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
-
   const handleConfirmPasswordChange = (event) => {
-    setConfirmPassword(event.target.value);
+    const newPassword = event.target.value;
+    setConfirmPassword(newPassword);
+
+    // Clear the placeholder when the user starts typing
+    if (newPassword) {
+      setPasswordPlaceholder('');
+    } else {
+      setPasswordPlaceholder('8 characters or more');
+    }
   };
+
 
   const isEmailValid = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -154,6 +173,7 @@ function SignUpPage() {
             }}
             type="password"
             onChange={handlePasswordChange}
+            placeholder={passwordPlaceholder}
           />
           <TextField
             label="Confirm Password"
@@ -171,6 +191,7 @@ function SignUpPage() {
             }}
             type="password"
             onChange={handleConfirmPasswordChange}
+            placeholder={passwordPlaceholder}
           />
         </Box>
       </CustomBox>

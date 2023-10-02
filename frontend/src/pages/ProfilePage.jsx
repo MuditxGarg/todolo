@@ -13,11 +13,48 @@ function ProfilePage() {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
+    const [passwordPlaceholder, setPasswordPlaceholder] = useState(
+        '8 characters or more'
+      );
 
 
-    const handleChangePassword = () => {
+      const handleChangePassword = (event) => {
+        const newPassword = event.target.value;
+        setNewPassword(newPassword);
         setIsChangePassword(true);
-    };
+        // Clear the placeholder when the user starts typing
+        if (newPassword) {
+          setPasswordPlaceholder('');
+        } else {
+          setPasswordPlaceholder('8 characters or more');
+        }
+      };
+      
+      const handleCurrentPasswordChange = (event) => {
+        const newPassword = event.target.value;
+        setCurrentPassword(newPassword);
+    
+        // Clear the placeholder when the user starts typing
+        if (newPassword) {
+          setPasswordPlaceholder('');
+        } else {
+          setPasswordPlaceholder('8 characters or more');
+        }
+      };
+
+      const handleConfirmPasswordChange = (event) => {
+        const newPassword = event.target.value;
+        setConfirmNewPassword(newPassword);
+    
+        // Clear the placeholder when the user starts typing
+        if (newPassword) {
+          setPasswordPlaceholder('');
+        } else {
+          setPasswordPlaceholder('8 characters or more');
+        }
+      };
+
+      
 
     const handleBack = () => {
         setIsChangePassword(false);
@@ -196,6 +233,8 @@ function ProfilePage() {
                                   fontSize: '13px',
                                 },
                               }}    
+                              placeholder={passwordPlaceholder}
+                            
                         />
                         <TextField
                             type="password"
@@ -211,6 +250,8 @@ function ProfilePage() {
                                   fontSize: '13px',
                                 },
                               }}
+                              placeholder={passwordPlaceholder}
+
                         />
                         <TextField
                             type="password"
@@ -226,6 +267,7 @@ function ProfilePage() {
                                   fontSize: '13px',
                                 },
                               }}
+                              placeholder={passwordPlaceholder}
                         />
                         <Button onClick={handleSubmitPasswordChange} variant="contained" sx={buttonStyle}>
                             Submit
