@@ -7,11 +7,15 @@ import HelpPageStyles from '../styles/HelpPageStyles';
 // Define a styled Card component using @mui/system
 // Define a styled Card component using @mui/system
 const StyledCard = styled(Card)(({ theme }) => ({
+  width: '80%',
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
   boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.5)', // Add a boxShadow for the shadow effect
   border: '2px solid #155360',
+  marginLeft: '40px',
+  marginRight: '40px',
+  marginBottom: '-10px'
 }));
 
 

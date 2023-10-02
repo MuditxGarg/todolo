@@ -45,7 +45,7 @@ const AboutUsPage = () => {
       <AboutUsPageStyles /> {
       <div className="centered-container">
         <Typography variant="h2" className="team-header" sx={{color:'#155360'}}>
-          Our Team,
+          OUR TEAM,
         </Typography>
         <Typography variant="h4" className="team-subtitle" sx={{color:'#155360'}}>
           The Minds behind TODOLO
