@@ -108,10 +108,17 @@ function ResetPasswordPage() {
                             <Typography variant="subtitle1" sx={{ width: '100%', textAlign: 'center', paddingBottom: '1.2rem', color: '#155360', fontWeight:'600', borderBottom: '2px solid #34C4B5' }}>Enter OTP received on email</Typography>
 
                             <TextField
-                                type="text"
+                                variant="standard"
                                 label="Enter OTP"
                                 value={otp}
                                 onChange={(e) => setOtp(e.target.value)}
+                                InputLabelProps={{
+                                    style: {
+                                      color: '#155360',
+                                      fontWeight: 'bold',
+                                      fontSize: '15px',
+                                    },
+                                  }}
                                 sx={{ width: '60%', marginBottom: '10px', marginTop: '2.5rem' }}
                             />
                             <Button onClick={handleVerifyOtp} variant="contained" sx={buttonStyle}>
@@ -123,6 +130,7 @@ function ResetPasswordPage() {
                             <Typography variant="subtitle1" sx={{ width: '100%', textAlign: 'center', paddingBottom: '1.2rem', color: '#155360', fontWeight:'600', borderBottom: '2px solid #34C4B5'}}>Set New Password</Typography>
                             <TextField
                                 type="password"
+                                variant="standard"
                                 label="New Password"
                                 value={newPassword}
                                 onChange={(e) => setNewPassword(e.target.value)}
@@ -140,6 +148,7 @@ function ResetPasswordPage() {
                             />
                             <TextField
                                 type="password"
+                                variant="standard"
                                 label="Confirm New Password"
                                 value={confirmNewPassword}
                                 onChange={(e) => setConfirmNewPassword(e.target.value)}
@@ -170,7 +179,7 @@ const buttonStyle = {
     color: 'white',
     backgroundColor: '#155360',
     borderRadius: '10px',
-    marginTop: '3rem',
+    marginTop: '2rem',
     fontSize: { xs: '0.9rem', sm: '0.7rem', md: '1rem' }, // Adjust font size for different breakpoints
     '&:hover': {
         backgroundColor: 'rgba(52, 196, 181, 1)',

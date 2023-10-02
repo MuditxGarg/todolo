@@ -7,7 +7,7 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import TodoPage from './pages/TodoPage';
 import ProfilePage from './pages/ProfilePage';
-import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 import HelpPage from './pages/HelpPage';
 import AboutUsPage from './pages/AboutUsPage';
 
@@ -22,7 +22,7 @@ function App() {
             <Route path='/signup' element={<SignUpPage/>}/>
             <Route path='/todo' element={<TodoPage/>}/>
             <Route path='/profile' element={<ProfilePage/>}/>
-            <Route path='/resetPassword' element={<ForgotPasswordPage/>}/>
+            <Route path='/resetPassword' element={<ResetPasswordPage/>}/>
             <Route path='/help' element={<HelpPage/>}/>
             <Route path='/about' element={<AboutUsPage/>}/>
         </Routes>
