@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import logo from '../assets/todoloLogo.png';
+import logo from '../assets/TODOLO_final.png';
 
 function CustomBox({ height, width, buttonText, paddingB, onButtonClick, children }) {
   const xsHeight = `calc(${height} * 0.9)`;

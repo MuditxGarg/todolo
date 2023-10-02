@@ -102,7 +102,7 @@ function SignUpPage() {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-evenly',
-            alignItems: 'flex-start',
+            alignItems: 'center',
             padding: '2rem', // Added padding for spacing
           }}
         >
@@ -110,7 +110,7 @@ function SignUpPage() {
             label="Name"
             variant="standard"
             sx={{
-              width: '100%',
+              width: '80%',
               marginTop: '0.5rem',
             }}
             InputLabelProps={{
@@ -126,7 +126,7 @@ function SignUpPage() {
             label="Email"
             variant="standard"
             sx={{
-              width: '100%',
+              width: '80%',
               marginTop: '0.5rem',
             }}
             InputLabelProps={{
@@ -142,7 +142,7 @@ function SignUpPage() {
             label="Password"
             variant="standard"
             sx={{
-              width: '100%',
+              width: '80%',
               marginTop: '0.5rem',
             }}
             InputLabelProps={{
@@ -159,7 +159,7 @@ function SignUpPage() {
             label="Confirm Password"
             variant="standard"
             sx={{
-              width: '100%',
+              width: '80%',
               marginTop: '0.5rem',
             }}
             InputLabelProps={{
