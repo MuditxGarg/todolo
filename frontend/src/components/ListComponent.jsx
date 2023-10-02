@@ -17,6 +17,12 @@ function ListComponent({ onCategoryClick }) {
     if (newCategory.trim() !== '') {
       setCategories([...categories, newCategory]);
       setNewCategory('');
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Category name cannot be empty!',
+        text: 'Please enter a category name.',
+      });
     }
   };
 

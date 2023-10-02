@@ -19,6 +19,12 @@ function TodoComponent({ category, onReturn }) {
     if (newTask.trim() !== '') {
       setTasks([...tasks, { text: newTask, checked: false }]);
       setNewTask('');
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Task name cannot be empty!',
+        text: 'Please enter a task name.',
+      });
     }
   };
 
@@ -93,12 +99,14 @@ function TodoComponent({ category, onReturn }) {
     setTasks(updatedTasks);
   };
 
-  // function toggleTextExpansion(index) {
-  //   const newExpandedTasks = [...expandedTasks];
-  //   newExpandedTasks[index] = !newExpandedTasks[index];
-  //   setExpandedTasks(newExpandedTasks);
-  // };
+  const handleTextClick = (event, text) => {
+    const spanElement = event.target;
 
+    if (spanElement.scrollWidth > spanElement.clientWidth) {
+      // Text is overflowing, display a Swal message
+      Swal.fire(text);
+    }
+  };
 
   return (
     <Box
@@ -187,7 +195,9 @@ function TodoComponent({ category, onReturn }) {
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
                 maxWidth: '80%',
+                cursor: 'pointer',
               }}
+              onClick={(event) => handleTextClick(event, task.text)}
             >
               {task.text}
             </span>
