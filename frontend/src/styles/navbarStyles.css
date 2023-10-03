@@ -1,3 +1,9 @@
 .css-1q39md6-MuiButtonBase-root-MuiButton-root {
     color: #155360 !important;
 }
+
+@media and screen (max-width: 899px) {
+    .navLogo {
+        display: none;
+    }
+}

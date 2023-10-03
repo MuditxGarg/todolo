@@ -16,42 +16,56 @@ import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import NavLogo from '../assets/logo_no_background.png'; // Import your logo image
+import '../styles/navbarStyles.css'; // Import your custom CSS styles
 
+// Define an array of page links
 const pages = [
   { label: 'Home', url: '/' },
   { label: 'Help', url: '/help' },
   { label: 'Our Team', url: '/about' },
 ];
+
+// Define an array of user settings
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navigate = useNavigate();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State to manage mobile menu
+  const navigate = useNavigate(); // Function for programmatic navigation
 
   useEffect(() => {
-    // Check if the current URL is "/todo" or "/profile" and set isLoggedIn to true accordingly
+    // Check the current URL and set isLoggedIn to true if on '/todo' or '/profile'
     if (window.location.pathname === '/todo' || window.location.pathname === '/profile') {
       setIsLoggedIn(true);
     }
-  }, []);
+  }, []); // Run this effect only once, on component mount
 
+  // Function to toggle the mobile menu
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  // Function to close the mobile menu
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
 
+  // Function to redirect to the user's profile page
   const redirectToProfile = () => {
-    navigate('/profile'); // Use navigate to redirect to /profile
+    navigate('/profile'); // Use the navigate function to redirect
   };
 
+  const navLogoRedirect = () => {
+    navigate('/');
+  }
+
   return (
+    // The main AppBar component
     <AppBar position="static" sx={{ backgroundColor: '#BEF7F1' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/* Menu Icon for Mobile */}
           <IconButton
             edge="start"
             color="inherit"
@@ -61,6 +75,23 @@ function ResponsiveAppBar() {
           >
             <MenuIcon />
           </IconButton>
+
+          {/* Logo Image */}
+          <img
+            src={NavLogo} // Replace with the actual path to your logo image
+            className='navLogo' // Apply custom CSS class for styling
+            alt="Website Logo"
+            style={{
+              width: '70px', // Set the desired width for your image
+              height: '55px', // Set the desired height for your image
+              objectFit: 'cover', // Use 'cover' to fill the circular space
+              objectPosition: 'center center', // Center the image within the circle
+              cursor: 'pointer',
+            }}
+            onClick={navLogoRedirect}
+          />
+
+          {/* Navigation Links */}
           <Typography
             variant="h5"
             noWrap
@@ -77,8 +108,10 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
+            {/* Text or logo next to the logo, if needed */}
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, marginLeft: '1.4rem' }}>
+            {/* Map through 'pages' array to create navigation buttons */}
             {pages.map((page) => (
               <Button
                 key={page.label}
@@ -97,6 +130,7 @@ function ResponsiveAppBar() {
             ))}
           </Box>
 
+          {/* User Menu (Avatar or Login Button) */}
           <Box sx={{ flexGrow: 0 }}>
             {isLoggedIn ? (
               // Render Avatar with circle when user is logged in
@@ -138,6 +172,7 @@ function ResponsiveAppBar() {
             )}
           </Box>
         </Toolbar>
+
         {/* Mobile menu */}
         <Drawer
           anchor="left"
@@ -150,6 +185,7 @@ function ResponsiveAppBar() {
           }}
         >
           <List>
+            {/* Map through 'pages' array to create mobile menu items */}
             {pages.map((page) => (
               <ListItem
                 key={page.label}
