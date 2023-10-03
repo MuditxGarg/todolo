@@ -62,7 +62,21 @@ function ProfilePage() {
   };
 
   const handleLogout = () => {
-    navigate('/');
+    Swal.fire({
+      title: 'Logout',
+      text: 'Are you sure you want to logout?',
+      icon: 'question',
+      iconColor: 'red',
+      showCancelButton: true,
+      confirmButtonText: 'Logout',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: 'red',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate('/');
+        // Perform the logout logic here if needed
+      }
+    });
   };
 
   const handleTodoList = () => {

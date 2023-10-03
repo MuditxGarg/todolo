@@ -32,10 +32,10 @@ function SignUpPage() {
     }
   };
 
-
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
+
   const handleConfirmPasswordChange = (event) => {
     const newPassword = event.target.value;
     setConfirmPassword(newPassword);
@@ -48,14 +48,20 @@ function SignUpPage() {
     }
   };
 
-
   const isEmailValid = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
   const handleSubmit = () => {
-    if (name.trim() === '') {
+    const nameRegex = /^[A-Za-z\s]+$/; // Allow only letters and spaces in the name
+    if (!name.match(nameRegex)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Invalid Name!',
+        text: 'Name cannot contain numbers or special characters.',
+      });
+    } else if (name.trim() === '') {
       Swal.fire({
         icon: 'error',
         title: 'Name cannot be empty!',
@@ -105,19 +111,18 @@ function SignUpPage() {
 
   return (
     <>
-    <SignUpPageStyles />
-    <Box
-      sx={{
-        height: '100vh',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'relative',
-      }}
-    >
-
+      <SignUpPageStyles />
+      <Box
+        sx={{
+          height: '100vh',
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'relative',
+        }}
+      >
         <CustomBox
           height={'75%'}
           width={'25%'}
@@ -125,100 +130,99 @@ function SignUpPage() {
           onButtonClick={handleSubmit}
           paddingB={'1.2rem'}
         >
-        <Box
-          sx={{
-            width: '100%', // Changed to 100%
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-            padding: '2rem', // Added padding for spacing
-          }}
-        >
-          <TextField
-            label="Name"
-            variant="standard"
+          <Box
             sx={{
-              width: '80%',
-              marginTop: '0.5rem',
+              width: '100%', // Changed to 100%
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-evenly',
+              alignItems: 'center',
+              padding: '2rem', // Added padding for spacing
             }}
-            InputLabelProps={{
-              style: {
-                color: '#155360',
-                fontWeight: 'bold',
-                fontSize: '13px',
-              },
-            }}
-            onChange={handleNameChange}
-          />
-          <TextField
-            label="Email"
-            variant="standard"
+          >
+            <TextField
+              label="Name"
+              variant="standard"
+              sx={{
+                width: '80%',
+                marginTop: '0.5rem',
+              }}
+              InputLabelProps={{
+                style: {
+                  color: '#155360',
+                  fontWeight: 'bold',
+                  fontSize: '13px',
+                },
+              }}
+              onChange={handleNameChange}
+            />
+            <TextField
+              label="Email"
+              variant="standard"
+              sx={{
+                width: '80%',
+                marginTop: '0.5rem',
+              }}
+              InputLabelProps={{
+                style: {
+                  color: '#155360',
+                  fontWeight: 'bold',
+                  fontSize: '13px',
+                },
+              }}
+              onChange={handleEmailChange}
+            />
+            <TextField
+              label="Password"
+              variant="standard"
+              sx={{
+                width: '80%',
+                marginTop: '0.5rem',
+              }}
+              InputLabelProps={{
+                style: {
+                  color: '#155360',
+                  fontWeight: 'bold',
+                  fontSize: '13px',
+                },
+              }}
+              type="password"
+              onChange={handlePasswordChange}
+              placeholder={passwordPlaceholder}
+            />
+            <TextField
+              label="Confirm Password"
+              variant="standard"
+              sx={{
+                width: '80%',
+                marginTop: '0.5rem',
+              }}
+              InputLabelProps={{
+                style: {
+                  color: '#155360',
+                  fontWeight: 'bold',
+                  fontSize: '13px',
+                },
+              }}
+              type="password"
+              onChange={handleConfirmPasswordChange}
+              placeholder={passwordPlaceholder}
+            />
+          </Box>
+          <Box
             sx={{
-              width: '80%',
-              marginTop: '0.5rem',
+              display: 'flex',
+              justifyContent: 'center',
+              top: '37rem',
+              marginBottom: '2rem',
             }}
-            InputLabelProps={{
-              style: {
-                color: '#155360',
-                fontWeight: 'bold',
-                fontSize: '13px',
-              },
-            }}
-            onChange={handleEmailChange}
-          />
-          <TextField
-            label="Password"
-            variant="standard"
-            sx={{
-              width: '80%',
-              marginTop: '0.5rem',
-            }}
-            InputLabelProps={{
-              style: {
-                color: '#155360',
-                fontWeight: 'bold',
-                fontSize: '13px',
-              },
-            }}
-            type="password"
-            onChange={handlePasswordChange}
-            placeholder={passwordPlaceholder}
-          />
-          <TextField
-            label="Confirm Password"
-            variant="standard"
-            sx={{
-              width: '80%',
-              marginTop: '0.5rem',
-            }}
-            InputLabelProps={{
-              style: {
-                color: '#155360',
-                fontWeight: 'bold',
-                fontSize: '13px',
-              },
-            }}
-            type="password"
-            onChange={handleConfirmPasswordChange}
-            placeholder={passwordPlaceholder}
-          />
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            top: '37rem',
-            marginBottom: '2rem',
-          }}
-        >
-          Already registered? <Link to="/login" className="signup-link">Login!</Link>
-        </Box>
-      </CustomBox>
-    </Box>
+          >
+            Already registered? <Link to="/login" className="signup-link">Login!</Link>
+          </Box>
+        </CustomBox>
+      </Box>
     </>
   );
 }
 
 export default SignUpPage;
-
