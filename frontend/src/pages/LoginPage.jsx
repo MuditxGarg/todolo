@@ -1,3 +1,4 @@
+// Import necessary dependencies and components
 import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -9,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import LoginPageStyles from '../styles/LoginPageStyles';
 
 function LoginPage() {
+  // Define state variables for email, password, and password placeholder
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordPlaceholder, setPasswordPlaceholder] = useState(
@@ -16,15 +18,18 @@ function LoginPage() {
   );
   const navigate = useNavigate();
 
+  // Event handler for email input change
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
 
+  // Function to validate email format
   const isEmailValid = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
+  // Event handler for password input change
   const handlePasswordChange = (event) => {
     const newPassword = event.target.value;
     setPassword(newPassword);
@@ -37,7 +42,7 @@ function LoginPage() {
     }
   };
 
-
+  // Event handler for form submission
   const handleSubmit = () => {
     if (email.trim() === '') {
       // Show Swal alert if the email is empty
@@ -68,92 +73,99 @@ function LoginPage() {
         text: 'Password should be at least 8 characters long.',
       });
     } else {
+      // If all validations pass, log the form submission and navigate to '/todo'
       console.log('Form submitted with email:', email, 'and password:', password);
       navigate('/todo');
     }
   };
 
+  // Render the login page components
   return (
     <>
-    <LoginPageStyles />
-    <Box
-      sx={{
-        height: '100vh',
-        overflow: 'hidden',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <CustomBox height={'70%'} width={'25%'} buttonText={'Login'} onButtonClick={handleSubmit}>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-evenly',
-            alignItems: 'flex-start',
-          }}
-        >
-          <TextField
-            label="Email"
-            variant="standard"
-            sx={{ width: '100%' }}
-            InputLabelProps={{
-              style: {
-                color: '#155360',
-                fontWeight: 'bold',
-                fontSize: '13px',
-              },
-            }}
-            value={email}
-            onChange={handleEmailChange}
-          />
-          <TextField
-            label="Password"
-            variant="standard"
-            sx={{
-              width: '100%',
-              marginTop: '2rem',
-            }}
-            InputLabelProps={{
-              style: {
-                color: '#155360',
-                fontWeight: 'bold',
-                fontSize: '13px',
-              },
-            }}
-            type="password"
-            value={password}
-            onChange={handlePasswordChange}
-            placeholder={passwordPlaceholder}
-          />
+      {/* Apply LoginPageStyles */}
+      <LoginPageStyles />
+      <Box
+        sx={{
+          height: '100vh',
+          overflow: 'hidden',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        {/* CustomBox component for the login form */}
+        <CustomBox height={'70%'} width={'25%'} buttonText={'Login'} onButtonClick={handleSubmit}>
           <Box
             sx={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              width: '100%',
-              marginTop: '1rem', // Add margin for spacing
+              flexDirection: 'column',
+              justifyContent: 'space-evenly',
+              alignItems: 'flex-start',
             }}
           >
-            <Typography variant="body2" sx={{ fontSize: '0.8rem' }}>
-              <Link href="/resetPassword" className="signup-link">
-                Forgot Password?
-              </Link>
-            </Typography>
-            <Typography variant="body2" sx={{ fontSize: '0.8rem' }}>
-              Not registered?{' '}
-              <Link href="/signup" className="signup-link">
-                Sign Up!
-              </Link>
-            </Typography>
+            {/* Text field for entering email */}
+            <TextField
+              label="Email"
+              variant="standard"
+              sx={{ width: '100%' }}
+              InputLabelProps={{
+                style: {
+                  color: '#155360',
+                  fontWeight: 'bold',
+                  fontSize: '13px',
+                },
+              }}
+              value={email}
+              onChange={handleEmailChange}
+            />
+            {/* Text field for entering password */}
+            <TextField
+              label="Password"
+              variant="standard"
+              sx={{
+                width: '100%',
+                marginTop: '2rem',
+              }}
+              InputLabelProps={{
+                style: {
+                  color: '#155360',
+                  fontWeight: 'bold',
+                  fontSize: '13px',
+                },
+              }}
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder={passwordPlaceholder}
+            />
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                width: '100%',
+                marginTop: '1rem', // Add margin for spacing
+              }}
+            >
+              {/* Link to reset password page */}
+              <Typography variant="body2" sx={{ fontSize: '0.8rem' }}>
+                <Link href="/resetPassword" className="signup-link">
+                  Forgot Password?
+                </Link>
+              </Typography>
+              {/* Link to sign-up page */}
+              <Typography variant="body2" sx={{ fontSize: '0.8rem' }}>
+                Not registered?{' '}
+                <Link href="/signup" className="signup-link">
+                  Sign Up!
+                </Link>
+              </Typography>
+            </Box>
           </Box>
-        </Box>
-      </CustomBox>
-    </Box>
+        </CustomBox>
+      </Box>
     </>
   );
 }
 
 export default LoginPage;
-

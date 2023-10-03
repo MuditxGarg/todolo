@@ -1,3 +1,4 @@
+// Import necessary dependencies and components
 import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -7,15 +8,17 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import OtpPageStyles from '../styles/OtpPageStyles';
 
-
 function OtpPage() {
+  // Define state variable for OTP input and navigation
   const [otp, setOtp] = useState('');
   const navigate = useNavigate();
 
+  // Event handler for OTP input change
   const handleOtpChange = (event) => {
     setOtp(event.target.value);
   };
 
+  // Event handler for form submission
   const handleSubmit = () => {
     if (otp.trim() === '') {
       // Show a Swal alert if OTP is empty
@@ -27,12 +30,14 @@ function OtpPage() {
     } else {
       // Handle OTP verification here
       // You can add your OTP verification logic here
-	  navigate('/login');
+	  navigate('/login'); // Navigate to the login page upon successful OTP submission
     }
   };
 
+  // Render the OTP verification page components
   return (
     <>
+      {/* Apply OtpPageStyles */}
       <OtpPageStyles />
       <CustomBox
         height={'60vh'}
@@ -40,6 +45,7 @@ function OtpPage() {
         buttonText={'Verify'}
         onButtonClick={handleSubmit}
       >
+        {/* Display a message indicating that OTP has been sent to email */}
         <Typography variant='subtitle' sx={{ color: '#155360', fontWeight: 'bold' }}>OTP has been sent on email</Typography>
         <Box
           sx={{
@@ -50,6 +56,7 @@ function OtpPage() {
             alignItems: 'flex-start',
           }}
         >
+          {/* Text field for entering OTP */}
           <TextField
             id="standard-basic"
             label="OTP"
@@ -66,6 +73,7 @@ function OtpPage() {
           />
         </Box>
         <div className="registration-text">
+          {/* Offer an option to resend OTP */}
           Did not get an OTP? <a href="/otp" className="signup-link">Resend!</a>
         </div>
       </CustomBox>

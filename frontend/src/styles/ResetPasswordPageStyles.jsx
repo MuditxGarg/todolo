@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-const ProfilePageStyles = createGlobalStyle`
+const ResetPasswordPageStyles = createGlobalStyle`
   @media screen and (min-width: 1000px) {
     .parentContainer {
       width: 27%;
@@ -48,4 +48,4 @@ const ProfilePageStyles = createGlobalStyle`
   }
 `;
 
-export default ProfilePageStyles;
+export default ResetPasswordPageStyles;

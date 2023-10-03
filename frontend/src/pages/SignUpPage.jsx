@@ -1,3 +1,4 @@
+// Import necessary dependencies and components
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
@@ -8,18 +9,22 @@ import Swal from 'sweetalert2';
 import SignUpPageStyles from '../styles/SignUpPageStyles';
 
 function SignUpPage() {
+  // Define state variables for form inputs and navigation
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
-  const [passwordPlaceholder, setPasswordPlaceholder] = useState(
-    '8 characters or more'
-  );
+  
+  // State variable for password placeholder text
+  const [passwordPlaceholder, setPasswordPlaceholder] = useState('8 characters or more');
+  
+  // Event handler for email input change
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
 
+  // Event handler for password input change
   const handlePasswordChange = (event) => {
     const newPassword = event.target.value;
     setPassword(newPassword);
@@ -32,10 +37,12 @@ function SignUpPage() {
     }
   };
 
+  // Event handler for name input change
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
 
+  // Event handler for confirm password input change
   const handleConfirmPasswordChange = (event) => {
     const newPassword = event.target.value;
     setConfirmPassword(newPassword);
@@ -48,69 +55,85 @@ function SignUpPage() {
     }
   };
 
+  // Function to validate email format
   const isEmailValid = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
+  // Event handler for form submission
   const handleSubmit = () => {
-    const nameRegex = /^[A-Za-z\s]+$/; // Allow only letters and spaces in the name
+    // Regular expression to allow only letters and spaces in the name
+    const nameRegex = /^[A-Za-z\s]+/;
+
+    // Form validation checks
     if (!name.match(nameRegex)) {
+      // Display an error message for an invalid name
       Swal.fire({
         icon: 'error',
         title: 'Invalid Name!',
         text: 'Name cannot contain numbers or special characters.',
       });
     } else if (name.trim() === '') {
+      // Display an error message for an empty name field
       Swal.fire({
         icon: 'error',
         title: 'Name cannot be empty!',
         text: 'Please enter your name.',
       });
     } else if (email.trim() === '') {
+      // Display an error message for an empty email field
       Swal.fire({
         icon: 'error',
         title: 'Email cannot be empty!',
         text: 'Please enter your email.',
       });
     } else if (!isEmailValid(email)) {
+      // Display an error message for an invalid email format
       Swal.fire({
         icon: 'error',
         title: 'Invalid email format!',
         text: 'Please enter a valid email address.',
       });
     } else if (password.trim() === '') {
+      // Display an error message for an empty password field
       Swal.fire({
         icon: 'error',
         title: 'Password cannot be empty!',
         text: 'Please enter your password.',
       });
     } else if (password.length < 8) {
+      // Display an error message for a short password
       Swal.fire({
         icon: 'error',
         title: 'Password must be at least 8 characters long!',
         text: 'Please choose a longer password.',
       });
     } else if (confirmPassword.trim() === '') {
+      // Display an error message for an empty confirm password field
       Swal.fire({
         icon: 'error',
         title: 'Confirm Password cannot be empty!',
         text: 'Please confirm your password.',
       });
     } else if (password !== confirmPassword) {
+      // Display an error message for mismatched passwords
       Swal.fire({
         icon: 'error',
         title: 'Passwords do not match!',
         text: 'Please make sure your passwords match.',
       });
     } else {
+      // If all validations pass, log the form submission and navigate to '/otp'
       console.log('Form submitted with email:', email, 'and password:', password);
       navigate('/otp');
     }
   };
 
+  // Render the sign-up page components
   return (
     <>
+      {/* Apply SignUpPageStyles */}
       <SignUpPageStyles />
       <Box
         sx={{
@@ -123,6 +146,7 @@ function SignUpPage() {
           position: 'relative',
         }}
       >
+        {/* CustomBox component for the sign-up form */}
         <CustomBox
           height={'75%'}
           width={'25%'}
@@ -140,6 +164,7 @@ function SignUpPage() {
               padding: '2rem', // Added padding for spacing
             }}
           >
+            {/* Text fields for name, email, password, and confirm password */}
             <TextField
               label="Name"
               variant="standard"
@@ -217,6 +242,7 @@ function SignUpPage() {
               marginBottom: '2rem',
             }}
           >
+            {/* Link to the login page */}
             Already registered? <Link to="/login" className="signup-link">Login!</Link>
           </Box>
         </CustomBox>
