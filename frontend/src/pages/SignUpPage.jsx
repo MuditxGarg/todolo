@@ -54,11 +54,12 @@ function SignUpPage() {
   };
 
   const handleSubmit = () => {
-    if (!isNaN(name)) {
+    const nameRegex = /^[A-Za-z\s]+$/; // Allow only letters and spaces in the name
+    if (!name.match(nameRegex)) {
       Swal.fire({
         icon: 'error',
         title: 'Invalid Name!',
-        text: 'Name cannot be a number.',
+        text: 'Name cannot contain numbers or special characters.',
       });
     } else if (name.trim() === '') {
       Swal.fire({
