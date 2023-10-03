@@ -68,6 +68,7 @@ const AboutUsPageStyles = createGlobalStyle`
     margin-top: -10px;
     clip-path: polygon(0 9%, 100% 0, 100% 94%, 0% 100%);
     height: 300px;
+    width: 100%;
     overflow: hidden;
   }
 

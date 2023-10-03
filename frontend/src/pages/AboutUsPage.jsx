@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Typography } from '@mui/material';
-import NiharImage from '../assets/np.jpg';
-import OjaswiniImage from '../assets/ok.jpg';
-import MuditImage from '../assets/mg.jpg';
-import LokImage from '../assets/ln.jpg';
+import NiharImage from '../assets/nihar_photo.jpg';
+import OjaswiniImage from '../assets/ojaswini_photo.jpeg';
+import MuditImage from '../assets/mudit_photo.png';
+import LokImage from '../assets/lokhesh_photo.jpeg';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import AboutUsPageStyles from '../styles/AboutUsPageStyles'; // Import your styles once
@@ -12,28 +12,28 @@ const profiles = [
   {
     name: 'Nihar Phansalkar',
     image: NiharImage,
-    info: 'Full Stack Developer',
+    info: 'B.Tech CSE',
     linkedin: 'https://www.linkedin.com/in/nihar-phansalkar/',
     github: 'https://github.com/NiharPhansalkar',
   },
   {
     name: 'Ojaswini Kohale',
     image: OjaswiniImage,
-    info: 'Certified Ethical Hacker',
+    info: 'B.Tech CSE',
     linkedin: 'https://www.linkedin.com/in/ojaswini-kohale-139a96222/',
     github: 'https://github.com/OjaswiniKohale',
   },
   {
     name: 'Mudit Garg',
     image: MuditImage,
-    info: 'AI/ML Developer',
+    info: 'B.Tech CSE',
     linkedin: 'https://www.linkedin.com/in/gargmudit2708/',
     github: 'https://github.com/Muditxgarg',
   },
   {
     name: 'N.N. Lokhesh',
     image: LokImage,
-    info: 'Certified Cloud Architect',
+    info: 'B.Tech CSE',
     linkedin: 'https://www.linkedin.com/in/lokhesh-nidadavole-b45a14214/',
     github: 'https://github.com/cyberox33',
   },
