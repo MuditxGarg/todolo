@@ -12,15 +12,19 @@ import Swal from 'sweetalert2';
 import '../styles/swalButtonStyles.css';
 import TodoComponentStyles from '../styles/TodoComponentStyles';
 
+// Define a functional component named 'TodoComponent' that accepts 'category' and 'onReturn' as props.
 function TodoComponent({ category, onReturn }) {
+  // Define state variables for tasks and a new task input.
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
 
+  // Function to add a new task.
   const handleAddTask = () => {
     if (newTask.trim() !== '') {
       setTasks([...tasks, { text: newTask, checked: false }]);
       setNewTask('');
     } else {
+      // Show an error message using SweetAlert2 if the task name is empty.
       Swal.fire({
         icon: 'error',
         title: 'Task name cannot be empty!',
@@ -29,6 +33,7 @@ function TodoComponent({ category, onReturn }) {
     }
   };
 
+  // Function to delete a task, with confirmation dialog.
   const handleDeleteTask = (index) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -67,6 +72,7 @@ function TodoComponent({ category, onReturn }) {
       });
   };
 
+  // Function to show an edit task dialog.
   const showEditTaskModal = (index, task) => {
     Swal.fire({
       title: 'Edit your task',
@@ -87,12 +93,14 @@ function TodoComponent({ category, onReturn }) {
     });
   };
 
+  // Function to edit a task.
   const handleEditTask = (index, newValue) => {
     const updatedTasks = [...tasks];
     updatedTasks[index] = { text: newValue, checked: tasks[index].checked };
     setTasks(updatedTasks);
   };
 
+  // Function to toggle the checkbox of a task.
   const handleToggleCheckbox = (index) => {
     const updatedTasks = [...tasks];
     updatedTasks[index].checked = !updatedTasks[index].checked;
@@ -100,176 +108,182 @@ function TodoComponent({ category, onReturn }) {
     setTasks(updatedTasks);
   };
 
+  // Function to handle clicking on task text for overflow.
   const handleTextClick = (event, text) => {
     const spanElement = event.target;
 
     if (spanElement.scrollWidth > spanElement.clientWidth) {
-      // Text is overflowing, display a Swal message
+      // Text is overflowing, display a SweetAlert message.
       Swal.fire(text);
     }
   };
 
+  // Render the component with JSX.
   return (
     <>
-    <TodoComponentStyles />
-    <Box
-      sx={{
-        height: '70vh',
-        width: '60vw',
-        margin: 'auto',
-        marginTop: '2%',
-        backgroundColor: 'white',
-        borderRadius: '12px',
-        border: '3px solid #34C4B5',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        position: 'relative',
-        padding: '1rem',
-      }}
-      className='parentContainer'
-    >
-      <img
-        src={backIcon}
-        alt="Back"
-        onClick={onReturn}
-        style={{
-          position: 'absolute',
-          top: '0.1rem',
-          left: '0.1rem',
-          width: '35px',
-          height: '35px',
-          cursor: 'pointer',
-          paddingLeft: '5px',
-        }}
-      />
-      <Typography
-        variant='h5'
-        className='lilitaOne'
-        sx={{
-          color: '#155360',
-          fontWeight: 'bold',
-          textAlign: 'center',
-          marginBottom: '1rem',
-        }}
-      >
-        {`Tasks in ${category}`}
-      </Typography>
-
+      <TodoComponentStyles /> {/* Apply styles for this component */}
       <Box
         sx={{
-          width: '100%',
-          flex: '1',
+          // Define styles for the main container.
+          height: '70vh',
+          width: '60vw',
+          margin: 'auto',
+          marginTop: '2%',
+          backgroundColor: 'white',
+          borderRadius: '12px',
+          border: '3px solid #34C4B5',
           display: 'flex',
           flexDirection: 'column',
+          justifyContent: 'space-between',
           alignItems: 'center',
-          overflowY: 'auto',
+          position: 'relative',
+          padding: '1rem',
         }}
+        className='parentContainer' // Add a class name to the container
       >
-        {tasks.map((task, index) => (
-          <Paper
-            key={index}
-            elevation={3}
-            sx={{
-              padding: '1rem',
-              marginBottom: '0.7rem',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              borderColor: '#155360',
-              borderWidth: '2px',
-              borderStyle: 'solid',
-              borderRadius: '8px',
-              width: '80%',
-              height: '50px',
-              boxShadow: 'rgba(0, 0, 0, 0.4) 0px 4px 4px',
-              textDecoration: task.checked ? 'line-through' : 'none',
-              color: task.checked ? 'grey' : 'inherit',
-            }}
-          >
-            <Checkbox
-              color='primary'
-              checked={task.checked}
-              onChange={() => handleToggleCheckbox(index)}
-            />
-            <span
-              style={{
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-                maxWidth: '80%',
-                cursor: 'pointer',
+        <img
+          src={backIcon}
+          alt="Back"
+          onClick={onReturn} // Attach the click handler to the back button
+          style={{
+            position: 'absolute',
+            top: '0.1rem',
+            left: '0.1rem',
+            width: '35px',
+            height: '35px',
+            cursor: 'pointer',
+            paddingLeft: '5px',
+          }}
+        />
+        <Typography
+          variant='h5'
+          className='lilitaOne' // Apply a custom class for typography
+          sx={{
+            color: '#155360',
+            fontWeight: 'bold',
+            textAlign: 'center',
+            marginBottom: '1rem',
+          }}
+        >
+          {`Tasks in ${category}`} {/* Display the category name */}
+        </Typography>
+
+        <Box
+          sx={{
+            // Styles for the container of task items.
+            width: '100%',
+            flex: '1',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            overflowY: 'auto',
+          }}
+        >
+          {tasks.map((task, index) => (
+            <Paper
+              key={index}
+              elevation={3}
+              sx={{
+                // Styles for each task item.
+                padding: '1rem',
+                marginBottom: '0.7rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                borderColor: '#155360',
+                borderWidth: '2px',
+                borderStyle: 'solid',
+                borderRadius: '8px',
+                width: '80%',
+                height: '50px',
+                boxShadow: 'rgba(0, 0, 0, 0.4) 0px 4px 4px',
+                textDecoration: task.checked ? 'line-through' : 'none',
+                color: task.checked ? 'grey' : 'inherit',
               }}
-              onClick={(event) => handleTextClick(event, task.text)}
             >
-              {task.text}
-            </span>
-            <div>
-              <img
-                src={editIcon}
-                alt='Edit'
+              <Checkbox
+                color='primary'
+                checked={task.checked}
+                onChange={() => handleToggleCheckbox(index)}
+              />
+              <span
                 style={{
-                  width: '18px',
-                  height: '18px',
-                  marginRight: '3px',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  maxWidth: '80%',
                   cursor: 'pointer',
                 }}
-                onClick={() => showEditTaskModal(index, task)}
-              />
-              <img
-                src={deleteIcon}
-                alt='Delete'
-                style={{
-                  width: '18px',
-                  height: '18px',
-                  cursor: 'pointer',
-                }}
-                onClick={() => handleDeleteTask(index)}
-              />
-            </div>
-          </Paper>
-        ))}
+                onClick={(event) => handleTextClick(event, task.text)}
+              >
+                {task.text}
+              </span>
+              <div>
+                {/* Render edit and delete icons with click handlers. */}
+                <img
+                  src={editIcon}
+                  alt='Edit'
+                  style={{
+                    width: '18px',
+                    height: '18px',
+                    marginRight: '3px',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => showEditTaskModal(index, task)}
+                />
+                <img
+                  src={deleteIcon}
+                  alt='Delete'
+                  style={{
+                    width: '18px',
+                    height: '18px',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => handleDeleteTask(index)}
+                />
+              </div>
+            </Paper>
+          ))}
+        </Box>
 
+        <TextField
+          label='Add a New Task'
+          variant='outlined'
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+          InputProps={{
+            style: {
+              borderColor: '#155360',
+            },
+          }}
+          sx={{
+            width: '80%',
+            marginBottom: '1rem',
+          }}
+        />
+
+        <Button
+          variant='contained'
+          sx={{
+            // Styles for the "Add Task" button.
+            color: 'white',
+            backgroundColor: '#155360',
+            borderRadius: '10px',
+            fontSize: { xs: '0.5rem', sm: '0.7rem', md: '1rem' },
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            '&:hover': {
+              backgroundColor: 'rgba(52, 196, 181, 1)',
+            },
+          }}
+          onClick={handleAddTask} // Attach the click handler to the button.
+        >
+          Add Task +
+        </Button>
       </Box>
-
-      <TextField
-        label='Add a New Task'
-        variant='outlined'
-        value={newTask}
-        onChange={(e) => setNewTask(e.target.value)}
-        InputProps={{
-          style: {
-            borderColor: '#155360',
-          },
-        }}
-        sx={{
-          width: '80%',
-          marginBottom: '1rem',
-        }}
-      />
-
-      <Button
-        variant='contained'
-        sx={{
-          color: 'white',
-          backgroundColor: '#155360',
-          borderRadius: '10px',
-          fontSize: { xs: '0.5rem', sm: '0.7rem', md: '1rem' },
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          '&:hover': {
-            backgroundColor: 'rgba(52, 196, 181, 1)',
-          },
-        }}
-        onClick={handleAddTask}
-      >
-        Add Task +
-      </Button>
-    </Box>
     </>
   );
 }
 
+// Export the 'TodoComponent' component as the default export.
 export default TodoComponent;
-
