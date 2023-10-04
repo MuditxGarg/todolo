@@ -45,6 +45,13 @@ const ProfilePageStyles = createGlobalStyle`
     }
   }
 
+  /* Media query for screens with a minimum width of 400px and a maximum width of 499px */
+  @media screen and (min-width: 300px) and (max-width: 399px) {
+    .parentContainer {
+      width: 75%; // Set the width of .parentContainer
+    }
+  }
+
   /* Media query for screens with a maximum width of 800px */
   @media screen and (max-width: 800px) {
     .parentContainer {

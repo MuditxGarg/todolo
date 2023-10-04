@@ -173,7 +173,7 @@ function ListComponent({ onCategoryClick }) {
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
-                  maxWidth: '80%',
+                  maxWidth: '60%',
                 }}
               >
                 {category}

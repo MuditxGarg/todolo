@@ -19,7 +19,6 @@ function LandingPage() {
           alignItems: 'center',
           justifyContent: 'center', // Center vertically and horizontally
           padding: '2rem', // Add some padding for spacing
-          marginTop: '6rem',
           textAlign: 'center', // Center text
         }}
       >

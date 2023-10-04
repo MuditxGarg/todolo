@@ -163,6 +163,8 @@ function TodoComponent({ category, onReturn }) {
             fontWeight: 'bold',
             textAlign: 'center',
             marginBottom: '1rem',
+            maxWidth: '80%',
+            overflow: 'hidden',
           }}
         >
           {`Tasks in ${category}`} {/* Display the category name */}
@@ -211,7 +213,7 @@ function TodoComponent({ category, onReturn }) {
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
-                  maxWidth: '80%',
+                  maxWidth: '45%',
                   cursor: 'pointer',
                 }}
                 onClick={(event) => handleTextClick(event, task.text)}
