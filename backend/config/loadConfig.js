@@ -1,12 +1,13 @@
-const fs = require('fs');
-const yaml = require('yaml');
+const fs = require("fs");
+const yaml = require("yaml");
 
-function loadConfig(configPath) {
+function loadConfig() {
   try {
-    const config = yaml.parse(fs.readFileSync(configPath, 'utf8'));
+    const configPath = "/tmp/config/config.yaml";
+    const config = yaml.parse(fs.readFileSync(configPath, "utf8"));
     return config;
   } catch (e) {
-    throw new Error('Error loading configuration: ' + e);
+    throw new Error("Error loading configuration: " + e);
   }
 }
 
