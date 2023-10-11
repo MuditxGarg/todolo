@@ -128,7 +128,7 @@ function SignUpPage() {
       });
     } else {
       // If all validations pass, log the form submission and navigate to '/otp'
-      const response = await axios.post("/signup", {
+      const response = await axios.post("/api/v1/signup", {
         name: name,
         email: email,
         password: password,

@@ -8,6 +8,6 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, "/build")));
+app.use(express.static(path.join(__dirname, "/frontend")));
 
 module.exports = app;
