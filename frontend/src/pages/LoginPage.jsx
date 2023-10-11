@@ -1,20 +1,21 @@
 // Import necessary dependencies and components
-import React, { useState } from 'react';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
-import Swal from 'sweetalert2';
-import CustomBox from '../components/CustomBox';
-import { useNavigate } from 'react-router-dom';
-import LoginPageStyles from '../styles/LoginPageStyles';
+import React, { useState } from "react";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Link from "@mui/material/Link";
+import Swal from "sweetalert2";
+import CustomBox from "../components/CustomBox";
+import { useNavigate } from "react-router-dom";
+import LoginPageStyles from "../styles/LoginPageStyles";
+import axios from "axios";
 
 function LoginPage() {
   // Define state variables for email, password, and password placeholder
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordPlaceholder, setPasswordPlaceholder] = useState(
-    '8 characters or more'
+    "8 characters or more",
   );
   const navigate = useNavigate();
 
@@ -36,46 +37,48 @@ function LoginPage() {
 
     // Clear the placeholder when the user starts typing
     if (newPassword) {
-      setPasswordPlaceholder('');
+      setPasswordPlaceholder("");
     } else {
-      setPasswordPlaceholder('8 characters or more');
+      setPasswordPlaceholder("8 characters or more");
     }
   };
 
   // Event handler for form submission
-  const handleSubmit = () => {
-    if (email.trim() === '') {
+  const handleSubmit = async () => {
+    if (email.trim() === "") {
       // Show Swal alert if the email is empty
       Swal.fire({
-        icon: 'error',
-        title: 'Email cannot be empty!',
-        text: 'Please enter your email.',
+        icon: "error",
+        title: "Email cannot be empty!",
+        text: "Please enter your email.",
       });
     } else if (!isEmailValid(email)) {
       // Show Swal alert if the email format is invalid
       Swal.fire({
-        icon: 'error',
-        title: 'Invalid email format!',
-        text: 'Please enter a valid email address.',
+        icon: "error",
+        title: "Invalid email format!",
+        text: "Please enter a valid email address.",
       });
-    } else if (password.trim() === '') {
+    } else if (password.trim() === "") {
       // Show Swal alert if the password is empty
       Swal.fire({
-        icon: 'error',
-        title: 'Password cannot be empty!',
-        text: 'Please enter your password.',
+        icon: "error",
+        title: "Password cannot be empty!",
+        text: "Please enter your password.",
       });
     } else if (password.length < 8) {
       // Show Swal alert if the password is too short
       Swal.fire({
-        icon: 'error',
-        title: 'Password is too short!',
-        text: 'Password should be at least 8 characters long.',
+        icon: "error",
+        title: "Password is too short!",
+        text: "Password should be at least 8 characters long.",
       });
     } else {
       // If all validations pass, log the form submission and navigate to '/todo'
-      console.log('Form submitted with email:', email, 'and password:', password);
-      navigate('/todo');
+      const res = await axios.post("/login", {
+        email: email,
+        password: password,
+      });
     }
   };
 
@@ -86,33 +89,38 @@ function LoginPage() {
       <LoginPageStyles />
       <Box
         sx={{
-          height: '100vh',
-          overflow: 'hidden',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          height: "100vh",
+          overflow: "hidden",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         {/* CustomBox component for the login form */}
-        <CustomBox height={'70%'} width={'25%'} buttonText={'Login'} onButtonClick={handleSubmit}>
+        <CustomBox
+          height={"70%"}
+          width={"25%"}
+          buttonText={"Login"}
+          onButtonClick={handleSubmit}
+        >
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-evenly',
-              alignItems: 'flex-start',
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+              alignItems: "flex-start",
             }}
           >
             {/* Text field for entering email */}
             <TextField
               label="Email"
               variant="standard"
-              sx={{ width: '100%' }}
+              sx={{ width: "100%" }}
               InputLabelProps={{
                 style: {
-                  color: '#155360',
-                  fontWeight: 'bold',
-                  fontSize: '13px',
+                  color: "#155360",
+                  fontWeight: "bold",
+                  fontSize: "13px",
                 },
               }}
               value={email}
@@ -123,14 +131,14 @@ function LoginPage() {
               label="Password"
               variant="standard"
               sx={{
-                width: '100%',
-                marginTop: '2rem',
+                width: "100%",
+                marginTop: "2rem",
               }}
               InputLabelProps={{
                 style: {
-                  color: '#155360',
-                  fontWeight: 'bold',
-                  fontSize: '13px',
+                  color: "#155360",
+                  fontWeight: "bold",
+                  fontSize: "13px",
                 },
               }}
               type="password"
@@ -140,22 +148,22 @@ function LoginPage() {
             />
             <Box
               sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                width: '100%',
-                marginTop: '1rem', // Add margin for spacing
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                width: "100%",
+                marginTop: "1rem", // Add margin for spacing
               }}
             >
               {/* Link to reset password page */}
-              <Typography variant="body2" sx={{ fontSize: '0.8rem' }}>
+              <Typography variant="body2" sx={{ fontSize: "0.8rem" }}>
                 <Link href="/resetPassword" className="signup-link">
                   Forgot Password?
                 </Link>
               </Typography>
               {/* Link to sign-up page */}
-              <Typography variant="body2" sx={{ fontSize: '0.8rem' }}>
-                Not registered?{' '}
+              <Typography variant="body2" sx={{ fontSize: "0.8rem" }}>
+                Not registered?{" "}
                 <Link href="/signup" className="signup-link">
                   Sign Up!
                 </Link>
