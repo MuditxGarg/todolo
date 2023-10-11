@@ -2,7 +2,7 @@
     color: #155360 !important;
 }
 
-@media and screen (max-width: 899px) {
+@media screen and (max-width: 899px) {
     .navLogo {
         display: none;
     }
