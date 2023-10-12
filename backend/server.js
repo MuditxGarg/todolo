@@ -12,7 +12,7 @@ app.get("*", (req, res) => {
 
 try {
   const config = loadConfig();
-  app.listen(config.server.port, () => {
+  app.listen(config.server.PORT, () => {
     console.log(
       `The server is running on http://localhost:${config.server.port}`,
     );

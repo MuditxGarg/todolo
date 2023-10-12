@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "/frontend")));
 app.use(
   session({
-    secret: config.server.sessionSecret,
+    secret: config.server.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
   }),

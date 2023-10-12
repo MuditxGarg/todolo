@@ -3,7 +3,7 @@ const loadConfig = require("../config/loadConfig");
 const config = loadConfig();
 
 mongoose
-  .connect(config.database.mongoURI, {
+  .connect(config.database.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
