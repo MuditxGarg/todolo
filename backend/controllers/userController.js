@@ -39,7 +39,7 @@ module.exports = {
       req.session.otp = otp;
 
       // await sendEmail(email, otp);
-      return res.redirect("/otp");
+      return res.json({ redirectTo: "/otp" });
     } else {
       return res.json({ message: "An account with this email already exists" });
     }

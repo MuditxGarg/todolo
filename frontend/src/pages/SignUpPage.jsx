@@ -134,7 +134,9 @@ function SignUpPage() {
         password: password,
       });
 
-      console.log(response);
+      if (response.data && response.data.redirectTo) {
+        navigate(response.data.redirectTo);
+      }
     }
   };
 
