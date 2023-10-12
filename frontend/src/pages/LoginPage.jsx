@@ -79,8 +79,6 @@ function LoginPage() {
         password: password,
       });
 
-      console.log(res);
-
       if (res.data.message) {
         if (res.data.message === "Successful Login") {
           navigate("/todo");
@@ -90,9 +88,9 @@ function LoginPage() {
             title: "Incorrect Password Or Email",
             text: "Please enter correct email or password",
           });
-        } else if (res.data.message === "Not registered") {
+        } else if (res.data.message === "Not Registered") {
           Swal.fire({
-            icon: "Warning",
+            icon: "warning",
             title: "Register Yourself",
             text: "Please register yourself",
           });
