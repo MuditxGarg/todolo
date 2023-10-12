@@ -27,7 +27,7 @@ module.exports = {
 
     const user = await User.findOne({ email: email });
 
-    const otp = generateOTP;
+    const otp = generateOTP();
 
     if (!user) {
       const saltRounds = 10;
@@ -57,7 +57,7 @@ module.exports = {
       // Save the new user to the database, assuming 'User' is a Mongoose model
       try {
         const savedUser = await newUser.save();
-        return res.json({ message: "User registered successfully" });
+        return res.json({ message: "User Registered Successfully" });
       } catch (error) {
         return res
           .status(500)
