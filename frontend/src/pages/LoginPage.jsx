@@ -75,10 +75,28 @@ function LoginPage() {
       });
     } else {
       // If all validations pass, log the form submission and navigate to '/todo'
-      const res = await axios.post("/login", {
+      const res = await axios.post("/api/v1/login", {
         email: email,
         password: password,
       });
+
+      if (res.data.message) {
+        if (res.data.message === "Successful Login") {
+          navigate("/todo");
+        } else if (res.data.message === "Incorrect Password") {
+          Swal.fire({
+            icon: "error",
+            title: "Incorrect Password Or Email",
+            text: "Please enter correct email or password",
+          });
+        } else if (res.data.message === "Not registered") {
+          Swal.fire({
+            icon: "Warning",
+            title: "Register Yourself",
+            text: "Please register yourself",
+          });
+        }
+      }
     }
   };
 

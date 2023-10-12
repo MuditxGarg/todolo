@@ -136,6 +136,11 @@ function SignUpPage() {
 
       if (response.data && response.data.redirectTo) {
         navigate(response.data.redirectTo);
+      } else if (response.data && response.data.message) {
+        Swal.fire({
+          icon: "error",
+          title: response.data.message,
+        });
       }
     }
   };
