@@ -74,11 +74,12 @@ function LoginPage() {
         text: "Password should be at least 8 characters long.",
       });
     } else {
-      // If all validations pass, log the form submission and navigate to '/todo'
       const res = await axios.post("/api/v1/login", {
         email: email,
         password: password,
       });
+
+      console.log(res);
 
       if (res.data.message) {
         if (res.data.message === "Successful Login") {
