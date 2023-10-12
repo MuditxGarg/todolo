@@ -29,7 +29,7 @@ function OtpPage() {
         text: "Please enter the OTP sent to your email.",
       });
     } else {
-      const res = await axios.post("/api/v1/verifyOtp");
+      const res = await axios.post("/api/v1/verifyOtp", { otp });
 
       if (res.data.message === "User Registered Successfully") {
         navigate("/login"); // Navigate to the login page upon successful OTP submission

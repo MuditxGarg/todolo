@@ -8,7 +8,7 @@ module.exports = {
   login: async (req, res) => {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ userEmail: email });
 
     if (user) {
       const checkPassword = await bcrypt.compare(password, user.password);
@@ -63,6 +63,8 @@ module.exports = {
           .status(500)
           .json({ message: "Error registering user", error: error.message });
       }
+    } else {
+      return res.json({ message: "Incorrect OTP" });
     }
   },
 };
