@@ -19,7 +19,7 @@ module.exports = {
         return res.json({ message: "Incorrect Password" });
       }
     } else {
-      res.json({ message: "Not Registered" });
+      return res.json({ message: "Not Registered" });
     }
   },
   signup: async (req, res) => {
