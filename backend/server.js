@@ -3,8 +3,10 @@ const db = require("./db/db");
 const path = require("path");
 const loadConfig = require("./config/loadConfig");
 const userRoutes = require("./routes/userRoutes");
+const todoRoutes = require("./routes/todoRoutes");
 
 app.use("/api/v1", userRoutes);
+app.use("/protected", todoRoutes);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "index.html"));

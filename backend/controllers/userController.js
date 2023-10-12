@@ -3,10 +3,15 @@ const bcrypt = require("bcrypt");
 const generateOTP = () =>
   Math.floor(100000 + Math.random() * 900000).toString();
 const { sendEmail } = require("../email/nodemailer");
+const jwt = require("jsonwebtoken");
+const cookie = require("cookie");
+const loadConfig = require("../config/loadConfig");
 
 module.exports = {
   login: async (req, res) => {
     const { email, password } = req.body;
+
+    const config = loadConfig();
 
     const user = await User.findOne({ userEmail: email });
 
@@ -14,6 +19,21 @@ module.exports = {
       const checkPassword = await bcrypt.compare(password, user.password);
 
       if (checkPassword) {
+        const payload = { userId: user._id };
+        const token = jwt.sign(payload, config.server.JWT_SECRET, {
+          expiresIn: "1h",
+        });
+
+        res.setHeader(
+          "Set-Cookie",
+          cookie.serialize("token", token, {
+            httpOnly: true,
+            secure: true,
+            maxAge: 3600,
+            sameSite: "Lax", // or 'Strict'
+          }),
+        );
+
         return res.json({ message: "Successful Login" });
       } else {
         return res.json({ message: "Incorrect Password" });
