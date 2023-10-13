@@ -29,7 +29,7 @@ module.exports = {
           cookie.serialize("token", token, {
             httpOnly: true,
             maxAge: 3600,
-            sameSite: "Lax", // or 'Strict'
+            path: "/",
           }),
         );
 

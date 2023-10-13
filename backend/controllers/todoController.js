@@ -1,10 +1,11 @@
 const jwt = require("jsonwebtoken");
 const loadConfig = require("../config/loadConfig"); // Load your configuration with the JWT secret key
 const config = loadConfig();
+const Task = require("../models/TaskModel");
 const Category = require("../models/CategoriesModel");
 
 module.exports = {
-  createCategory: async (req, res) => {
+  createTask: async (req, res) => {
     const token = req.cookies.token; // Token is stored in a cookie named 'token'
 
     if (!token) {
@@ -18,20 +19,31 @@ module.exports = {
       // Token is valid, you can access the decoded information, including user's _id
       const userId = decoded.userId;
 
-      // Create a new category and associate it with the user's _id
-      const newCategory = new Category({
-        category: req.body.category,
-        userId: userId,
+      const { task, category } = req.body;
+
+      // Find the category with the provided name and the current user's ID
+      const foundCategory = await Category.findOne({ category, userId });
+
+      if (!foundCategory) {
+        return res
+          .status(404)
+          .json({ message: "Category not found for the current user" });
+      }
+
+      // Create a new task and associate it with the obtained category ID
+      const newTask = new Task({
+        task: task,
+        categoryId: foundCategory._id,
       });
 
-      // Save the new category to the database
-      const savedCategory = await newCategory.save();
-      res.status(201).json({ message: "Added Category" });
+      // Save the new task to the database
+      const savedTask = await newTask.save();
+      res.status(201).json({ message: "Task Added Successfully" });
     } catch (err) {
       return res.status(401).json({ message: "Token Is Not Valid" });
     }
   },
-  getCategories: async (req, res) => {
+  getTasks: async (req, res) => {
     const token = req.cookies.token;
 
     if (!token) {
@@ -42,10 +54,20 @@ module.exports = {
       const decoded = jwt.verify(token, config.server.JWT_SECRET);
       const userId = decoded.userId;
 
-      // Fetch all categories associated with the userId
-      const categories = await Category.find({ userId: userId });
+      const { category } = req.body;
 
-      res.status(200).json({ categories: categories });
+      // Find the category with the provided name and the current user's ID
+      const foundCategory = await Category.findOne({ category, userId });
+
+      if (!foundCategory) {
+        return res
+          .status(404)
+          .json({ message: "Category not found for the current user" });
+      }
+
+      const tasks = await Task.find({ categoryId: foundCategory._id });
+
+      res.status(200).json({ tasks: tasks });
     } catch (error) {
       return res.status(401).json({ message: "Token Is Not Valid" });
     }

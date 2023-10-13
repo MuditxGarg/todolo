@@ -42,7 +42,7 @@ function ListComponent({ onCategoryClick }) {
 
         if (res.data.message) {
           if (res.data.message === "Added Category") {
-            setCategories([...categories, newCategory]);
+            setCategories([...categories, { category: newCategory }]);
             setNewCategory("");
           } else if (res.data.message === "Token Is Not Valid") {
             Swal.fire({
@@ -214,7 +214,7 @@ function ListComponent({ onCategoryClick }) {
                   maxWidth: "60%",
                 }}
               >
-                {category}
+                {category.category}
               </span>
               <div>
                 {/* Render edit and delete icons with click handlers. */}
