@@ -16,7 +16,7 @@ try {
   const config = loadConfig();
   app.listen(config.server.PORT, () => {
     console.log(
-      `The server is running on http://localhost:${config.server.port}`,
+      `The server is running on http://localhost:${config.server.PORT}`,
     );
   });
 } catch (error) {

@@ -5,3 +5,5 @@ const checkJwtToken = require("../middleware/verifyToken");
 const router = express.Router();
 
 router.post("/addCategory", checkJwtToken, todoController.createCategory);
+
+module.exports = router;

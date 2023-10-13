@@ -31,4 +31,23 @@ module.exports = {
       return res.status(401).json({ message: "Token Is Not Valid" });
     }
   },
+  getCategories: async (req, res) => {
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    try {
+      const decoded = jwt.verify(token, config.server.JWT_SECRET);
+      const userId = decoded.userId;
+
+      // Fetch all categories associated with the userId
+      const categories = await Category.find({ userId: userId });
+
+      res.status(200).json({ categories: categories });
+    } catch (error) {
+      return res.status(401).json({ message: "Token Is Not Valid" });
+    }
+  },
 };

@@ -17,6 +17,21 @@ function ListComponent({ onCategoryClick }) {
   const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState("");
 
+  const fetchCategories = async () => {
+    try {
+      const res = await axios.get("/protected/getCategories");
+      if (res.data.categories) {
+        setCategories(res.data.categories);
+      }
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
   // Function to add a new category.
   const handleAddCategory = async () => {
     if (newCategory.trim() !== "") {
