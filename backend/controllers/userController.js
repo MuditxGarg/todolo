@@ -28,7 +28,6 @@ module.exports = {
           "Set-Cookie",
           cookie.serialize("token", token, {
             httpOnly: true,
-            secure: true,
             maxAge: 3600,
             sameSite: "Lax", // or 'Strict'
           }),
