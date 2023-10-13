@@ -19,21 +19,13 @@ module.exports = {
       // Token is valid, you can access the decoded information, including user's _id
       const userId = decoded.userId;
 
-      const { task, category } = req.body;
+      const { task, categoryId } = req.body;
 
       // Find the category with the provided name and the current user's ID
-      const foundCategory = await Category.findOne({ category, userId });
-
-      if (!foundCategory) {
-        return res
-          .status(404)
-          .json({ message: "Category not found for the current user" });
-      }
-
       // Create a new task and associate it with the obtained category ID
       const newTask = new Task({
         task: task,
-        categoryId: foundCategory._id,
+        categoryId: categoryId,
       });
 
       // Save the new task to the database
@@ -54,18 +46,10 @@ module.exports = {
       const decoded = jwt.verify(token, config.server.JWT_SECRET);
       const userId = decoded.userId;
 
-      const { category } = req.body;
+      const { categoryId } = req.query.category;
 
       // Find the category with the provided name and the current user's ID
-      const foundCategory = await Category.findOne({ category, userId });
-
-      if (!foundCategory) {
-        return res
-          .status(404)
-          .json({ message: "Category not found for the current user" });
-      }
-
-      const tasks = await Task.find({ categoryId: foundCategory._id });
+      const tasks = await Task.find({ categoryId: categoryId });
 
       res.status(200).json({ tasks: tasks });
     } catch (error) {
