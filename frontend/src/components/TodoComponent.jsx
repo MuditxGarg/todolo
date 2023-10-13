@@ -23,7 +23,7 @@ function TodoComponent({ category, onReturn }) {
     const fetchTasks = async () => {
       try {
         const res = await axios.get("/protected/getTasks", {
-          params: { categoryId: category.category._id },
+          params: { category: category },
         });
 
         if (res.data.tasks) {
@@ -47,7 +47,7 @@ function TodoComponent({ category, onReturn }) {
         // Make a POST request to add a new task
         const response = await axios.post("/protected/addTask", {
           task: newTask,
-          categoryId: category.category._id, // Pass the selected category name
+          category: category, // Pass the selected category name
         });
 
         // Assuming the server returns a success message

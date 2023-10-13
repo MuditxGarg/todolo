@@ -16,16 +16,13 @@ module.exports = {
       // Verify the token
       const decoded = jwt.verify(token, config.server.JWT_SECRET);
 
-      // Token is valid, you can access the decoded information, including user's _id
-      const userId = decoded.userId;
-
-      const { task, categoryId } = req.body;
+      const { task } = req.body;
 
       // Find the category with the provided name and the current user's ID
       // Create a new task and associate it with the obtained category ID
       const newTask = new Task({
         task: task,
-        categoryId: categoryId,
+        categoryId: req.body.category._id,
       });
 
       // Save the new task to the database
@@ -44,12 +41,11 @@ module.exports = {
 
     try {
       const decoded = jwt.verify(token, config.server.JWT_SECRET);
-      const userId = decoded.userId;
 
-      const { categoryId } = req.query.category;
+      const category = req.query.category;
 
       // Find the category with the provided name and the current user's ID
-      const tasks = await Task.find({ categoryId: categoryId });
+      const tasks = await Task.find({ categoryId: category._id });
 
       res.status(200).json({ tasks: tasks });
     } catch (error) {
