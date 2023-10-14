@@ -70,7 +70,8 @@ function ListComponent({ onCategoryClick }) {
   };
 
   // Function to delete a category, with confirmation dialog.
-  const handleDeleteCategory = (index) => {
+  const handleDeleteCategory = async (categoryId) => {
+    console.log(categoryId);
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: "btn btn-success",
@@ -78,8 +79,8 @@ function ListComponent({ onCategoryClick }) {
       },
       buttonsStyling: false,
     });
-    swalWithBootstrapButtons
-      .fire({
+    try {
+      const result = await swalWithBootstrapButtons.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
         icon: "warning",
@@ -87,34 +88,52 @@ function ListComponent({ onCategoryClick }) {
         confirmButtonText: "Yes, delete it!",
         cancelButtonText: "No, cancel!",
         reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          const updatedCategories = [...categories];
-          updatedCategories.splice(index, 1);
+      });
+
+      if (result.isConfirmed) {
+        const res = await axios.delete(
+          `/protected/deleteCategory/${categoryId}`,
+        );
+        if (res.data.message === "Deleted Category") {
+          const updatedCategories = categories.filter(
+            (category) => category._id !== categoryId,
+          );
           setCategories(updatedCategories);
           swalWithBootstrapButtons.fire(
             "Deleted!",
             "Your category has been deleted.",
             "success",
           );
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          swalWithBootstrapButtons.fire(
-            "Cancelled",
-            "Your category is safe",
-            "error",
-          );
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Could not delete the category",
+            text: "Please try again in sometime",
+          });
         }
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        swalWithBootstrapButtons.fire(
+          "Cancelled",
+          "Your category is safe",
+          "error",
+        );
+      }
+    } catch (error) {
+      console.error("Error deleting category:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Could not delete the category",
+        text: "Please try again in sometime",
       });
+    }
   };
-
   // Function to show an edit category dialog.
   const showEditCategoryModal = (index, category) => {
     Swal.fire({
       title: "Edit your category",
       input: "text",
       inputLabel: "Your new category",
-      inputValue: category,
+      inputValue: category.category,
       showCancelButton: true,
       inputValidator: (value) => {
         if (!value) {
@@ -124,16 +143,36 @@ function ListComponent({ onCategoryClick }) {
     }).then((result) => {
       if (result.isConfirmed) {
         const newValue = result.value;
-        handleEditCategory(index, newValue);
+        handleEditCategory(category._id, newValue);
       }
     });
   };
 
   // Function to edit a category.
-  const handleEditCategory = (index, newValue) => {
-    const updatedCategories = [...categories];
-    updatedCategories[index] = newValue;
-    setCategories(updatedCategories);
+  const handleEditCategory = async (categoryId, newValue) => {
+    try {
+      const res = await axios.put(`/protected/editCategory/${categoryId}`, {
+        category: newValue,
+      });
+
+      if (res.data.message === "Updated Category") {
+        const updatedCategories = categories.map((category) =>
+          category._id === categoryId
+            ? { ...category, category: newValue }
+            : category,
+        );
+        setCategories(updatedCategories);
+      } else {
+        throw new Error("Could not edit the category");
+      }
+    } catch (error) {
+      console.error("Error editing category:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Could not edit the category",
+        text: "Please try again in sometime",
+      });
+    }
   };
 
   // Render the component with JSX.
@@ -233,7 +272,7 @@ function ListComponent({ onCategoryClick }) {
                   src={deleteIcon}
                   alt="Delete"
                   style={{ width: "18px", height: "18px", cursor: "pointer" }}
-                  onClick={() => handleDeleteCategory(index)}
+                  onClick={() => handleDeleteCategory(category._id)}
                 />
               </div>
             </Paper>

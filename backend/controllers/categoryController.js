@@ -50,4 +50,56 @@ module.exports = {
       return res.status(401).json({ message: "Token Is Not Valid" });
     }
   },
+  deleteCategory: async (req, res) => {
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    try {
+      const decoded = jwt.verify(token, config.server.JWT_SECRET);
+      const userId = decoded.userId;
+      const categoryId = req.params.categoryId;
+
+      console.log(categoryId);
+
+      // Find the category by ID and associated user ID
+      const category = await Category.findOne({
+        _id: categoryId,
+        userId: userId,
+      });
+
+      if (!category) {
+        return res.status(404).json({ message: "Category not found" });
+      }
+
+      await Category.deleteOne({ _id: categoryId, userId: userId });
+
+      res.status(200).json({ message: "Category deleted successfully" });
+    } catch (error) {
+      return res.status(401).json({ message: "Token Is Not Valid" });
+    }
+  },
+  editCategory: async (req, res) => {
+    const categoryId = req.params.categoryId;
+    const { category } = req.body;
+
+    try {
+      const updatedCategory = await Category.findByIdAndUpdate(
+        categoryId,
+        { category },
+        { new: true },
+      );
+
+      if (updatedCategory) {
+        res.status(200).json({ message: "Updated Category" });
+      } else {
+        res.status(404).json({ message: "Category not found" });
+      }
+    } catch (error) {
+      console.error("Error editing category:", error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  },
 };

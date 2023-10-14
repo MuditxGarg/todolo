@@ -74,7 +74,7 @@ function TodoComponent({ category, onReturn }) {
   };
 
   // Function to delete a task, with confirmation dialog.
-  const handleDeleteTask = (index) => {
+  const handleDeleteTask = async (taskId) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: "btn btn-success",
@@ -82,8 +82,8 @@ function TodoComponent({ category, onReturn }) {
       },
       buttonsStyling: false,
     });
-    swalWithBootstrapButtons
-      .fire({
+    try {
+      const result = await swalWithBootstrapButtons.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
         icon: "warning",
@@ -91,25 +91,40 @@ function TodoComponent({ category, onReturn }) {
         confirmButtonText: "Yes, delete it!",
         cancelButtonText: "No, cancel!",
         reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          const updatedTasks = [...tasks];
-          updatedTasks.splice(index, 1);
+      });
+      if (result.isConfirmed) {
+        const res = await axios.delete(`/protected/deleteTask/${taskId}`);
+
+        if (res.data.message === "Deleted Task") {
+          const updatedTasks = tasks.filter((task) => task._id !== taskId);
           setTasks(updatedTasks);
           swalWithBootstrapButtons.fire(
             "Deleted!",
             "Your todo has been deleted.",
             "success",
           );
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          swalWithBootstrapButtons.fire(
-            "Cancelled",
-            "Your todo is safe",
-            "error",
-          );
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Could not delete the task",
+            text: "Please try again in sometime",
+          });
         }
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        swalWithBootstrapButtons.fire(
+          "Cancelled",
+          "Your todo is safe",
+          "error",
+        );
+      }
+    } catch (error) {
+      console.log("Error deleting task: ", error);
+      Swal.fire({
+        icon: "error",
+        title: "Could not delete the category",
+        text: "Please try again in sometime",
       });
+    }
   };
 
   // Function to show an edit task dialog.
@@ -118,7 +133,7 @@ function TodoComponent({ category, onReturn }) {
       title: "Edit your task",
       input: "text",
       inputLabel: "Your new task",
-      inputValue: task.text,
+      inputValue: task.task,
       showCancelButton: true,
       inputValidator: (value) => {
         if (!value) {
@@ -128,16 +143,34 @@ function TodoComponent({ category, onReturn }) {
     }).then((result) => {
       if (result.isConfirmed) {
         const newValue = result.value;
-        handleEditTask(index, newValue);
+        handleEditTask(task._id, newValue);
       }
     });
   };
 
   // Function to edit a task.
-  const handleEditTask = (index, newValue) => {
-    const updatedTasks = [...tasks];
-    updatedTasks[index] = { text: newValue, checked: tasks[index].checked };
-    setTasks(updatedTasks);
+  const handleEditTask = async (taskId, newValue) => {
+    try {
+      const res = await axios.put(`/protected/editTask/${taskId}`, {
+        task: newValue,
+      });
+
+      if (res.data.message === "Updated Task") {
+        const updatedTasks = tasks.map((task) =>
+          task._id === taskId ? { ...task, task: newValue } : task,
+        );
+        setTasks(updatedTasks);
+      } else {
+        throw new Error("Could not edit the category");
+      }
+    } catch (error) {
+      console.error("Error editing task:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Could not edit the task",
+        text: "Please try again in sometime",
+      });
+    }
   };
 
   // Function to toggle the checkbox of a task.
@@ -151,12 +184,12 @@ function TodoComponent({ category, onReturn }) {
   };
 
   // Function to handle clicking on task text for overflow.
-  const handleTextClick = (event, text) => {
+  const handleTextClick = (event, task) => {
     const spanElement = event.target;
 
     if (spanElement.scrollWidth > spanElement.clientWidth) {
       // Text is overflowing, display a SweetAlert message.
-      Swal.fire(text);
+      Swal.fire(task);
     }
   };
 
@@ -258,7 +291,7 @@ function TodoComponent({ category, onReturn }) {
                   maxWidth: "45%",
                   cursor: "pointer",
                 }}
-                onClick={(event) => handleTextClick(event, task.text)}
+                onClick={(event) => handleTextClick(event, task.task)}
               >
                 {task.task}
               </span>
@@ -283,7 +316,7 @@ function TodoComponent({ category, onReturn }) {
                     height: "18px",
                     cursor: "pointer",
                   }}
-                  onClick={() => handleDeleteTask(index)}
+                  onClick={() => handleDeleteTask(task._id)}
                 />
               </div>
             </Paper>

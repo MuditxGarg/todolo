@@ -52,4 +52,54 @@ module.exports = {
       return res.status(401).json({ message: "Token Is Not Valid" });
     }
   },
+  deleteTask: async (req, res) => {
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    try {
+      const decoded = jwt.verify(token, config.server.JWT_SECRET);
+      const taskId = req.params.taskId;
+
+      console.log(taskId);
+
+      // Find the category by ID and associated user ID
+      const task = await Task.findOne({
+        _id: taskId,
+      });
+
+      if (!task) {
+        return res.status(404).json({ message: "Task not found" });
+      }
+
+      await Task.deleteOne({ _id: taskId });
+
+      res.status(200).json({ message: "Deleted Task" });
+    } catch (error) {
+      return res.status(401).json({ message: "Token Is Not Valid" });
+    }
+  },
+  editTask: async (req, res) => {
+    const taskId = req.params.taskId;
+    const { task } = req.body;
+
+    try {
+      const updatedTask = await Task.findByIdAndUpdate(
+        taskId,
+        { task },
+        { new: true },
+      );
+
+      if (updatedTask) {
+        res.status(200).json({ message: "Updated Task" });
+      } else {
+        res.status(404).json({ message: "Task not found" });
+      }
+    } catch (error) {
+      console.error("Error editing task:", error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  },
 };
