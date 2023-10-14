@@ -177,13 +177,7 @@ function TodoComponent({ category, onReturn }) {
         params: { category: category },
       });
       if (response.data.tasks) {
-        const updatedTasks = response.data.tasks.sort((a, b) => {
-          if (a.checked === b.checked) {
-            return 0;
-          }
-          return a.checked ? 1 : -1;
-        });
-        setTasks(updatedTasks);
+        setTasks(response.data.tasks);
       }
     } catch (error) {
       console.error("Error toggling checkbox:", error);
@@ -293,7 +287,7 @@ function TodoComponent({ category, onReturn }) {
               <Checkbox
                 color="primary"
                 checked={task.checked}
-                onChange={() => handleToggleCheckbox(index)}
+                onChange={() => handleToggleCheckbox(task._id)}
               />
               <span
                 style={{

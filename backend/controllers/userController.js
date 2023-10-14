@@ -86,4 +86,9 @@ module.exports = {
       return res.json({ message: "Incorrect OTP" });
     }
   },
+  getDetails: async (req, res) => {
+    res
+      .status(200)
+      .json({ name: req.session.userName, email: req.session.userEmail });
+  },
 };

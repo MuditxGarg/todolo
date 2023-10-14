@@ -45,7 +45,9 @@ module.exports = {
       const category = req.query.category;
 
       // Find the category with the provided name and the current user's ID
-      const tasks = await Task.find({ categoryId: category._id });
+      const tasks = await Task.find({ categoryId: category._id }).sort({
+        checked: 1,
+      });
 
       res.status(200).json({ tasks: tasks });
     } catch (error) {
@@ -118,12 +120,21 @@ module.exports = {
     const taskId = req.params.taskId;
 
     try {
-      const updatedTask = await Task.findByIdAndUpdate(
-        taskId,
-        { checked: true },
-        { new: true },
-      );
-      res.status(200).json({ message: "Task updated successfully" });
+      const task = await Task.findById(taskId);
+
+      if (!task) {
+        return res.status(404).json({ message: "Task not found" });
+      }
+
+      // Toggling the checked value
+      task.checked = !task.checked;
+
+      // Save the updated task
+      await task.save();
+
+      res
+        .status(200)
+        .json({ message: "Task updated successfully", task: task });
     } catch (error) {
       console.error("Error updating task:", error);
       res.status(500).json({ message: "Internal server error" });
