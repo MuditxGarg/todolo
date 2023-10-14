@@ -53,7 +53,7 @@ function TodoComponent({ category, onReturn }) {
         // Assuming the server returns a success message
         if (response.data.message === "Task Added Successfully") {
           // Update the local tasks state with the new task
-          setTasks([...tasks, { text: newTask, checked: false }]);
+          setTasks([...tasks, { task: newTask, checked: false }]);
           setNewTask("");
         }
       } catch (error) {
@@ -209,7 +209,7 @@ function TodoComponent({ category, onReturn }) {
             overflow: "hidden",
           }}
         >
-          {`Tasks in ${category}`} {/* Display the category name */}
+          {`Tasks in ${category.category}`} {/* Display the category name */}
         </Typography>
 
         <Box
