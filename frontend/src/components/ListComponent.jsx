@@ -42,8 +42,8 @@ function ListComponent({ onCategoryClick }) {
 
         if (res.data.message) {
           if (res.data.message === "Added Category") {
-            setCategories([...categories, { category: newCategory }]);
             setNewCategory("");
+            fetchCategories();
           } else if (res.data.message === "Token Is Not Valid") {
             Swal.fire({
               icon: "error",
@@ -95,10 +95,7 @@ function ListComponent({ onCategoryClick }) {
           `/protected/deleteCategory/${categoryId}`,
         );
         if (res.data.message === "Deleted Category") {
-          const updatedCategories = categories.filter(
-            (category) => category._id !== categoryId,
-          );
-          setCategories(updatedCategories);
+          fetchCategories(); // Call fetchCategories to update the categories
           swalWithBootstrapButtons.fire(
             "Deleted!",
             "Your category has been deleted.",
@@ -156,12 +153,12 @@ function ListComponent({ onCategoryClick }) {
       });
 
       if (res.data.message === "Updated Category") {
-        const updatedCategories = categories.map((category) =>
-          category._id === categoryId
-            ? { ...category, category: newValue }
-            : category,
-        );
-        setCategories(updatedCategories);
+        fetchCategories(); // Fetch the updated list of categories from the server
+        Swal.fire({
+          icon: "success",
+          title: "Category Updated",
+          text: "Your category has been successfully updated.",
+        });
       } else {
         throw new Error("Could not edit the category");
       }

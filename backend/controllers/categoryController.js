@@ -76,7 +76,7 @@ module.exports = {
 
       await Category.deleteOne({ _id: categoryId, userId: userId });
 
-      res.status(200).json({ message: "Category deleted successfully" });
+      res.status(200).json({ message: "Deleted Category" });
     } catch (error) {
       return res.status(401).json({ message: "Token Is Not Valid" });
     }

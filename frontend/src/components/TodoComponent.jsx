@@ -19,27 +19,27 @@ function TodoComponent({ category, onReturn }) {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const res = await axios.get("/protected/getTasks", {
-          params: { category: category },
-        });
+  const fetchTasks = async () => {
+    try {
+      const res = await axios.get("/protected/getTasks", {
+        params: { category: category },
+      });
 
-        if (res.data.tasks) {
-          setTasks(res.data.tasks);
-        }
-      } catch (error) {
-        Swal.fire({
-          icon: "error",
-          title: "Internal Server Error",
-          text: "Try again in sometime please",
-        });
+      if (res.data.tasks) {
+        setTasks(res.data.tasks);
       }
-    };
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Internal Server Error",
+        text: "Try again in sometime please",
+      });
+    }
+  };
 
+  useEffect(() => {
     fetchTasks();
-  }, [category]);
+  }, [category, fetchTasks]);
 
   const handleAddTask = async () => {
     if (newTask.trim() !== "") {
@@ -53,7 +53,7 @@ function TodoComponent({ category, onReturn }) {
         // Assuming the server returns a success message
         if (response.data.message === "Task Added Successfully") {
           // Update the local tasks state with the new task
-          setTasks([...tasks, { task: newTask, checked: false }]);
+          fetchTasks();
           setNewTask("");
         }
       } catch (error) {
@@ -96,8 +96,7 @@ function TodoComponent({ category, onReturn }) {
         const res = await axios.delete(`/protected/deleteTask/${taskId}`);
 
         if (res.data.message === "Deleted Task") {
-          const updatedTasks = tasks.filter((task) => task._id !== taskId);
-          setTasks(updatedTasks);
+          fetchTasks(); // Call fetchTasks to update the tasks
           swalWithBootstrapButtons.fire(
             "Deleted!",
             "Your todo has been deleted.",
@@ -156,10 +155,7 @@ function TodoComponent({ category, onReturn }) {
       });
 
       if (res.data.message === "Updated Task") {
-        const updatedTasks = tasks.map((task) =>
-          task._id === taskId ? { ...task, task: newValue } : task,
-        );
-        setTasks(updatedTasks);
+        fetchTasks(); // Call fetchTasks to update the tasks
       } else {
         throw new Error("Could not edit the category");
       }
@@ -174,13 +170,29 @@ function TodoComponent({ category, onReturn }) {
   };
 
   // Function to toggle the checkbox of a task.
-  const handleToggleCheckbox = (index) => {
-    const updatedTasks = [...tasks];
-    updatedTasks[index].checked = !updatedTasks[index].checked;
-    updatedTasks.sort((a, b) =>
-      a.checked === b.checked ? 0 : a.checked ? 1 : -1,
-    );
-    setTasks(updatedTasks);
+  const handleToggleCheckbox = async (taskId) => {
+    try {
+      await axios.put(`/protected/taskDone/${taskId}`);
+      const response = await axios.get("/protected/getTasks", {
+        params: { category: category },
+      });
+      if (response.data.tasks) {
+        const updatedTasks = response.data.tasks.sort((a, b) => {
+          if (a.checked === b.checked) {
+            return 0;
+          }
+          return a.checked ? 1 : -1;
+        });
+        setTasks(updatedTasks);
+      }
+    } catch (error) {
+      console.error("Error toggling checkbox:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Could not mark the task",
+        text: "Please try again in sometime",
+      });
+    }
   };
 
   // Function to handle clicking on task text for overflow.

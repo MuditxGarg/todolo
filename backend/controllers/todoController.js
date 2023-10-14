@@ -82,6 +82,12 @@ module.exports = {
     }
   },
   editTask: async (req, res) => {
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
     const taskId = req.params.taskId;
     const { task } = req.body;
 
@@ -100,6 +106,27 @@ module.exports = {
     } catch (error) {
       console.error("Error editing task:", error);
       res.status(500).json({ message: "Internal Server Error" });
+    }
+  },
+  taskDone: async (req, res) => {
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const taskId = req.params.taskId;
+
+    try {
+      const updatedTask = await Task.findByIdAndUpdate(
+        taskId,
+        { checked: true },
+        { new: true },
+      );
+      res.status(200).json({ message: "Task updated successfully" });
+    } catch (error) {
+      console.error("Error updating task:", error);
+      res.status(500).json({ message: "Internal server error" });
     }
   },
 };
