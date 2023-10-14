@@ -87,8 +87,31 @@ module.exports = {
     }
   },
   getDetails: async (req, res) => {
-    res
-      .status(200)
-      .json({ name: req.session.userName, email: req.session.userEmail });
+    const token = req.cookies.token; // Token is stored in a cookie named 'token'
+
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    try {
+      // Verify the token
+      const config = loadConfig();
+      const decoded = jwt.verify(token, config.server.JWT_SECRET);
+      const userId = decoded.userId;
+
+      const user = await User.findOne({
+        _id: userId,
+      });
+
+      console.log(user);
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      res.status(201).json({ name: user.name, email: user.userEmail });
+    } catch (err) {
+      return res.status(401).json({ message: "Token Is Not Valid" });
+    }
   },
 };

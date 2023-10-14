@@ -31,12 +31,27 @@ function ProfilePage() {
   const [isAvatarModalOpen, setAvatarModalOpen] = useState(false); // Whether the avatar selection modal is open
   const navigate = useNavigate(); // Router navigation hook for page redirection
 
-  const setEmailAndPassword = async () => {
+  useEffect(() => {
+    handleUserEmail();
+    handleUsername();
+  });
+
+  const handleUserEmail = async () => {
     try {
       const res = await axios.get("/api/v1/getDetails");
-      if (res.data.name && res.data.email) {
+      if (res.data.email) {
         setEmail(res.data.email);
-        setUsername(res.data.username);
+      }
+    } catch (error) {
+      // Todo Sweet alert
+    }
+  };
+
+  const handleUsername = async () => {
+    try {
+      const res = await axios.get("/api/v1/getDetails");
+      if (res.data.name) {
+        setUsername(res.data.name);
       }
     } catch (error) {
       // Todo Sweet alert
