@@ -70,12 +70,11 @@ module.exports = {
   forgotPasswordOtp: async (req, res) => {
     const { email } = req.body;
 
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ userEmail: email });
 
     const otp = generateOTP();
 
     if (user) {
-      const saltRounds = 10;
       req.session.otp = otp;
       console.log(req.session.otp);
       // await sendEmail(email, otp);
@@ -94,9 +93,13 @@ module.exports = {
   resetPassword: async (req, res) => {
     const { email, newPassword } = req.body;
 
+    const saltRounds = 10;
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashPass = await bcrypt.hash(newPassword, salt);
+
     const updatedUser = await User.findOneAndUpdate(
-      { email: email },
-      { password: newPassword },
+      { userEmail: email },
+      { password: hashPass },
       { new: true },
     );
 
