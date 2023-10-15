@@ -67,6 +67,43 @@ module.exports = {
       return res.json({ message: "An account with this email already exists" });
     }
   },
+  forgotPasswordOtp: async (req, res) => {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email: email });
+
+    const otp = generateOTP();
+
+    if (user) {
+      const saltRounds = 10;
+      req.session.otp = otp;
+      console.log(req.session.otp);
+      // await sendEmail(email, otp);
+      return res.json({ message: "Otp sent" });
+    } else {
+      return res.json({ message: "Could not generate OTP" });
+    }
+  },
+  forgotPasswordOtpVerify: async (req, res) => {
+    const { otp } = req.body;
+
+    if (otp === req.session.otp) {
+      res.status(200).json({ message: "Otp verified" });
+    }
+  },
+  resetPassword: async (req, res) => {
+    const { email, newPassword } = req.body;
+
+    const updatedUser = await User.findOneAndUpdate(
+      { email: email },
+      { password: newPassword },
+      { new: true },
+    );
+
+    if (updatedUser) {
+      res.status(200).json({ message: "Password updated" });
+    }
+  },
   verifyOtp: async (req, res) => {
     const { otp } = req.body;
 
