@@ -30,10 +30,15 @@ function ProfilePage() {
   const [selectedAvatar, setSelectedAvatar] = useState(null); // Selected avatar image
   const [isAvatarModalOpen, setAvatarModalOpen] = useState(false); // Whether the avatar selection modal is open
   const navigate = useNavigate(); // Router navigation hook for page redirection
+  const [taskAndCategory, setTaskAndCategory] = useState({
+    categoryCount: 0,
+    taskCount: 0,
+  });
 
   useEffect(() => {
     handleUserEmail();
     handleUsername();
+    getCount();
   });
 
   const handleUserEmail = async () => {
@@ -55,6 +60,19 @@ function ProfilePage() {
       }
     } catch (error) {
       // Todo Sweet alert
+    }
+  };
+
+  const getCount = async () => {
+    try {
+      const res = await axios.get("/protected/getTotalCategoryAndTask");
+      if (res.data) {
+        setTaskAndCategory(res.data);
+      } else {
+        // Todo sweet alert
+      }
+    } catch (error) {
+      // Todo sweet alert
     }
   };
 
@@ -322,13 +340,13 @@ function ProfilePage() {
                   variant="subtitle"
                   sx={{ color: "#155360", fontWeight: "600" }}
                 >
-                  Category Count: 5
+                  Category Count: {taskAndCategory.categoryCount}
                 </Typography>
                 <Typography
                   variant="subtitle"
                   sx={{ color: "#155360", fontWeight: "600" }}
                 >
-                  Total Task Count: 10
+                  Total Task Count: {taskAndCategory.taskCount}
                 </Typography>
                 {/* Button to change the user's avatar */}
                 <Button

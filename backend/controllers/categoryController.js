@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const loadConfig = require("../config/loadConfig"); // Load your configuration with the JWT secret key
 const config = loadConfig();
 const Category = require("../models/CategoriesModel");
+const Task = require("../models/TaskModel");
 
 module.exports = {
   createCategory: async (req, res) => {
@@ -62,8 +63,6 @@ module.exports = {
       const userId = decoded.userId;
       const categoryId = req.params.categoryId;
 
-      console.log(categoryId);
-
       // Find the category by ID and associated user ID
       const category = await Category.findOne({
         _id: categoryId,
@@ -72,6 +71,14 @@ module.exports = {
 
       if (!category) {
         return res.status(404).json({ message: "Category not found" });
+      }
+
+      const tasks = await Task.find({
+        categoryId: categoryId,
+      });
+
+      if (tasks && tasks.length > 0) {
+        await Task.deleteMany({ categoryId: categoryId });
       }
 
       await Category.deleteOne({ _id: categoryId, userId: userId });
@@ -99,6 +106,33 @@ module.exports = {
       }
     } catch (error) {
       console.error("Error editing category:", error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  },
+  getTotalCategoryAndTask: async (req, res) => {
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    try {
+      const decoded = jwt.verify(token, config.server.JWT_SECRET);
+      const userId = decoded.userId;
+
+      const categories = await Category.find({ userId: userId });
+      const categoryCount = categories ? categories.length : 0;
+
+      let taskCount = 0;
+      for (const category of categories) {
+        const tasks = await Task.find({ categoryId: category._id });
+        taskCount += tasks ? tasks.length : 0;
+      }
+
+      res
+        .status(200)
+        .json({ categoryCount: categoryCount, taskCount: taskCount });
+    } catch (error) {
       res.status(500).json({ message: "Internal Server Error" });
     }
   },

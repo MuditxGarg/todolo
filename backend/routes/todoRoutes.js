@@ -22,5 +22,10 @@ router.put(
 router.delete("/deleteTask/:taskId", checkJwtToken, todoController.deleteTask);
 router.put("/editTask/:taskId", checkJwtToken, todoController.editTask);
 router.put("/taskDone/:taskId", checkJwtToken, todoController.taskDone);
+router.get(
+  "/getTotalCategoryAndTask",
+  checkJwtToken,
+  categoryController.getTotalCategoryAndTask,
+);
 
 module.exports = router;
