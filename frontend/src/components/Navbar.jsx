@@ -1,45 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import AdbIcon from '@mui/icons-material/Adb';
-import PersonIcon from '@mui/icons-material/Person';
-import MenuIcon from '@mui/icons-material/Menu';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import NavLogo from '../assets/logo_no_background.png'; // Import your logo image
-import '../styles/navbarStyles.css'; // Import your custom CSS styles
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import AdbIcon from "@mui/icons-material/Adb";
+import PersonIcon from "@mui/icons-material/Person";
+import MenuIcon from "@mui/icons-material/Menu";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import NavLogo from "../assets/logo_no_background.png"; // Import your logo image
+import "../styles/navbarStyles.css"; // Import your custom CSS styles
 
 // Define an array of page links
 const pages = [
-  { label: 'Home', url: '/' },
-  { label: 'Help', url: '/help' },
-  { label: 'Our Team', url: '/about' },
+  { label: "Home", url: "/" },
+  { label: "Help", url: "/help" },
+  { label: "Our Team", url: "/about" },
 ];
 
-// Define an array of user settings
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
-function ResponsiveAppBar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+function ResponsiveAppBar({ isLoggedIn }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State to manage mobile menu
   const navigate = useNavigate(); // Function for programmatic navigation
-
-  useEffect(() => {
-    // Check the current URL and set isLoggedIn to true if on '/todo' or '/profile'
-    if (window.location.pathname === '/todo' || window.location.pathname === '/profile') {
-      setIsLoggedIn(true);
-    }
-  }, []); // Run this effect only once, on component mount
 
   // Function to toggle the mobile menu
   const toggleMobileMenu = () => {
@@ -53,16 +42,16 @@ function ResponsiveAppBar() {
 
   // Function to redirect to the user's profile page
   const redirectToProfile = () => {
-    navigate('/profile'); // Use the navigate function to redirect
+    navigate("/profile"); // Use the navigate function to redirect
   };
 
   const navLogoRedirect = () => {
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   return (
     // The main AppBar component
-    <AppBar position="static" sx={{ backgroundColor: '#BEF7F1' }}>
+    <AppBar position="static" sx={{ backgroundColor: "#BEF7F1" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* Menu Icon for Mobile */}
@@ -71,7 +60,7 @@ function ResponsiveAppBar() {
             color="inherit"
             aria-label="Menu"
             onClick={toggleMobileMenu}
-            sx={{ display: { md: 'none' }, color: '#155360' }}
+            sx={{ display: { md: "none" }, color: "#155360" }}
           >
             <MenuIcon />
           </IconButton>
@@ -79,14 +68,14 @@ function ResponsiveAppBar() {
           {/* Logo Image */}
           <img
             src={NavLogo} // Replace with the actual path to your logo image
-            className='navLogo' // Apply custom CSS class for styling
+            className="navLogo" // Apply custom CSS class for styling
             alt="Website Logo"
             style={{
-              width: '70px', // Set the desired width for your image
-              height: '55px', // Set the desired height for your image
-              objectFit: 'cover', // Use 'cover' to fill the circular space
-              objectPosition: 'center center', // Center the image within the circle
-              cursor: 'pointer',
+              width: "70px", // Set the desired width for your image
+              height: "55px", // Set the desired height for your image
+              objectFit: "cover", // Use 'cover' to fill the circular space
+              objectPosition: "center center", // Center the image within the circle
+              cursor: "pointer",
             }}
             onClick={navLogoRedirect}
           />
@@ -99,18 +88,24 @@ function ResponsiveAppBar() {
             href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
-              display: { xs: 'flex', md: 'none' },
+              display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
             }}
           >
             {/* Text or logo next to the logo, if needed */}
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, marginLeft: '1.4rem' }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              marginLeft: "1.4rem",
+            }}
+          >
             {/* Map through 'pages' array to create navigation buttons */}
             {pages.map((page) => (
               <Button
@@ -119,10 +114,10 @@ function ResponsiveAppBar() {
                 to={page.url}
                 sx={{
                   my: 2,
-                  color: '#155360',
-                  display: 'block',
-                  textDecoration: 'none',
-                  fontWeight: 'bold',
+                  color: "#155360",
+                  display: "block",
+                  textDecoration: "none",
+                  fontWeight: "bold",
                 }}
               >
                 {page.label}
@@ -144,7 +139,7 @@ function ResponsiveAppBar() {
                 >
                   <Avatar
                     sx={{
-                      backgroundColor: '#155360',
+                      backgroundColor: "#155360",
                     }}
                   >
                     <PersonIcon />
@@ -156,14 +151,14 @@ function ResponsiveAppBar() {
               <Button
                 variant="contained"
                 component={Link}
-                to={'/login'}
+                to={"/login"}
                 sx={{
-                  borderRadius: '20px',
-                  backgroundColor: 'white',
-                  color: '#155360',
-                  fontWeight: 'bold',
-                  '&:hover': {
-                    backgroundColor: 'rgba(52, 196, 181, 0.6)',
+                  borderRadius: "20px",
+                  backgroundColor: "white",
+                  color: "#155360",
+                  fontWeight: "bold",
+                  "&:hover": {
+                    backgroundColor: "rgba(52, 196, 181, 0.6)",
                   },
                 }}
               >
@@ -179,8 +174,8 @@ function ResponsiveAppBar() {
           open={isMobileMenuOpen}
           onClose={closeMobileMenu}
           sx={{
-            '& .MuiDrawer-paper': {
-              backgroundColor: '#BEF7F1',
+            "& .MuiDrawer-paper": {
+              backgroundColor: "#BEF7F1",
             },
           }}
         >
@@ -205,4 +200,3 @@ function ResponsiveAppBar() {
 }
 
 export default ResponsiveAppBar;
-

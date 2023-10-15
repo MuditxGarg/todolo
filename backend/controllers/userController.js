@@ -41,6 +41,10 @@ module.exports = {
       return res.json({ message: "Not Registered" });
     }
   },
+  logout: async (req, res) => {
+    res.clearCookie("token", { path: "/" });
+    return res.json({ message: "Logout successful" });
+  },
   signup: async (req, res) => {
     const { name, email, password } = req.body;
 

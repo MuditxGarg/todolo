@@ -16,7 +16,7 @@ import ProfilePageStyles from "../styles/ProfilePageStyles"; // Import styling f
 import axios from "axios";
 
 // Define the ProfilePage component
-function ProfilePage() {
+function ProfilePage({ setIsLoggedIn }) {
   // Define state variables using useState hook
   const [isChangePassword, setIsChangePassword] = useState(false); // Whether the user is changing the password
   const [currentPassword, setCurrentPassword] = useState(""); // Current password input
@@ -128,9 +128,22 @@ function ProfilePage() {
       confirmButtonText: "Logout",
       cancelButtonText: "Cancel",
       confirmButtonColor: "red",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        navigate("/"); // Redirect to the home page on logout
+        try {
+          const res = await axios.post(
+            "/api/v1/logout",
+            {},
+            { withCredentials: true },
+          );
+          if (res.message === "Logout successful") {
+            navigate("/").then(() => setIsLoggedIn(false)); // Redirect to the home page on logout
+          } else {
+            // todo swal error
+          }
+        } catch (error) {
+          // Todo swal error
+        }
         // Perform the logout logic here if needed
       }
     });

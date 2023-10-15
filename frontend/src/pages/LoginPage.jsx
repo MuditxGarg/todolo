@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import LoginPageStyles from "../styles/LoginPageStyles";
 import axios from "axios";
 
-function LoginPage() {
+function LoginPage({ setIsLoggedIn }) {
   // Define state variables for email, password, and password placeholder
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -81,7 +81,7 @@ function LoginPage() {
 
       if (res.data.message) {
         if (res.data.message === "Successful Login") {
-          navigate("/todo");
+          navigate("/todo").then(() => setIsLoggedIn(true));
         } else if (res.data.message === "Incorrect Password") {
           Swal.fire({
             icon: "error",
