@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -15,9 +15,28 @@ import ProfilePage from "./pages/ProfilePage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import HelpPage from "./pages/HelpPage";
 import AboutUsPage from "./pages/AboutUsPage";
+import axios from "axios";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    fetchToken();
+  });
+
+  const fetchToken = async () => {
+    try {
+      const response = await axios.get("/api/v1/checkToken"); // Replace with your backend API endpoint
+      const check = response.data.message;
+      if (check === "Token exists") {
+        setIsLoggedIn(true);
+      }
+    } catch (error) {
+      console.error("Error fetching token:", error);
+      // todo swal error
+    }
+  };
+
   return (
     <Router>
       <Navbar isLoggedIn={isLoggedIn} />

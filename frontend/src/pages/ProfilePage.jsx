@@ -136,8 +136,9 @@ function ProfilePage({ setIsLoggedIn }) {
             {},
             { withCredentials: true },
           );
-          if (res.message === "Logout successful") {
-            navigate("/").then(() => setIsLoggedIn(false)); // Redirect to the home page on logout
+          if (res.data.message === "Logout successful") {
+            setIsLoggedIn(false);
+            navigate("/"); // Redirect to the home page on logout
           } else {
             // todo swal error
           }

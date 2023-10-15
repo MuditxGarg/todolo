@@ -9,5 +9,6 @@ router.post("/verifyOtp", userController.verifyOtp);
 router.post("/logout", userController.logout);
 router.get("/getDetails", userController.getDetails);
 router.get("/getDetails", userController.getDetails);
+router.get("/checkToken", userController.checkToken);
 
 module.exports = router;

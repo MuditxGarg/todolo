@@ -81,7 +81,8 @@ function LoginPage({ setIsLoggedIn }) {
 
       if (res.data.message) {
         if (res.data.message === "Successful Login") {
-          navigate("/todo").then(() => setIsLoggedIn(true));
+          setIsLoggedIn(true);
+          navigate("/todo");
         } else if (res.data.message === "Incorrect Password") {
           Swal.fire({
             icon: "error",

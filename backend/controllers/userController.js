@@ -118,4 +118,11 @@ module.exports = {
       return res.status(401).json({ message: "Token Is Not Valid" });
     }
   },
+  checkToken: async (req, res) => {
+    const token = req.cookies.token;
+
+    if (token) {
+      return res.status(200).json({ message: "Token exists" });
+    }
+  },
 };
