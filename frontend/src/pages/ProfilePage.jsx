@@ -161,7 +161,7 @@ function ProfilePage({ setIsLoggedIn }) {
   };
 
   // Event handler for submitting password change
-  const handleSubmitPasswordChange = () => {
+  const handleSubmitPasswordChange = async () => {
     // Check for empty fields
     if (
       !currentPassword.trim() ||
@@ -206,7 +206,16 @@ function ProfilePage({ setIsLoggedIn }) {
       return;
     }
 
-    setIsChangePassword(false); // Close the password change form
+    const res = await axios.post("/api/v1/resetPasswordViaId", {
+      newPassword: newPassword,
+    });
+
+    if (res.data.message === "Password updated") {
+      setIsChangePassword(false); // Close the password change form
+    } else {
+      // Todo swal alert
+    }
+
     // Handle password change logic here
   };
 

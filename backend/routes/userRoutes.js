@@ -10,6 +10,7 @@ router.post("/logout", userController.logout);
 router.post("/forgotPasswordOtp", userController.forgotPasswordOtp);
 router.post("/forgotPasswordOtpVerify", userController.forgotPasswordOtpVerify);
 router.post("/resetPassword", userController.resetPassword);
+router.post("/resetPasswordViaId", userController.resetPasswordViaId);
 router.get("/getDetails", userController.getDetails);
 router.get("/getDetails", userController.getDetails);
 router.get("/checkToken", userController.checkToken);

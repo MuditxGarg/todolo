@@ -107,6 +107,33 @@ module.exports = {
       res.status(200).json({ message: "Password updated" });
     }
   },
+  resetPasswordViaId: async (req, res) => {
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    try {
+      // Verify the token
+      const decoded = jwt.verify(token, config.server.JWT_SECRET);
+
+      // Token is valid, you can access the decoded information, including user's _id
+      const userId = decoded.userId;
+
+      const { newPassword } = req.body;
+
+      const updatedPassword = await User.findOneAndUpdate(
+        { _id: userId },
+        { password: newPassword },
+        { new: true },
+      );
+
+      return res.status(200).json({ message: "Password updated" });
+    } catch (error) {
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  },
   verifyOtp: async (req, res) => {
     const { otp } = req.body;
 
