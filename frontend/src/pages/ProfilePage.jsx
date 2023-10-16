@@ -16,7 +16,7 @@ import ProfilePageStyles from "../styles/ProfilePageStyles"; // Import styling f
 import axios from "axios";
 
 // Define the ProfilePage component
-function ProfilePage({ setIsLoggedIn }) {
+function ProfilePage({ setIsLoggedIn, selectedAvatar, setSelectedAvatar }) {
   // Define state variables using useState hook
   const [isChangePassword, setIsChangePassword] = useState(false); // Whether the user is changing the password
   const [currentPassword, setCurrentPassword] = useState(""); // Current password input
@@ -27,7 +27,6 @@ function ProfilePage({ setIsLoggedIn }) {
   const [passwordPlaceholder, setPasswordPlaceholder] = useState(
     "8 characters or more",
   ); // Placeholder text for password inputs
-  const [selectedAvatar, setSelectedAvatar] = useState(null); // Selected avatar image
   const [isAvatarModalOpen, setAvatarModalOpen] = useState(false); // Whether the avatar selection modal is open
   const navigate = useNavigate(); // Router navigation hook for page redirection
   const [taskAndCategory, setTaskAndCategory] = useState({
@@ -220,9 +219,19 @@ function ProfilePage({ setIsLoggedIn }) {
   };
 
   // Event handler for avatar selection
-  const handleAvatarSelection = (avatarImage) => {
-    setSelectedAvatar(avatarImage);
-    setAvatarModalOpen(false); // Close the avatar selection modal
+  const handleAvatarSelection = async (avatarImage) => {
+    try {
+      const res = await axios.post("/api/v1/setAvatar", { avatarImage });
+
+      if (res.data.message === "Avatar updated") {
+        setSelectedAvatar(avatarImage);
+        setAvatarModalOpen(false); // Close the avatar selection modal
+      } else {
+        // Todo Swal Alert
+      }
+    } catch (error) {
+      // Todo swal alert
+    }
   };
 
   return (

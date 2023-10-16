@@ -19,10 +19,12 @@ import axios from "axios";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [selectedAvatar, setSelectedAvatar] = useState("");
 
   useEffect(() => {
     fetchToken();
-  });
+    fetchAvatar();
+  }, [fetchToken, fetchAvatar]);
 
   const fetchToken = async () => {
     try {
@@ -37,9 +39,23 @@ function App() {
     }
   };
 
+  const fetchAvatar = async () => {
+    try {
+      const res = await axios.get("/api/v1/getAvatar");
+
+      if (res.data.avatar) {
+        setSelectedAvatar(res.data.avatar);
+      } else {
+        // Todo Swal Alert
+      }
+    } catch (error) {
+      // Todo swal alert
+    }
+  };
+
   return (
     <Router>
-      <Navbar isLoggedIn={isLoggedIn} />
+      <Navbar isLoggedIn={isLoggedIn} selectedAvatar={selectedAvatar} />
       <Routes>
         <Route
           path="/"
@@ -54,7 +70,13 @@ function App() {
         <Route path="/todo" element={<TodoPage />} />
         <Route
           path="/profile"
-          element={<ProfilePage setIsLoggedIn={setIsLoggedIn} />}
+          element={
+            <ProfilePage
+              setIsLoggedIn={setIsLoggedIn}
+              selectedAvatar={selectedAvatar}
+              setSelectedAvatar={setSelectedAvatar}
+            />
+          }
         />
         <Route path="/resetPassword" element={<ResetPasswordPage />} />
         <Route path="/help" element={<HelpPage />} />

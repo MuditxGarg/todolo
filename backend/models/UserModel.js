@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     },
   },
   password: { type: String, required: true },
-  avatar: { data: Buffer, contentType: String },
+  avatar: { type: String, default: "" },
 });
 const User = mongoose.model("User", userSchema);
 

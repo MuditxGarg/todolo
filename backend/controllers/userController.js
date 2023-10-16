@@ -116,6 +116,7 @@ module.exports = {
 
     try {
       // Verify the token
+      const config = loadConfig();
       const decoded = jwt.verify(token, config.server.JWT_SECRET);
 
       // Token is valid, you can access the decoded information, including user's _id
@@ -123,9 +124,13 @@ module.exports = {
 
       const { newPassword } = req.body;
 
+      const saltRounds = 10;
+      const salt = await bcrypt.genSalt(saltRounds);
+      const hashPass = await bcrypt.hash(newPassword, salt);
+
       const updatedPassword = await User.findOneAndUpdate(
         { _id: userId },
-        { password: newPassword },
+        { password: hashPass },
         { new: true },
       );
 
@@ -174,8 +179,6 @@ module.exports = {
         _id: userId,
       });
 
-      console.log(user);
-
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
@@ -183,6 +186,54 @@ module.exports = {
       res.status(201).json({ name: user.name, email: user.userEmail });
     } catch (err) {
       return res.status(401).json({ message: "Token Is Not Valid" });
+    }
+  },
+  getAvatar: async (req, res) => {
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    try {
+      const config = loadConfig();
+      const decoded = jwt.verify(token, config.server.JWT_SECRET);
+      const userId = decoded.userId;
+      const user = await User.findOne({
+        _id: userId,
+      });
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      res.status(201).json({ avatar: user.avatar });
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  },
+  setAvatar: async (req, res) => {
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    try {
+      const config = loadConfig();
+      const decoded = jwt.verify(token, config.server.JWT_SECRET);
+      const userId = decoded.userId;
+      const { avatar } = req.body;
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: userId },
+        { avatar: avatar },
+        { new: true },
+      );
+      if (updatedUser) {
+        res.status(200).json({ message: "Avatar updated" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
     }
   },
   checkToken: async (req, res) => {
