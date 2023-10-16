@@ -26,7 +26,7 @@ const pages = [
   { label: "Our Team", url: "/about" },
 ];
 
-function ResponsiveAppBar({ isLoggedIn }) {
+function ResponsiveAppBar({ isLoggedIn, selectedAvatar }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State to manage mobile menu
   const navigate = useNavigate(); // Function for programmatic navigation
 
@@ -130,21 +130,34 @@ function ResponsiveAppBar({ isLoggedIn }) {
             {isLoggedIn ? (
               // Render Avatar with circle when user is logged in
               <Tooltip title="User Menu">
-                <IconButton
-                  color="inherit"
-                  aria-label="User Menu"
-                  aria-controls="user-menu"
-                  aria-haspopup="true"
-                  onClick={redirectToProfile}
-                >
-                  <Avatar
-                    sx={{
-                      backgroundColor: "#155360",
+                {selectedAvatar ? (
+                  <img
+                    src={selectedAvatar}
+                    style={{
+                      width: "80px",
+                      height: "80px",
+                      marginBottom: "10px",
                     }}
+                    alt="User"
+                    onClick={redirectToProfile}
+                  />
+                ) : (
+                  <IconButton
+                    color="inherit"
+                    aria-label="User Menu"
+                    aria-controls="user-menu"
+                    aria-haspopup="true"
+                    onClick={redirectToProfile}
                   >
-                    <PersonIcon />
-                  </Avatar>
-                </IconButton>
+                    <Avatar
+                      sx={{
+                        backgroundColor: "#155360",
+                      }}
+                    >
+                      <PersonIcon />
+                    </Avatar>
+                  </IconButton>
+                )}
               </Tooltip>
             ) : (
               // Render "Login" button when user is not logged in
