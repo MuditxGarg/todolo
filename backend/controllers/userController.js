@@ -223,10 +223,10 @@ module.exports = {
       const config = loadConfig();
       const decoded = jwt.verify(token, config.server.JWT_SECRET);
       const userId = decoded.userId;
-      const { avatar } = req.body;
+      const { avatarImage } = req.body;
       const updatedUser = await User.findOneAndUpdate(
         { _id: userId },
-        { avatar: avatar },
+        { avatar: avatarImage },
         { new: true },
       );
       if (updatedUser) {

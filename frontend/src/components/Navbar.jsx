@@ -134,9 +134,11 @@ function ResponsiveAppBar({ isLoggedIn, selectedAvatar }) {
                   <img
                     src={selectedAvatar}
                     style={{
-                      width: "80px",
-                      height: "80px",
+                      width: "60px",
+                      height: "60px",
                       marginBottom: "10px",
+                      marginTop: "10px",
+                      borderRadius: "50%",
                     }}
                     alt="User"
                     onClick={redirectToProfile}

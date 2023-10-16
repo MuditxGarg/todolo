@@ -24,7 +24,7 @@ function App() {
   useEffect(() => {
     fetchToken();
     fetchAvatar();
-  }, [fetchToken, fetchAvatar]);
+  });
 
   const fetchToken = async () => {
     try {
@@ -41,12 +41,16 @@ function App() {
 
   const fetchAvatar = async () => {
     try {
-      const res = await axios.get("/api/v1/getAvatar");
+      const tokenExists = await axios.get("/api/v1/checkToken");
 
-      if (res.data.avatar) {
-        setSelectedAvatar(res.data.avatar);
-      } else {
-        // Todo Swal Alert
+      if (tokenExists.data.message === "Token exists") {
+        const res = await axios.get("/api/v1/getAvatar");
+
+        if (res.data.avatar) {
+          setSelectedAvatar(res.data.avatar);
+        } else {
+          // Todo Swal Alert
+        }
       }
     } catch (error) {
       // Todo swal alert
