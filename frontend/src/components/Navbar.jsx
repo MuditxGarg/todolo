@@ -139,6 +139,7 @@ function ResponsiveAppBar({ isLoggedIn, selectedAvatar }) {
                       marginBottom: "10px",
                       marginTop: "10px",
                       borderRadius: "50%",
+                      cursor: "pointer",
                     }}
                     alt="User"
                     onClick={redirectToProfile}
