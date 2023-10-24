@@ -61,7 +61,7 @@ module.exports = {
       req.session.userPassword = hashPass;
       req.session.otp = otp;
       console.log(req.session.otp);
-      // await sendEmail(email, otp);
+      await sendEmail(email, otp);
       return res.json({ redirectTo: "/otp" });
     } else {
       return res.json({ message: "An account with this email already exists" });

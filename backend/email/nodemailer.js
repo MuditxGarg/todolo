@@ -1,10 +1,12 @@
 const nodemailer = require("nodemailer");
+const loadConfig = require("../config/loadConfig");
+const config = loadConfig();
 
 const transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {
-    user: "your-email@gmail.com",
-    pass: "your-password",
+    user: "todolo.list@gmail.com",
+    pass: config.email.APP_PASSWORD,
   },
 });
 
@@ -17,7 +19,7 @@ async function sendEmail(to, otp) {
     `;
   try {
     const info = await transporter.sendMail({
-      from: "your-email@gmail.com",
+      from: "todolo.list@gmail.com",
       to,
       subject,
       html,
